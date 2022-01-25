@@ -11,22 +11,22 @@ import com.petshopapp.model.Customers;
 import com.petshopapp.util.ConnectionUtil;
 
 public class CustomerDAO {
-
-	ConnectionUtil connectionUtil = new ConnectionUtil();
-	List<Customers> customerList = new ArrayList<Customers>();
-	Customers customer = null;
-	PreparedStatement pstmt = null;
-	ResultSet resultSet=null;
+	
 	String query = "";
 	Connection connection;
+	ResultSet resultSet=null;
+	Customers customer = null;
+	PreparedStatement preparedStatement = null;
+	ConnectionUtil connectionUtil = new ConnectionUtil();
+	List<Customers> customerList = new ArrayList<Customers>();
 
 	// Commit for every DML operation
 	public void commit() {
 		try {
 			connection = connectionUtil.getDbConnect();
 			query = "commit";
-			pstmt = connection.prepareStatement(query);
-			pstmt.executeUpdate();
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.executeUpdate();
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
@@ -39,18 +39,18 @@ public class CustomerDAO {
 		boolean register=true;
 		try {
 			con = connectionUtil.getDbConnect();
-			query = "insert into Customers(customer_firstname,customer_lastname,"
+			query = "insert into customers(customer_firstname,customer_lastname,"
 					+ "customer_username,customer_password,customer_email,customer_mobilenumber,customer_gender)\r\n"
 					+ "values (?,?,?,?,?,?,?)";
-			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, cus.getFirstName());
-			pstmt.setString(2, cus.getLastName());
-			pstmt.setString(3, cus.getUserName());
-			pstmt.setString(4, cus.getPassword());
-			pstmt.setString(5, cus.getEmail());
-			pstmt.setLong(6, cus.getNumber());
-			pstmt.setString(7, cus.getGender());
-			int i=pstmt.executeUpdate();
+			preparedStatement = con.prepareStatement(query);
+			preparedStatement.setString(1, cus.getFirstName());
+			preparedStatement.setString(2, cus.getLastName());
+			preparedStatement.setString(3, cus.getUserName());
+			preparedStatement.setString(4, cus.getPassword());
+			preparedStatement.setString(5, cus.getEmail());
+			preparedStatement.setLong(6, cus.getNumber());
+			preparedStatement.setString(7, cus.getGender());
+			int i=preparedStatement.executeUpdate();
 			commit();
 			if(i==1) {
 				register=true;
@@ -72,16 +72,16 @@ public class CustomerDAO {
 			connection = connectionUtil.getDbConnect();
 			query = "update Customers set customer_firstname=?,customer_lastname=?,"
 					+ "customer_username=?,customer_password=?,customer_email=?,customer_mobilenumber=?,customer_gender=? where customer_id=?";
-			pstmt = connection.prepareStatement(query);
-			pstmt.setString(1, customer.getFirstName());
-			pstmt.setString(2, customer.getLastName());
-			pstmt.setString(3, customer.getUserName());
-			pstmt.setString(4, customer.getPassword());
-			pstmt.setString(5, customer.getEmail());
-			pstmt.setLong(6, customer.getNumber());
-			pstmt.setString(7, customer.getGender());
-			pstmt.setInt(8, customer.getCustomerId());
-			pstmt.executeUpdate();
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setString(1, customer.getFirstName());
+			preparedStatement.setString(2, customer.getLastName());
+			preparedStatement.setString(3, customer.getUserName());
+			preparedStatement.setString(4, customer.getPassword());
+			preparedStatement.setString(5, customer.getEmail());
+			preparedStatement.setLong(6, customer.getNumber());
+			preparedStatement.setString(7, customer.getGender());
+			preparedStatement.setInt(8, customer.getCustomerId());
+			preparedStatement.executeUpdate();
 			commit();
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
@@ -93,12 +93,12 @@ public class CustomerDAO {
 		try {
 			connection = connectionUtil.getDbConnect();
 			query = "update Customers set customer_address=?,customer_pincode=?,customer_city=? where customer_id=?";
-			pstmt = connection.prepareStatement(query);
-			pstmt.setString(1, customer.getAddress());
-			pstmt.setInt(2, customer.getPincode());
-			pstmt.setString(3, customer.getCity());
-			pstmt.setInt(4, customer.getCustomerId());
-			pstmt.executeUpdate();
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setString(1, customer.getAddress());
+			preparedStatement.setInt(2, customer.getPincode());
+			preparedStatement.setString(3, customer.getCity());
+			preparedStatement.setInt(4, customer.getCustomerId());
+			preparedStatement.executeUpdate();
 			commit();
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
@@ -110,10 +110,10 @@ public class CustomerDAO {
 		try {
 			connection = connectionUtil.getDbConnect();
 			query = "update Customers set status=? where customer_id=?";
-            pstmt = connection.prepareStatement(query);
-			pstmt.setString(1, status);
-			pstmt.setInt(2, customer.getCustomerId());
-			pstmt.executeUpdate();
+            preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setString(1, status);
+			preparedStatement.setInt(2, customer.getCustomerId());
+			preparedStatement.executeUpdate();
 			commit();
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
@@ -127,19 +127,19 @@ public class CustomerDAO {
 		try {
 			connection = connectionUtil.getDbConnect();
 		    query = "select customer_firstname from customers where customer_username=? and customer_password=?";
-            pstmt = connection.prepareStatement(query);
-			pstmt.setString(1, customer.getUserName());
-			pstmt.setString(2, customer.getPassword());
-			resultSet = pstmt.executeQuery();
+            preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setString(1, customer.getUserName());
+			preparedStatement.setString(2, customer.getPassword());
+			resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
 				customer.setFirstName(resultSet.getString(1));
 				return "1" + resultSet.getString(1);
 			} else if (true) {
 				query = "select Admin_firstname from admin_details where admin_username=? and admin_password=?";
-			    pstmt = connection.prepareStatement(query);
-				pstmt.setString(1, customer.getUserName());
-				pstmt.setString(2, customer.getPassword());
-				resultSet = pstmt.executeQuery();
+			    preparedStatement = connection.prepareStatement(query);
+				preparedStatement.setString(1, customer.getUserName());
+				preparedStatement.setString(2, customer.getPassword());
+				resultSet = preparedStatement.executeQuery();
 				if (resultSet.next()) {
 					customer.setFirstName(resultSet.getString(1));
 					return "2" + resultSet.getString(1);
@@ -155,17 +155,17 @@ public class CustomerDAO {
 		boolean flag = true;
 		try {
 			connection = connectionUtil.getDbConnect();
-		    query = "select * from customers where customer_username=?";
-            pstmt = connection.prepareStatement(query);
-			pstmt.setString(1, customer.getUserName());
-		    resultSet = pstmt.executeQuery();
+		    query = "select customer_firstname from customers where customer_username=?";
+            preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setString(1, customer.getUserName());
+		    resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
 				flag = false;
 			} else if (true) {
 				query = "select admin_firstname from admin_details where admin_username=?";
-				pstmt = connection.prepareStatement(query);
-				pstmt.setString(1, customer.getUserName());
-				resultSet = pstmt.executeQuery();
+				preparedStatement = connection.prepareStatement(query);
+				preparedStatement.setString(1, customer.getUserName());
+				resultSet = preparedStatement.executeQuery();
 				if (resultSet.next()) {
 					flag = false;
 
@@ -182,17 +182,17 @@ public class CustomerDAO {
 		boolean flag = true;
 		try {
 			connection = connectionUtil.getDbConnect();
-			query = "select * from customers where customer_email=?";
-			pstmt = connection.prepareStatement(query);
-			pstmt.setString(1, customer.getEmail());
-		    resultSet = pstmt.executeQuery();
+			query = "select customer_email from customers where customer_email=?";
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setString(1, customer.getEmail());
+		    resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
 				flag = false;
 			} else if (true) {
 				query = "select admin_email from admin_details where admin_email=?";
-				pstmt = connection.prepareStatement(query);
-				pstmt.setString(1, customer.getEmail());
-			    resultSet= pstmt.executeQuery();
+				preparedStatement = connection.prepareStatement(query);
+				preparedStatement.setString(1, customer.getEmail());
+			    resultSet= preparedStatement.executeQuery();
 				if (resultSet.next()) {
 					flag = false;
 				}
@@ -207,13 +207,17 @@ public class CustomerDAO {
 	public List<Customers> customersList() {
 		try {
 			connection = connectionUtil.getDbConnect();
-			query = "select * from customers";
-			pstmt = connection.prepareStatement(query);
-		    resultSet = pstmt.executeQuery();
+			query = "select customer_id,customer_firstname,customer_lastname,"
+					+ "customer_gender,customer_username,customer_password,"
+					+ "customer_email,customer_mobilenumber,customer_wallet,"
+					+ "customer_reg_date,customer_address,customer_pincode,"
+					+ "customer_image,customer_city,status from customers";
+			preparedStatement = connection.prepareStatement(query);
+		    resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				customer = new Customers(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4),
 						resultSet.getString(5), resultSet.getString(6), resultSet.getString(7), resultSet.getLong(8), resultSet.getDouble(9),
-						resultSet.getDate(10), resultSet.getString(11), resultSet.getInt(12), resultSet.getString(12), resultSet.getString(14),
+						resultSet.getDate(10), resultSet.getString(11), resultSet.getInt(12), resultSet.getString(13), resultSet.getString(14),
 						resultSet.getString(15));
 				customerList.add(customer);
 			}
@@ -228,9 +232,15 @@ public class CustomerDAO {
 	public Customers customerDetails(String userName) {
 		try {
 			connection = connectionUtil.getDbConnect();
-			query = "select * from customers where Customer_username='" + userName + "'";
-			pstmt = connection.prepareStatement(query);
-			ResultSet resultSet = pstmt.executeQuery();
+			query = "select customer_id,customer_firstname,customer_lastname,"
+					+ "customer_gender,customer_username,customer_password,"
+					+ "customer_email,customer_mobilenumber,customer_wallet,"
+					+ "customer_reg_date,customer_address,customer_pincode,"
+					+ "customer_image,customer_city,status from customers "
+					+ "where customer_username=?";
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setString(1, userName);
+			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				customer = new Customers(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4),
 						resultSet.getString(5), resultSet.getString(6), resultSet.getString(7), resultSet.getLong(8), resultSet.getDouble(9),
@@ -248,9 +258,15 @@ public class CustomerDAO {
 	public Customers customerDetails(int customerId) {
 		try {
 			connection = connectionUtil.getDbConnect();
-			query = "select * from customers where Customer_id=" + customerId + "";
-			pstmt = connection.prepareStatement(query);
-			resultSet = pstmt.executeQuery();
+			query = "select customer_id,customer_firstname,customer_lastname,"
+					+ "customer_gender,customer_username,customer_password,"
+					+ "customer_email,customer_mobilenumber,customer_wallet,"
+					+ "customer_reg_date,customer_address,customer_pincode,"
+					+ "customer_image,customer_city,status from customers "
+					+ "where Customer_id=?";
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, customerId);
+			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				customer = new Customers(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4),
 						resultSet.getString(5), resultSet.getString(6), resultSet.getString(7), resultSet.getLong(8), resultSet.getDouble(9),
@@ -269,10 +285,10 @@ public class CustomerDAO {
 		try {
 			connection = connectionUtil.getDbConnect();
 			query = "update Customers set customer_image=? where customer_id=?";
-			pstmt = connection.prepareStatement(query);
-			pstmt.setString(1, cus.getImage());
-			pstmt.setInt(2, cus.getCustomerId());
-			pstmt.executeUpdate();
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setString(1, cus.getImage());
+			preparedStatement.setInt(2, cus.getCustomerId());
+			preparedStatement.executeUpdate();
 			commit();
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
@@ -284,10 +300,10 @@ public class CustomerDAO {
 		try {
 			connection = connectionUtil.getDbConnect();
 			query = "update Customers set customer_wallet=? where customer_id=?";
-			pstmt = connection.prepareStatement(query);
-			pstmt.setDouble(1, cus.getWallet());
-			pstmt.setInt(2, cus.getCustomerId());
-			pstmt.executeUpdate();
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setDouble(1, cus.getWallet());
+			preparedStatement.setInt(2, cus.getCustomerId());
+			preparedStatement.executeUpdate();
 			commit();
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();

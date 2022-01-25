@@ -15,20 +15,19 @@ import com.petshopapp.util.ConnectionUtil;
 public class OrdersDAO{
 	
 	// To get connection from connection util
-	ConnectionUtil connectionUtil = new ConnectionUtil();
-	Connection connection=null;
 	String query="";
-	PreparedStatement pstmt=null;
 	ResultSet resultSet=null;
-	
+	Connection connection=null;
+	PreparedStatement preparedStatement=null;
+	ConnectionUtil connectionUtil = new ConnectionUtil();
 	
 	// commit every DML operation
 	public void commit() {
 		try {
 			connection = connectionUtil.getDbConnect();
 			query = "commit";
-			pstmt = connection.prepareStatement(query);
-			pstmt.executeUpdate();
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.executeUpdate();
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
@@ -40,10 +39,10 @@ public class OrdersDAO{
 			connection = connectionUtil.getDbConnect();
 			query = "insert into orders(Customer_id,total_price) \r\n"
 					+ "values(?,?)";
-			pstmt = connection.prepareStatement(query);
-			pstmt.setInt(1, ord.getCustomer().getCustomerId());
-			pstmt.setDouble(2, ord.getTotalprice());
-			pstmt.executeUpdate();
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, ord.getCustomer().getCustomerId());
+			preparedStatement.setDouble(2, ord.getTotalprice());
+			preparedStatement.executeUpdate();
 			commit();
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
@@ -55,41 +54,23 @@ public class OrdersDAO{
 		try {
 			connection = connectionUtil.getDbConnect();
 			query = "update orders set order_status='cancelled' where order_id=?";
-			pstmt = connection.prepareStatement(query);
-			pstmt.setInt(1, order.getOrderId());
-			pstmt.executeUpdate();
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, order.getOrderId());
+			preparedStatement.executeUpdate();
 			commit();
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
-		}
-		
+		}		
 	}
-    
-	// To show my orders 	
-	public List<Orders> showMyOrders(int cusId) {
-		try {
-			connection = connectionUtil.getDbConnect();
-			query = "select * from orders o inner join order_items oi"
-					+ "on o.order_id=oi.order_id where customer_id='"+cusId+"'";
-			pstmt = connection.prepareStatement(query);
-			resultSet = pstmt.executeQuery();
-			while (resultSet.next()) {				
-			}
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
-   
+       
 	// To get last orderId value to insert
 	public int getCurrentOrderId() {
 		int orderid=0;
 		try {
 			connection = connectionUtil.getDbConnect();
 			query = "select max(order_id) from orders";
-			pstmt = connection.prepareStatement(query);
-			resultSet = pstmt.executeQuery();
+			preparedStatement = connection.prepareStatement(query);
+			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				orderid=resultSet.getInt(1);
 			}

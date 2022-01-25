@@ -16,21 +16,21 @@ import com.petshopapp.util.ConnectionUtil;
 
 public class OrderItemsDAO  {
 	
-	ConnectionUtil connectionUtil = new ConnectionUtil();
+	String query="";
 	ResultSet resultSet=null;
 	Connection connection=null;
-	PreparedStatement pstmt=null;
+	PreparedStatement preparedStatement=null;
 	OrderItems orderitems=new OrderItems();
+	ConnectionUtil connectionUtil = new ConnectionUtil();
 	List<OrderItems> orderItemList=new ArrayList<OrderItems>();
-	String query="";
 	
 	//Commit for every DML operation
 	public void commit() {
 		try {
 			connection = connectionUtil.getDbConnect();
 			query = "commit";
-		    pstmt = connection.prepareStatement(query);
-			pstmt.executeUpdate();
+		    preparedStatement = connection.prepareStatement(query);
+			preparedStatement.executeUpdate();
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
@@ -41,13 +41,13 @@ public class OrderItemsDAO  {
 		try {
 			connection = connectionUtil.getDbConnect();
 			query = "insert into order_items (order_id,pet_id,quantity,unit_price,total_price) values(?,?,?,?,?)";
-			pstmt = connection.prepareStatement(query);
-			pstmt.setInt(1, orditm.getOrders().getOrderId());
-			pstmt.setInt(2, orditm.getPet().getPetId());
-			pstmt.setInt(3, orditm.getQuantity());
-			pstmt.setDouble(4, orditm.getUnitPrice());
-			pstmt.setDouble(5, orditm.getTotalPrice());
-			pstmt.executeUpdate();
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, orditm.getOrders().getOrderId());
+			preparedStatement.setInt(2, orditm.getPet().getPetId());
+			preparedStatement.setInt(3, orditm.getQuantity());
+			preparedStatement.setDouble(4, orditm.getUnitPrice());
+			preparedStatement.setDouble(5, orditm.getTotalPrice());
+			preparedStatement.executeUpdate();
 			commit();
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
@@ -61,9 +61,9 @@ public class OrderItemsDAO  {
 		try {
 			connection = connectionUtil.getDbConnect();
 			query = "delete from order_items where item_id=?";
-			pstmt = connection.prepareStatement(query);
-			pstmt.setInt(1, ord.getOrders().getOrderId());
-			pstmt.executeUpdate();
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, ord.getOrders().getOrderId());
+			preparedStatement.executeUpdate();
 			commit();
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
@@ -77,8 +77,8 @@ public class OrderItemsDAO  {
 			query = "select oi.order_id,oi.pet_id,p.pet_name,oi.quantity,oi.unit_price,oi.total_price,o.order_status,o.order_date,p.pet_image "
 					+ "from order_items oi inner join orders o on oi.order_id=o.order_id inner join pet_details p on oi.pet_id=p.pet_id "
 					+ "where o.customer_id='"+cus.getCustomerId()+"' order by o.order_id";
-			pstmt = connection.prepareStatement(query);
-			resultSet = pstmt.executeQuery();	
+			preparedStatement = connection.prepareStatement(query);
+			resultSet = preparedStatement.executeQuery();	
 			while (resultSet.next()) {
 				orderitems=new OrderItems();
 				orderitems.getOrders().setOrderId(resultSet.getInt(1));
@@ -105,9 +105,10 @@ public class OrderItemsDAO  {
 	public List<OrderItems> getCurrentOrderItemDetails(int orderId){
 		try {
 			connection = connectionUtil.getDbConnect();
-			String query = "select * from order_items where order_id='"+orderId+"'";
-			pstmt = connection.prepareStatement(query);
-			resultSet = pstmt.executeQuery();
+			String query = "select item_id,order_id,pet_id,quantity,unit_price,total_price from order_items where order_id=?";
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, orderId);
+			resultSet = preparedStatement.executeQuery();
 			while(resultSet.next()) {
 				orderitems=new OrderItems(resultSet.getInt(1),resultSet.getInt(2),resultSet.getInt(3),resultSet.getInt(4),resultSet.getDouble(5),resultSet.getDouble(6));
 				orderItemList.add(orderitems);

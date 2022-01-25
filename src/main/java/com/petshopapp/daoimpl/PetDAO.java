@@ -10,23 +10,22 @@ import com.petshopapp.model.*;
 import com.petshopapp.util.*;
 
 public class PetDAO {
-
-	SimpleDateFormat formeter = new SimpleDateFormat("dd-mm-yyyy");
-
-	List<PetDetails> petList = new ArrayList<PetDetails>();
-	PetDetails pet = new PetDetails();
-	ResultSet resultSet = null;
-	ConnectionUtil connectionUtil = new ConnectionUtil();
-	Connection connection = null;
-	PreparedStatement pstmt = null;
+	
 	String query = "";
+	ResultSet resultSet = null;
+	Connection connection = null;
+	PreparedStatement preparedStatement = null;
+	PetDetails pet = new PetDetails();
+	ConnectionUtil connectionUtil = new ConnectionUtil();
+	List<PetDetails> petList = new ArrayList<PetDetails>();
+	SimpleDateFormat formeter = new SimpleDateFormat("dd-mm-yyyy");
 
 	public void commit() {
 		try {
 			connection = connectionUtil.getDbConnect();
 			query = "commit";
-			pstmt = connection.prepareStatement(query);
-			pstmt.executeUpdate();
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.executeUpdate();
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
@@ -57,20 +56,20 @@ public class PetDAO {
 			query = "INSERT into pet_details(pet_type,pet_name,pet_gender,pet_dob,pet_Qty,pet_description,\r\n"
 					+ "pet_color,pet_price,pet_image,customer_id,available_qty) values(?,?,?,?,?,?,?,?,?,?,?)";
 
-			pstmt = connection.prepareStatement(query);
-			pstmt.setString(1, pet.getPetType());
-			pstmt.setString(2, pet.getPetName());
-			pstmt.setString(3, pet.getPetGender());
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setString(1, pet.getPetType());
+			preparedStatement.setString(2, pet.getPetName());
+			preparedStatement.setString(3, pet.getPetGender());
 			String dob = formeter.format(pet.getPetDob());
-			pstmt.setString(4, dob);
-			pstmt.setInt(5, pet.getPetQty());
-			pstmt.setString(6, pet.getDescription());
-			pstmt.setString(7, pet.getPetColor());
-			pstmt.setDouble(8, pet.getPetprice());
-			pstmt.setString(9, pet.getPetImage());
-			pstmt.setInt(10, pet.getCustomer().getCustomerId());
-			pstmt.setInt(11, pet.getAvilableQty());
-			pstmt.executeUpdate();
+			preparedStatement.setString(4, dob);
+			preparedStatement.setInt(5, pet.getPetQty());
+			preparedStatement.setString(6, pet.getDescription());
+			preparedStatement.setString(7, pet.getPetColor());
+			preparedStatement.setDouble(8, pet.getPetprice());
+			preparedStatement.setString(9, pet.getPetImage());
+			preparedStatement.setInt(10, pet.getCustomer().getCustomerId());
+			preparedStatement.setInt(11, pet.getAvilableQty());
+			preparedStatement.executeUpdate();
 			commit();
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
@@ -85,21 +84,21 @@ public class PetDAO {
 					+ "pet_gender=?,pet_dob=?,pet_Qty=?,pet_description=?,"
 					+ "pet_color=?,pet_price=?,pet_image=?,customer_id=?," + "available_qty=? where pet_id=?";
 
-			pstmt = connection.prepareStatement(query);
-			pstmt.setString(1, pet.getPetType());
-			pstmt.setString(2, pet.getPetName());
-			pstmt.setString(3, pet.getPetGender());
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setString(1, pet.getPetType());
+			preparedStatement.setString(2, pet.getPetName());
+			preparedStatement.setString(3, pet.getPetGender());
 			String dob = formeter.format(pet.getPetDob());
-			pstmt.setString(4, dob);
-			pstmt.setInt(5, pet.getPetQty());
-			pstmt.setString(6, pet.getDescription());
-			pstmt.setString(7, pet.getPetColor());
-			pstmt.setDouble(8, pet.getPetprice());
-			pstmt.setString(9, pet.getPetImage());
-			pstmt.setInt(10, pet.getCustomer().getCustomerId());
-			pstmt.setInt(11, pet.getPetQty());
-			pstmt.setInt(12, pet.getPetId());
-			pstmt.executeUpdate();
+			preparedStatement.setString(4, dob);
+			preparedStatement.setInt(5, pet.getPetQty());
+			preparedStatement.setString(6, pet.getDescription());
+			preparedStatement.setString(7, pet.getPetColor());
+			preparedStatement.setDouble(8, pet.getPetprice());
+			preparedStatement.setString(9, pet.getPetImage());
+			preparedStatement.setInt(10, pet.getCustomer().getCustomerId());
+			preparedStatement.setInt(11, pet.getPetQty());
+			preparedStatement.setInt(12, pet.getPetId());
+			preparedStatement.executeUpdate();
 			commit();
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
@@ -127,10 +126,10 @@ public class PetDAO {
 	public List<PetDetails> showAllpetsDetails(Customers customer) {
 		try {
 			connection = connectionUtil.getDbConnect();
-			query = "select * from pet_details where status='approved' and available_qty > 0 and customer_id not in(?)";
-			pstmt = connection.prepareStatement(query);
-			pstmt.setInt(1, customer.getCustomerId());
-			resultSet = pstmt.executeQuery();
+			query = "select pet_id,pet_type,pet_name,pet_gender,pet_dob,pet_qty,pet_description,pet_color,pet_price,pet_image,status,customer_id,admin_id,pet_registerdate,available_qty from pet_details where status='approved' and available_qty > 0 and customer_id not in(?)";
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, customer.getCustomerId());
+			resultSet = preparedStatement.executeQuery();
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
@@ -141,10 +140,13 @@ public class PetDAO {
 	public PetDetails showCurrentPet(int petId) {
 		try {
 			connection = connectionUtil.getDbConnect();
-			query = "select * from pet_details where pet_id=?";
-			pstmt = connection.prepareStatement(query);
-			pstmt.setInt(1, petId);
-			resultSet = pstmt.executeQuery();
+			query = "select pet_id,pet_type,pet_name,pet_gender,pet_dob,"
+					+ "pet_qty,pet_description,pet_color,pet_price,pet_image,"
+					+ "status,customer_id,admin_id,pet_registerdate,"
+					+ "available_qty from pet_details where pet_id=?";
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, petId);
+			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				pet = new PetDetails(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3),
 						resultSet.getString(4), resultSet.getDate(5), resultSet.getInt(6), resultSet.getString(7),
@@ -152,12 +154,12 @@ public class PetDAO {
 						resultSet.getString(11), resultSet.getInt(12), resultSet.getInt(13), resultSet.getDate(14),
 						resultSet.getInt(15));
 
-				query = "select * from customers where customer_id=?";
-				pstmt = connection.prepareStatement(query);
-				pstmt.setInt(1, resultSet.getInt(12));
-				resultSet = pstmt.executeQuery();
+				query = "select customer_firstname from customers where customer_id=?";
+				preparedStatement = connection.prepareStatement(query);
+				preparedStatement.setInt(1, resultSet.getInt(12));
+				resultSet = preparedStatement.executeQuery();
 				if (resultSet.next()) {
-					pet.getCustomer().setFirstName(resultSet.getString(2));
+					pet.getCustomer().setFirstName(resultSet.getString(1));
 				}
 			}
 		} catch (ClassNotFoundException | SQLException e) {
@@ -170,9 +172,10 @@ public class PetDAO {
 	public List<PetDetails> showNotApprovedPetList() {
 		try {
 			connection = connectionUtil.getDbConnect();
-			query = "select * from pet_details where status='Not approved'";
-			pstmt = connection.prepareStatement(query);
-			resultSet = pstmt.executeQuery();
+			query = "select PET_ID,PET_TYPE,PET_NAME,PET_GENDER,PET_DOB,PET_QTY,PET_DESCRIPTION,PET_COLOR,PET_PRICE,PET_IMAGE,\r\n"
+					+ "STATUS,CUSTOMER_ID,ADMIN_ID,PET_REGISTERDATE,AVAILABLE_QTY from pet_details where status='Not approved'";
+			preparedStatement = connection.prepareStatement(query);
+			resultSet = preparedStatement.executeQuery();
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
@@ -183,10 +186,13 @@ public class PetDAO {
 	public List<PetDetails> showMypetdetails(int cusId) {
 		try {
 			connection = connectionUtil.getDbConnect();
-			query = "select * from pet_details where customer_id='" + cusId + "'";
-			pstmt = connection.prepareStatement(query);
-			resultSet = pstmt.executeQuery();
-
+			query = "select pet_id,pet_type,pet_name,pet_gender,pet_dob,"
+					+ "pet_qty,pet_description,pet_color,pet_price,pet_image,"
+					+ "status,customer_id,admin_id,pet_registerdate,"
+					+ "available_qty from pet_details where customer_id=?";
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, cusId);
+			resultSet = preparedStatement.executeQuery();
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
@@ -197,10 +203,16 @@ public class PetDAO {
 	public List<PetDetails> searchPetDetails(String search, int customerId) {
 		try {
 			connection = connectionUtil.getDbConnect();
-			query = "select * from pet_details where (pet_type like '%" + search + "%' or pet_name like '%" + search
-					+ "%') and status='approved' and available_qty > 0 and customer_id not in(" + customerId + ")";
-			pstmt = connection.prepareStatement(query);
-			resultSet = pstmt.executeQuery();
+			query = "select pet_id,pet_type,pet_name,pet_gender,"
+					+ "pet_dob,pet_qty,pet_description,pet_color,pet_price,"
+					+ "pet_image,status,customer_id,admin_id,pet_registerdate,"
+					+ "available_qty from pet_details where (pet_type like '%?%' or pet_name like '%?%') "
+					+ "and status='approved' and available_qty > 0 and customer_id not in(?)";
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setString(1, search);
+			preparedStatement.setString(2, search);
+			preparedStatement.setInt(3, customerId);
+			resultSet = preparedStatement.executeQuery();
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
@@ -212,9 +224,9 @@ public class PetDAO {
 		try {
 			connection = connectionUtil.getDbConnect();
 			String query = "update pet_details set status='deleted' where pet_id=?";
-			pstmt = connection.prepareStatement(query);
-			pstmt.setInt(1, pet.getPetId());
-			pstmt.executeUpdate();
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, pet.getPetId());
+			preparedStatement.executeUpdate();
 			commit();
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
@@ -227,10 +239,10 @@ public class PetDAO {
 		try {
 			connection = connectionUtil.getDbConnect();
 			query = "update Pet_details set available_qty=? where pet_id=?";
-			pstmt = connection.prepareStatement(query);
-			pstmt.setInt(1, pet.getAvilableQty());
-			pstmt.setInt(2, pet.getPetId());
-			pstmt.executeUpdate();
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, pet.getAvilableQty());
+			preparedStatement.setInt(2, pet.getPetId());
+			preparedStatement.executeUpdate();
 			commit();
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
@@ -244,9 +256,9 @@ public class PetDAO {
 		try {
 			connection = connectionUtil.getDbConnect();
 			query = "select status from Pet_details  where pet_id=?";
-			pstmt = connection.prepareStatement(query);
-			pstmt.setInt(1, pet.getPetId());
-			resultSet = pstmt.executeQuery();
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, pet.getPetId());
+			resultSet = preparedStatement.executeQuery();
 			resultSet.next();
 			status = resultSet.getString(1);
 		} catch (ClassNotFoundException | SQLException e) {
