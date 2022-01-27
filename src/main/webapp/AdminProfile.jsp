@@ -128,23 +128,23 @@ table tr,td{
             <tr>
                <td rowspan="5"><img src="https://media1.popsugar-assets.com/files/thumbor/gMCOEkYB_3qTEDUrUbxtJkuusAA/fit-in/1024x1024/filters:format_auto-!!-:strip_icc-!!-/2017/07/12/947/n/1922153/c6f2e6f1596698606ad0d6.04019961_edit_img_image_15110365_1499895175/i/Chris-Hemsworth-Grooming-Interview.jpg" alt=""></td>
                <td>FirstName</td>
-               <td> : <%=adminDetails.getFirstName()%></td>
+               <td> : ${Admin.getFirstName()}</td>
            </tr>
            <tr>   
                <td>LastName</td>
-               <td> : <%=adminDetails.getLastName()%></td>
+               <td> : ${Admin.getLastName()}</td>
            </tr>
             <tr>
                 <td>UserName</td>
-                <td> : <%=adminDetails.getUserName()%></td>
+                <td> : ${Admin.getUserName()}</td>
             </tr>
               <tr>
                 <td>Email</td>
-                <td> : <%=adminDetails.getEmail()%></td>
+                <td> : ${Admin.getEmail()}</td>
               </tr>
               <tr>
                 <td>Number</td>
-                <td> : <%=adminDetails.getNumber()%></td>
+                <td> : ${Admin.getNumber()}</td>
               </tr>     
               <tr>
 			<td><a href="Logout.jsp"><button type="button" id="logout">Logout</button></a></td>

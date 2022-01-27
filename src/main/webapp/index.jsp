@@ -146,14 +146,16 @@ form input:focus{
 	</div>
 	
   <!--validation response for username password-->
-  
+ 
 	<%if(session.getAttribute("message")!=null){
-%>
+		if(session.getAttribute("message")!="none"){
+  %>
           <script type="text/javascript">
           document.getElementById("message").style.display="block";
           document.getElementById("message").innerHTML="Invalid Username or password";
           </script>	  
-	<%} %>
+	<%} session.setAttribute("message", "none"); } %>
+
 	 
 </body>
 </html>

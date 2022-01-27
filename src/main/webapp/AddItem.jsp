@@ -200,22 +200,25 @@ textarea {
 <body>
 <!-- Header -->
 <header>
+	<!-- Navigation bar -->
+
 	<div class="navigation">
-	<!-- Web site name and logo -->
+
+		<!-- Web site name and logo -->
 		<h1>
 			<i class="fas fa-paw" style="color: white;"></i> Pet Shop
 		</h1>
-	<!-- Navigation menus -->
-		<nav>
+   <nav>
+		<!-- Menu bar -->
 		<ul id="menu">
-			<li><a href="myprofile.jsp">My Profile</a></li>
-			<li><a href="mycart.jsp">My cart</a></li>
-			<li><a href="myorders.jsp">My orders</a></li>
+			<li><a href="MyProfile.jsp">My Profile</a></li>
+			<li><a href="MyCart.jsp">My cart</a></li>
+			<li><a href="MyOrders.jsp">My orders</a></li>
 			<li><a href="AddItem.jsp">Add item</a></li>
 			<li><a href="MyPets.jsp">My pets</a></li>
-			<li><a href="home.jsp">Home</a></li>
+			<li><a href="Home.jsp">Home</a></li>
 		</ul>
-		</nav>
+	</nav>
 	</div>
 </header>
 	<!-- Add pet from -->

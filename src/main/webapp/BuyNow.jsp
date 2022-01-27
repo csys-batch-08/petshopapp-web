@@ -11,7 +11,7 @@
 
    int quantity=Integer.parseInt(request.getParameter("quantity"));
 
-   PetDetails pet=( PetDetails)session.getAttribute("pet");
+   PetDetails pet=( PetDetails)session.getAttribute("petDescription");
    
    Customers customerDetails=(Customers)session.getAttribute("customer");
 

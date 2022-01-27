@@ -1,8 +1,6 @@
-<%@page import="com.petshopapp.model.*"%>
-<%@page import="com.petshopapp.daoimpl.*"%>
-<%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -90,11 +88,6 @@ padding: 20px;
 </style>
 </head>
 <body>
-	<%
-		Customers customerDetails = new Customers();
-		CustomerDAO customerDao = new CustomerDAO();
-		List<Customers> customerList = customerDao.customersList();
-	%>
 	<div class="navigation">
 		<h1>
 			<i class="fas fa-paw" style="color: white;"></i> Pet Shop
@@ -124,21 +117,18 @@ padding: 20px;
 			</tr>
 		</thead>
 		<tbody>
-			<%
-			for (Customers customer : customerList) {
-			%>
+		<jsp:useBean id="CustomerDao" class="com.petshopapp.daoimpl.CustomerDAO"/> 
+		<c:forEach items="${CustomerDao.customersList()}" var="customer">		
 			<tr>
-				<td class="text-capitalize"><%=customer.getCustomerId()%></td>
-				<td class="text-capitalize" ><%=customer.getFirstName()%></td>
-				<td class="text-capitalize" ><%=customer.getLastName()%></td>
-				<td class="text-capitalize"><%=customer.getGender() %></td>
-				<td><%=customer.getUserName()%></td>
-				<td><%=customer.getEmail()%></td>
-				<td><%=customer.getNumber()%></td>
+				<td class="text-capitalize">${customer.getCustomerId()}</td>
+				<td class="text-capitalize" >${customer.getFirstName()}</td>
+				<td class="text-capitalize" >${customer.getLastName()}</td>
+				<td class="text-capitalize">${customer.getGender()}</td>
+				<td>${customer.getUserName()}</td>
+				<td>${customer.getEmail()}</td>
+				<td>${customer.getNumber()}</td>
 			</tr>
-			<%
-			}
-			%>
+				</c:forEach>   
 		</tbody>
 	</table>
 </body>

@@ -1,11 +1,7 @@
-<%@page import="com.petshopapp.daoimpl.OrderItemsDAO"%>
-<%@page import="java.util.*"%>
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="com.petshopapp.model.*"%>
-
-
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -88,8 +84,7 @@ h2:hover {
 }
 
 table {
-    margin-top:-15px;
-	padding: 30px;	
+    margin-top: 0px;
 }
 table tr, th, td {
 	padding: 15px;
@@ -107,7 +102,7 @@ button {
 	border-radius: 5px;
 	font-size: 15px;
 	font-weight: bold;
-	margin-bottom:20px;
+	margin-bottom:10px;
 	background-color: rgb(16, 177, 16);
 	box-shadow: 0 0 5px black;
 }
@@ -118,35 +113,30 @@ background-color: white;
 </style>
 </head>
 <body>
-	<%
-	
-
-		Customers customerDetails = new Customers();
-		customerDetails = (Customers) session.getAttribute("customer");
-		OrderItemsDAO orderItemDao = new OrderItemsDAO();
-		List<OrderItems> orderItemList = orderItemDao.showMyOrdersItemsList(customerDetails);
-		SimpleDateFormat formet = new SimpleDateFormat("dd-MM-yyyy");
-	%>
+<!-- Header -->
+<header>
+	<!-- Navigation bar -->
 
 	<div class="navigation">
+
+		<!-- Web site name and logo -->
 		<h1>
 			<i class="fas fa-paw" style="color: white;"></i> Pet Shop
 		</h1>
+   <nav>
+		<!-- Menu bar -->
 		<ul id="menu">
-			<li><a href="myprofile.jsp">My Profile</a></li>
-			<li><a href="mycart.jsp">My cart</a></li>
-			<li><a href="myorders.jsp">My orders</a></li>
+			<li><a href="MyProfile.jsp">My Profile</a></li>
+			<li><a href="MyCart.jsp">My cart</a></li>
+			<li><a href="MyOrders.jsp">My orders</a></li>
 			<li><a href="AddItem.jsp">Add item</a></li>
 			<li><a href="MyPets.jsp">My pets</a></li>
-			<li><a href="home.jsp">Home</a></li>
+			<li><a href="Home.jsp">Home</a></li>
 		</ul>
+	</nav>
 	</div>
-
+</header>
 	<h2>My orders</h2>
-	<%
-	int size = orderItemList.size();
-	for (int i = 0; i < orderItemList.size();) {
-	%>
 	<table>
 		<tr>
 			<th>Order id</th>
@@ -158,52 +148,60 @@ background-color: white;
 			<th>Status</th>
 			<th>Order date</th>
 		</tr>
-
-		<%
-		while (i < size) {
-		%>
+	 
+	 <jsp:useBean id="orderItemDao" class="com.petshopapp.daoimpl.OrderItemsDAO"/> 
+	 <c:set var="orderItemsList" value="${orderItemDao.showMyOrdersItemsList(customer)}"></c:set>
+	 <c:set var="length" value="${orderItemsList.size()}"></c:set>
+	 <c:forEach var = "i" begin = "0" end = "${length-1}">
+	  <fmt:parseDate pattern="yyyy-MM-dd" value="${orderItemsList.get(i).getOrders().getOrderDate()}" var="parsedStatusDate" />	
 		<tr>
-			<td><%=orderItemList.get(i).getOrders().getOrderId()%></td>
-			<td><%=orderItemList.get(i).getPet().getPetId()%></td>
-			<td><%=orderItemList.get(i).getPet().getPetName()%></td>
-			<td><%=orderItemList.get(i).getUnitPrice()%></td>
-			<td><%=orderItemList.get(i).getQuantity()%></td>
-			<td><%=orderItemList.get(i).getTotalPrice()%></td>
-			<td><%=orderItemList.get(i).getOrders().getOrderStatus()%></td>
-			<%
-			Date date = orderItemList.get(i).getOrders().getOrderDate();
-			String orderDate = formet.format(date);
-			%>
-			<td><%=orderDate%></td>
-			<%
-			if (i < (size - 1)) {
-				if (orderItemList.get(i).getOrders().getOrderId() != orderItemList.get((i + 1)).getOrders().getOrderId()) {
-					i++; 
-					break;
-				}
-			}
-			i++;
-			}
-			%>
-
-		</tr>
-
+			<td>${orderItemsList.get(i).getOrders().getOrderId()}</td>
+			<td>${orderItemsList.get(i).getPet().getPetId()}</td>
+			<td>${orderItemsList.get(i).getPet().getPetName()}</td>
+			<td>${orderItemsList.get(i).getUnitPrice()}</td>
+			<td>${orderItemsList.get(i).getQuantity()}</td>
+			<td>${orderItemsList.get(i).getTotalPrice()}</td>
+			<td>${orderItemsList.get(i).getOrders().getOrderStatus()}</td>
+			<td><fmt:formatDate pattern="dd-MM-yyyy" value="${parsedStatusDate}"/></td>
+			</tr>
+		  <c:if test = "${i < length-1}">
+		  <c:if test = "${orderItemsList.get(i).getOrders().getOrderId() != orderItemsList.get(i+1).getOrders().getOrderId()}">
+		   <c:if test = "${orderItemsList.get(i).getOrders().getOrderStatus() == 'NotDelivered'}">
+		    <tr >
+		    <td colspan="8">
+		    <button type="button"
+		    onclick="cancelOrder('${orderItemsList.get(i).getOrders().getOrderId()}')">Cancel
+	    	order</button>	
+	    	 </td>
+		   </tr>
+           </c:if>  		 
+		   <tr >
+		   <td colspan="8" style="padding-left: 0px;padding-right: 0px;"><hr></td>
+		   </tr>
+		   <tr>
+			<th>Order id</th>
+			<th>Pet id</th>
+			<th>Pet name</th>
+			<th>Unit_price</th>
+			<th>Quantity</th>
+			<th>Total price</th>
+			<th>Status</th>
+			<th>Order date</th>
+           </c:if>
+          </c:if>
+          <c:if test = "${orderItemsList.get(i).getOrders().getOrderStatus() == 'NotDelivered' and i == length-1}">
+		    <tr>
+		    <td colspan="8">
+		    <button type="button"
+		    onclick="cancelOrder('${orderItemsList.get(i).getOrders().getOrderId()}')">Cancel
+	    	order</button>	
+	    	</td>
+	    	</tr>
+           </c:if>
+	</c:forEach>	
 	</table>
-	<%
-	String status = orderItemList.get(i - 1).getOrders().getOrderStatus();
-	if (status.equals("NotDelivered")) {
-	%>
-	<button type="button"
-		onclick="cancelOrder('<%=orderItemList.get(i - 1).getOrders().getOrderId()%>')">Cancel
-		order</button>	
-		
-	<%
 	
-	}
-	%>
-	<hr><%
-	}
-	%>
+	
 
 	<script type="text/javascript">
 		function cancelOrder(orderId) {

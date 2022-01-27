@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.petshopapp.model.CartItems;
 import com.petshopapp.model.Customers;
 import com.petshopapp.util.ConnectionUtil;
@@ -91,9 +90,10 @@ public class CartItemsDAO {
 		
 		try {
 			connection = connectionUtil.getDbConnect();
-			query = "select ci.item_id,ci.pet_id,ci.customer_id,ci.quantity,ci.unit_price,ci.total_price,p.pet_type,p.pet_name,pet_image from cart_items ci inner join pet_details p on p.pet_id=ci.pet_id where ci.customer_id="
-					+ customer.getCustomerId() + " order by ci.item_id";
+			query = "select ci.item_id,ci.pet_id,ci.customer_id,ci.quantity,ci.unit_price,ci.total_price,p.pet_type,p.pet_name,pet_image,p.available_qty from cart_items ci "
+					+ "inner join pet_details p on p.pet_id=ci.pet_id where ci.customer_id=? order by ci.item_id";
 			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, customer.getCustomerId());
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				cartItem = new CartItems(resultSet.getInt(1), resultSet.getInt(2), resultSet.getInt(3),
@@ -101,6 +101,7 @@ public class CartItemsDAO {
 				cartItem.getPet().setPetType(resultSet.getString(7));
 				cartItem.getPet().setPetName(resultSet.getString(8));
 				cartItem.getPet().setPetImage(resultSet.getString(9));
+				cartItem.getPet().setAvilableQty(resultSet.getInt(10));
 				cartList.add(cartItem);
 			}
 		} catch (ClassNotFoundException | SQLException e) {

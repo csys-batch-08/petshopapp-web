@@ -1,7 +1,5 @@
 package com.petshopapp.model;
 
-import java.util.Objects;
-
 public class OrderItems {
     private int itemId;
     private Orders orders =new Orders();

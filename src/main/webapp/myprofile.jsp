@@ -1,8 +1,6 @@
-<%@page import="com.petshopapp.daoimpl.PetDAO"%>
-<%@page import="com.petshopapp.controller.login"%>
-<%@page import="com.petshopapp.model.Customers"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -214,52 +212,56 @@ input[type=number] {
 </style>
 </head>
 <body>
-	<%
-	Customers customerDetails = new Customers();
-	customerDetails = (Customers) session.getAttribute("customer");
-	String updateProfile = (String) session.getAttribute("updateProfile");
-	%>
+<!-- Header -->
+<header>
+	<!-- Navigation bar -->
 
 	<div class="navigation">
+
+		<!-- Web site name and logo -->
 		<h1>
 			<i class="fas fa-paw" style="color: white;"></i> Pet Shop
 		</h1>
+   <nav>
+		<!-- Menu bar -->
 		<ul id="menu">
-			<li><a href="myprofile.jsp">My Profile</a></li>
-			<li><a href="mycart.jsp">My cart</a></li>
-			<li><a href="myorders.jsp">My orders</a></li>
+			<li><a href="MyProfile.jsp">My Profile</a></li>
+			<li><a href="MyCart.jsp">My cart</a></li>
+			<li><a href="MyOrders.jsp">My orders</a></li>
 			<li><a href="AddItem.jsp">Add item</a></li>
 			<li><a href="MyPets.jsp">My pets</a></li>
-			<li><a href="home.jsp">Home</a></li>
+			<li><a href="Home.jsp">Home</a></li>
 		</ul>
+	</nav>
 	</div>
-
+</header>
+  
 	<h2>My profile</h2>
-
-
+    <jsp:useBean id="CustomerDao" class="com.petshopapp.daoimpl.CustomerDAO"/> 
+	<c:set var="customer" value="${CustomerDao.customerDetails(customer.getCustomerId())}"></c:set>
+	
 	<table>
 		<tbody>
 			<tr>
 				<td><img
-					src="./Profile Picture/<%=customerDetails.getImage()%>"
+					src="./Profile Picture/${customer.getImage()}"
 					alt="user picture"></td>
 				<td style="width: 600px;">
 					<p>
-					<pre>First Name </pre>: <%=customerDetails.getFirstName()%> <%=customerDetails.getLastName()%>
-					</p>
+					<pre>First Name </pre>: ${customer.getFirstName()}  ${customer.getLastName()}</p>
 					<p>
-					<pre>User Name </pre>: <%=customerDetails.getUserName()%></p>
+					<pre>User Name </pre>: ${customer.getUserName()}</p>
 					<p>
-					<pre>Gender       </pre>: <%=customerDetails.getGender()%></p>
+					<pre>Gender       </pre>: ${customer.getGender()}</p>
 					<p>
-					<pre>Email          </pre>: <%=customerDetails.getEmail()%></p>
+					<pre>Email          </pre>: ${customer.getEmail()}</p>
 					<p>
-					<pre>Mobile        </pre>: <%=customerDetails.getNumber()%></p>
+					<pre>Mobile        </pre>: ${customer.getNumber()}</p>
 					<p>
-					<pre>Address     </pre>: <%=customerDetails.getAddress()%>, <%=customerDetails.getCity()%>
-					, <%=customerDetails.getPincode()%></p>
+					<pre>Address     </pre>: ${customer.getAddress()}, ${customer.getCity()}
+					, ${customer.getPincode()}</p>
 					<p>
-					<pre>wallet         </pre>: Rs.<%=customerDetails.getWallet()%></p>
+					<pre>wallet         </pre>: Rs.${customer.getWallet()}</p>
 
 				</td>
 			</tr>
@@ -286,17 +288,17 @@ input[type=number] {
 				<form action="UpdateProfile">
 					<td><label for="firstname">Firstname</label></td>
 					<td><input type="text" name="firstname"
-						value="<%=customerDetails.getFirstName()%>"
+						value="${customer.getFirstName()}"
 						pattern="[a-zA-Z]{3,20}" required></td>
 					<td><label for="lastname">Lastname</label></td>
 					<td><input type="text" name="lastname"
-						value="<%=customerDetails.getLastName()%>"
+						value="${customer.getLastName()}"
 						pattern="[a-zA-Z]{3,20}" required></td>
 			</tr>
 			<tr>
 				<td><label for="username" UserName>Username</label></td>
 				<td><input type="text" name="username" id="username"
-					value="<%=customerDetails.getUserName()%>"
+					value="${customer.getUserName()}"
 					pattern="[a-zA-Z0-9]{8,20}" required></td>
 				<td><label for="gender">Gender</label></td>
 				<td>
@@ -309,17 +311,17 @@ input[type=number] {
 			<tr>
 				<td><label for="email">Email</label></td>
 				<td><input type="text" name="email" id="email"
-					value="<%=customerDetails.getEmail()%>"
+					value="${customer.getEmail()}"
 					pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required></td>
 				<td><label for="number">Mobile</label></td>
 				<td><input type="text" name="number"
-					value="<%=customerDetails.getNumber()%>" pattern="[6-9]{1}[0-9]{9}"
+					value="${customer.getNumber()}" pattern="[6-9]{1}[0-9]{9}"
 					required></td>
 			</tr>
 			<tr>
 				<td><label for="password">Password</label></td>
 				<td><input type="password" name="password" id="password"
-					value="<%=customerDetails.getPassword()%>"
+					value="${customer.getPassword()}"
 					pattern="[a-zA-Z0-9!@#$%^&*()_+]{8,20}" required></td>		
 				<td colspan="2"><input
 					type="checkbox" onclick="showPassword()" style="position: relative;left: -80px;top: 5px;"></td>
@@ -339,28 +341,20 @@ input[type=number] {
 			<tr>
 				<form action="UpdateAddress.jsp">
 					<td><label for="address">Street</label></td>
-					<%if(customerDetails.getAddress().equals("none")) {%>
+				
 					<td><input type="text" name="address" id="address"
-						placeholder="Enter the address" pattern="[a-zA-z,./0-9]{3,30}" required></td>			
-					<%}else{ %>
-					
-					<td><input type="text" name="address" id="address"
-						value="<%=customerDetails.getAddress()%>" pattern="[a-zA-Z,./0-9 ]{3,100}" required></td>
-					<%} %>
-					<td><label for="city">City</label></td>
-						<%if(customerDetails.getCity().equals("none")) {%>
-										
+						value="${customer.getAddress()}" pattern="[a-zA-Z,./0-9 ]{3,100}" required></td>
+				
+					 <td><label for="city">City</label></td>
+									
 					<td><input type="text" name="city" id="city"
-						placeholder="Enter the city" pattern="[a-zA-Z]{3,30}" required></td>
-					<%}else{ %>							
-					<td><input type="text" name="city" id="city"
-						value="<%=customerDetails.getCity()%>" pattern="[a-zA-Z]{3,30}"  required></td>
-							<%} %>
+						value="${customer.getCity()}" pattern="[a-zA-Z]{3,30}"  required></td>
+				 
 			</tr>
 			<tr>
 				<td><label for="pincode">Pincode</label></td>
 				<td><input type="text" name="pincode" id="pincode" pattern="[6]{1}[0-9]{5}"
-					value="<%=customerDetails.getPincode()%>" required>
+					value="${customer.getPincode()}" required>
 				<td></td>
 				<td></td>
 			</tr>
@@ -387,21 +381,6 @@ input[type=number] {
 			</tr>
 		</tbody>
 	</table>
-
-	<%
-	if (session.getAttribute("profileMessage") != "none") {
-		String message = (String) session.getAttribute("profileMessage");
-	%>
-	<script type="text/javascript">
-           alert("<%=message%>");
-          </script>
-
-	<%
-	session.setAttribute("profileMessage", "none");
-	}
-	%>
-	</div>
-	</div>
 	<script type="text/javascript">
 	
   function UpdateWallet(){
@@ -467,13 +446,6 @@ input[type=number] {
 	}
   
   
- <%String message = (String) session.getAttribute("profileMessage");
-if (!message.equals("none")) {%>
- 
-  alert("<%=message%>
-		");
-	<%}
-session.setAttribute("profileMessage", "none");%>
 		
 	</script>
 

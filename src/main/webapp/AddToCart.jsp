@@ -21,7 +21,7 @@
     
     Customers customerDetails=(Customers)session.getAttribute("customer");
     
-    PetDetails pet=(PetDetails)session.getAttribute("pet");
+    PetDetails pet=(PetDetails) session.getAttribute("petDescription");
     
     List<CartItems> cartList=new ArrayList<CartItems>();
     

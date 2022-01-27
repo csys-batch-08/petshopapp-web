@@ -1,10 +1,7 @@
-<%@page import="java.util.ArrayList"%>
-<%@page import="java.util.*"%>
-<%@page import="com.petshopapp.daoimpl.*"%>
-<%@page import="com.petshopapp.model.*"%>
-<%@page import="com.petshopapp.model.CartItems"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -172,41 +169,43 @@ table tr, th, td {
 </style>
 </head>
 <body>
-	<%
-	CartItemsDAO cartItemDao = new CartItemsDAO();
-	Customers customerDetails = new Customers();
-	customerDetails = (Customers) session.getAttribute("customer");
-	List<CartItems> cartList = new ArrayList<CartItems>();
-	cartList = cartItemDao.showAllCartItems(customerDetails);
-	PetDetails pet = new PetDetails();
-	PetDAO petDao = new PetDAO();
-	session.setAttribute("cartList", cartList);
-	%>
+
+<!-- Header -->
+<header>
+	<!-- Navigation bar -->
 
 	<div class="navigation">
+
+		<!-- Web site name and logo -->
 		<h1>
 			<i class="fas fa-paw" style="color: white;"></i> Pet Shop
 		</h1>
+   <nav>
+		<!-- Menu bar -->
 		<ul id="menu">
-			<li><a href="myprofile.jsp">My Profile</a></li>
-			<li><a href="mycart.jsp">My cart</a></li>
-			<li><a href="myorders.jsp">My orders</a></li>
-			<li><a href="MyPets.jsp">My pets</a></li>
+			<li><a href="MyProfile.jsp">My Profile</a></li>
+			<li><a href="MyCart.jsp">My cart</a></li>
+			<li><a href="MyOrders.jsp">My orders</a></li>
 			<li><a href="AddItem.jsp">Add item</a></li>
-			<li><a href="home.jsp">Home</a></li>
+			<li><a href="MyPets.jsp">My pets</a></li>
+			<li><a href="Home.jsp">Home</a></li>
 		</ul>
+	</nav>
 	</div>
+</header>
 	<h2>My Cart</h2>
 
 	<table>
-		<%
-		double totalAmount = 0;
-		for (CartItems cartItems : cartList) {
-			totalAmount += cartItems.getTotalPrice();
-			pet = petDao.showCurrentPet(cartItems.getPet().getPetId());
-		%>
+	<c:set var="totalAmount" value="0" scope="session"></c:set>
+		<c:set var="count" value="0"></c:set>
+	<jsp:useBean id="cartItemsDAO" class="com.petshopapp.daoimpl.CartItemsDAO"/> 
+	 <c:set var="cartList" value="${cartItemsDAO.showAllCartItems(customer)}" scope="session"></c:set>
+	
+	<c:forEach items="${cartList}" var="cart">
+	<c:set var="totalAmount" value="${totalAmount + cart.getTotalPrice()}" scope="session"></c:set>	
+			<c:set var="count" value="${count + 1}"></c:set>
 		<tr>
-			<td><img src="./Pets/<%=cartItems.getPet().getPetImage()%>"
+			<td><img src="./Pets/${cart.getPet().getPetImage()}"
 				alt="petimage"></td>
 
 			<td>
@@ -220,78 +219,66 @@ table tr, th, td {
 
 				<p>
 					<a
-						href="PetDescription.jsp?petid=<%=cartItems.getPet().getPetId()%>"><button
+						href="PetDescription.jsp?petid=${cart.getPet().getPetId()}"><button
 							id="view">View</button></a>
 					<button type="button" id="buynow"
-						onclick="buy('<%=cartItems.getItemId()%>','<%=pet.getAvilableQty()%>','<%=cartItems.getQuantity()%>')">Buy Now</button>
+						onclick="buy('${cart.getItemId()}','${cart.getPet().getAvilableQty()}','${cart.getQuantity()}','${customer.getAddress()}')">Buy Now</button>
 					<button type="button"
-						onclick="removeCart('<%=cartItems.getItemId()%>')" id="remove">
+						onclick="removeCart('${cart.getItemId()}')" id="remove">
 						<i class="fas fa-trash-alt"></i> Remove
 					</button>
-					<%
-					String message = "message" + cartItems.getItemId();
-					%>
-				
-				<p name="message" id="<%=message%>"></td>
+					
 			<td id="move"><p>
-					<span id="itemid" style="display: none"><%=cartItems.getItemId()%></span>
+					<span id="itemid" style="display: none">${cart.getItemId()}</span>
 				</p>
 				<p>
-					:
-					<%=cartItems.getPet().getPetId()%></p>
+					: ${cart.getPet().getPetId()}
+					</p>
 				<p>
-					:
-					<%=cartItems.getPet().getPetType()%></p>
+					: ${cart.getPet().getPetType()}
+					</p>
 				<p>
-					:
-					<%=cartItems.getPet().getPetName()%></p>
+					: ${cart.getPet().getPetName()}
+					</p>
 				<p>
-					:
-					<%=pet.getAvilableQty()%></p>			
+					: ${cart.getPet().getAvilableQty()}
+					</p>			
 				<p>
-					: <span id="quantity"><%=cartItems.getQuantity()%></span>
+					: <span id="quantity">${cart.getQuantity()}</span>
 				</p>
 				<p>
-					:
-					<%=cartItems.getUnitPrice()%></p>
+					: ${cart.getUnitPrice()}
+					</p>
 				<p>
 
-					:
-					<%=cartItems.getTotalPrice()%></p>
+					: ${cart.getTotalPrice()} 
+					</p>
 				<p style="visibility: hidden;">empty</p></td>
 
 		</tr>
-		<%
-		}
-		session.setAttribute("totalCartAmount", totalAmount);
-		%>
-	</table>
-	<%
-	if (cartList.size() > 0) {
-		if (cartList.size() > 1) {
-	%>
-	<button id="buyall" onclick="buyAll()">Buyall</button>
+		
+		</c:forEach>
+
+	
+	<c:if test ="${count > 1 }">
+	<tr>
+	<td colspan="3">
+	<button id="buyall" onclick="buyAll('${customer.getAddress()}')">Buyall</button>
 	<button id="removeall" onclick="removeAll()">
 		<i class="fas fa-trash-alt"></i> Remove All
 	</button>
-
-	<p>
-		<%
-		}
-		} else {
-		%>
-	
-	<h1 id="empty" style="margin-top: 140px">Your cart is empty</h1>
-	<%
-	}
-	%>
-
+	</td>
+	</tr>
+	 </c:if>
+	 <c:if test ="${count == 0 }">
+	 <h1 id="empty" style="margin-top: 140px">Your cart is empty</h1>	   
+     </c:if>	
+	</table>
 	<script type="text/javascript">
 		
 		//buy all
-		function buyAll() {
-			var address='<%=customerDetails.getAddress()%>';
-			
+		function buyAll(address) {
+					
 			if(address!='none'){				
 		    var confirmAction = confirm("Are you sure you want buy  all this item");
 		       if (confirmAction) {
@@ -327,10 +314,9 @@ table tr, th, td {
 		}
 
 		//buy
-		function buy(itemId,availableQuantity,cartQuantity,price) {
+		function buy(itemId,availableQuantity,cartQuantity,price,address) {
 
 			if(availableQuantity>=cartQuantity){
-			var address='<%=customerDetails.getAddress()%>';
 			if (address != 'none') {
 				var confirmAction = confirm("Are you sure you want buy this item");
 				if (confirmAction) {

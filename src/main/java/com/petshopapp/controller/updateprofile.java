@@ -1,15 +1,12 @@
 package com.petshopapp.controller;
 
 import java.io.IOException;
-
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import com.petshopapp.daoimpl.CustomerDAO;
 import com.petshopapp.model.Customers;
 
@@ -18,22 +15,17 @@ public class updateprofile extends HttpServlet{
 	
       @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    	// TODO Auto-generated method stub
+    
     	 boolean flag=true;
          HttpSession session=req.getSession();
          System.out.println("called");
          Customers customerDetails=(Customers)session.getAttribute("customer");
-        
          Customers customers=new Customers();
-         
          String updateProfile="none";
          CustomerDAO customerDao=new CustomerDAO();
          String firstName=req.getParameter("firstname");
          String lastName=req.getParameter("lastname");
          String userName=req.getParameter("username");
-//         System.out.print(userName);
-//         System.out.print(customerDao.ValidatUsername(userName)==false);
-//         System.out.print(userName!=customerDetails.getUserName());
          customers.setUserName(userName);
          
          if((customerDao.validateUsername(customers)==false) && (!userName.equals(customerDetails.getUserName()))) {
@@ -63,20 +55,12 @@ public class updateprofile extends HttpServlet{
          updateProfile="profile updated";
          }
          session.setAttribute("profileMessage", updateProfile);
-         resp.sendRedirect("myprofile.jsp");
-       
-         
-
-         
-      
-         
-        
-        
+         resp.sendRedirect("MyProfile.jsp");          
     }
       
       @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    	// TODO Auto-generated method stub
+    	
     	doGet(req, resp);
     }
 }

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -171,7 +170,7 @@ input:focus {
 </style>
 </head>
 <body>
-
+<header>
 	<!-- Navigation bar -->
 
 	<div class="navigation">
@@ -187,26 +186,28 @@ input:focus {
 				placeholder="Enter pet category or name">
 			<button type="submit" id="search">search</button>
 		</form>
-
+   <nav>
 		<!-- Menu bar -->
 		<ul id="menu">
-			<li><a href="myprofile.jsp">My Profile</a></li>
-			<li><a href="mycart.jsp">My cart</a></li>
-			<li><a href="myorders.jsp">My orders</a></li>
-			<li><a href="AddItem">Add item</a></li>
-			<li><a href="MyPets">My pets</a></li>
-			<li><a href="Home">Home</a></li>
+			<li><a href="MyProfile.jsp">My Profile</a></li>
+			<li><a href="MyCart.jsp">My cart</a></li>
+			<li><a href="MyOrders.jsp">My orders</a></li>
+			<li><a href="AddItem.jsp">Add item</a></li>
+			<li><a href="MyPets.jsp">My pets</a></li>
+			<li><a href="Home.jsp">Home</a></li>
 		</ul>
+	</nav>
 	</div>
-
+</header>
 	<!-- Pet list -->
 	<div class="content">
 		<h2 class="petlist">Pet Lists</h2>
 		<table>
 			<tbody>
 				<tr>
-					<c:set var="count" value="1" />
-					<c:forEach items="${sessionScope.PetList}" var="pet">
+				 <jsp:useBean id="PetDao" class="com.petshopapp.daoimpl.PetDAO"/>                                
+   					<c:set var="count" value="1" />
+					  <c:forEach items="${PetDao.showAllpetsDetails(customer)}" var="pet">
 						<td>
 							<table id="pets">
 								<tbody>

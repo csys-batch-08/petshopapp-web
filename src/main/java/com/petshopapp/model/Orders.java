@@ -1,8 +1,6 @@
 package com.petshopapp.model;
 
 import java.sql.Date;
-import java.util.Objects;
-
 public class Orders {
 	
 	private int orderId;

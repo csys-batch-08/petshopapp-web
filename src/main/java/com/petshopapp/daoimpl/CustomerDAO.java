@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.petshopapp.model.Customers;
 import com.petshopapp.util.ConnectionUtil;
 
@@ -270,7 +269,7 @@ public class CustomerDAO {
 			while (resultSet.next()) {
 				customer = new Customers(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4),
 						resultSet.getString(5), resultSet.getString(6), resultSet.getString(7), resultSet.getLong(8), resultSet.getDouble(9),
-						resultSet.getDate(10), resultSet.getString(11), resultSet.getInt(12), resultSet.getString(12), resultSet.getString(14),
+						resultSet.getDate(10), resultSet.getString(11), resultSet.getInt(12), resultSet.getString(13), resultSet.getString(14),
 						resultSet.getString(15));
 			}
 

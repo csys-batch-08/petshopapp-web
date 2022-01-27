@@ -1,9 +1,7 @@
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="com.petshopapp.daoimpl.PetDAO"%>
-<%@page import="java.util.*"%>
-<%@page import="com.petshopapp.model.*"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -167,46 +165,37 @@ input[type=number] {
     </style>
 </head>
 <body>
-	<%
-	
+<!-- Header -->
+<header>
+	<!-- Navigation bar -->
 
-		//List<PetDetails> petList=new ArrayList<PetDetails>();
-		PetDetails pet = new PetDetails();
-		PetDAO petdao = new PetDAO();
-		int petid = Integer.parseInt(request.getParameter("petid"));
-		pet = petdao.showCurrentPet(petid);
-		session.setAttribute("pet", pet);
-		Customers customerDetails = (Customers) session.getAttribute("customer");
-		SimpleDateFormat formet = new SimpleDateFormat("dd-MM-yyyy");
-		Date date = pet.getPetDob();
-
-		String dob = formet.format(date);
-
-		session.setAttribute("message", " ");
-	%>
 	<div class="navigation">
+
+		<!-- Web site name and logo -->
 		<h1>
 			<i class="fas fa-paw" style="color: white;"></i> Pet Shop
 		</h1>
-		<input type="search" id="searchinput"
-			placeholder="Enter pet category or name">
-		<button id="search">search</button>
+   <nav>
+		<!-- Menu bar -->
 		<ul id="menu">
-			<li><a href="myprofile.jsp">My Profile</a></li>
-			<li><a href="mycart.jsp">My cart</a></li>
-			<li><a href="myorders.jsp">My orders</a></li>
+			<li><a href="MyProfile.jsp">My Profile</a></li>
+			<li><a href="MyCart.jsp">My cart</a></li>
+			<li><a href="MyOrders.jsp">My orders</a></li>
 			<li><a href="AddItem.jsp">Add item</a></li>
 			<li><a href="MyPets.jsp">My pets</a></li>
-			<li><a href="home.jsp">Home</a></li>
+			<li><a href="Home.jsp">Home</a></li>
 		</ul>
+	</nav>
 	</div>
-	
+</header>
 	<h2>Pet Details</h2>
+	 <jsp:useBean id="PetDao" class="com.petshopapp.daoimpl.PetDAO"/> 
+	 <c:set var="petDescription" value="${PetDao.showCurrentPet(param.petid)}" scope="session"></c:set>
 	
 		<table>
 			<tbody>
 				<tr>
-					<td><img src="./Pets/<%=pet.getPetImage()%>" alt=""></td>
+					<td><img src="./Pets/${petDescription.petImage}" alt=""></td>
 					<td>
 					    <p>
 							<b>Id</b>
@@ -235,15 +224,16 @@ input[type=number] {
 						<p>
 							<b>Supplier Name</b>
 						</p></td>
-					<td><p>:<%=pet.getPetId()%></p>
-						<p>:<%=pet.getPetType()%></p>
-						<p>:<%=pet.getPetName()%></p>
-						<p>:<%=pet.getPetGender()%></p>
-						<p>:<%=dob%></p>
-						<p>:<%=pet.getPetColor()%></p>
-						<p>:<%=pet.getPetprice()%></p>
-						<p>:<%=pet.getAvilableQty()%></p>
-						<p>:<%=pet.getCustomer().getFirstName()%></p>
+				 <fmt:parseDate pattern="yyyy-MM-dd" value="${petDescription.petDob}" var="parsedStatusDate" />
+					<td><p>: ${petDescription.petId}</p>
+						<p>: ${petDescription.petType}</p>
+						<p>: ${petDescription.petName}</p>
+						<p>: ${petDescription.petGender}</p>
+				        <p>: <fmt:formatDate pattern="dd-MM-yyyy" value="${parsedStatusDate}"/></p>
+						<p>: ${petDescription.petColor}</p>
+						<p>: ${petDescription.petprice}</p>
+						<p>: ${petDescription.avilableQty}</p>
+						<p>: ${petDescription.getCustomer().getFirstName()}</p>
 					</td>
 
 				</tr>
@@ -252,16 +242,16 @@ input[type=number] {
 
 		<div id="description">
 			<p style="	text-transform: none;">
-				<b>Description: </b><br><%=pet.getDescription()%>
+				<b>Description: </b><br>${petDescription.description}
 			<p>
 			<p style="font-size: 27px;"><label>Quantity :</label>
 				<span><i class="fas fa-minus-square" onclick="decrease()"></i><input type="number" id="quantity"
-					max="<%=pet.getAvilableQty()%>" min="0" value="0" name="quantity">
-	         	<i class="fas fa-plus-square"  onclick="increase()"></i></span>
+					max="${petDescription.avilableQty}" min="0" value="0" name="quantity">
+	         	<i class="fas fa-plus-square"  onclick="increase(${petDescription.avilableQty})"></i></span>
 			</p>
 			<p>
 				<button type="button" onclick="addToCart()"><i class="fas fa-cart-plus"></i> Cart</button>
-				<button type="button" onclick="buyNow()">Buy Now</button>
+				<button type="button" onclick="buyNow('${customer.address}')">Buy Now</button>
 			</p>
 			<p name="message" id="message">
 			<p>
@@ -300,8 +290,7 @@ input[type=number] {
     } 
      
     // buy Now
-    function buyNow(){  
-    	var address='<%=customerDetails.getAddress()%>';
+    function buyNow(address){  
 					if (address == 'none') {
 						var confirmAction = confirm("Please add address before buy");
 						if (confirmAction) {
@@ -355,9 +344,9 @@ input[type=number] {
     	}  
     	}	
 				
-				function increase(){
+				function increase(availableQuantity){
 					var value= document.getElementById("quantity").value;
-					if(value<<%=pet.getAvilableQty()%>){
+					if(value < availableQuantity){
 						value++;
 						document.getElementById("quantity").value=value;
 					}

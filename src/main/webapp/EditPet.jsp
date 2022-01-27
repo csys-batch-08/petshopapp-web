@@ -1,10 +1,6 @@
-<%@page import="java.nio.channels.SeekableByteChannel"%>
-<%@page import="com.petshopapp.model.*"%>
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="com.petshopapp.daoimpl.*"%>
-<%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -158,38 +154,37 @@ textarea {
 </head>
 
 <body>
-	<%
-	
+<!-- Header -->
+<header>
+	<!-- Navigation bar -->
 
-		PetDetails pet = new PetDetails();
-		PetDAO petdao = new PetDAO();
-		int petId = Integer.parseInt(request.getParameter("petid"));
-		session.setAttribute("updatePet", petId);
-		pet = petdao.showCurrentPet(petId);
-		session.setAttribute("pet", pet);
-		Customers customerDetails = (Customers) session.getAttribute("customer");
-		SimpleDateFormat formet = new SimpleDateFormat("yyyy-dd-MM");
-		Date date = pet.getPetDob();
-		String dob = formet.format(date);
-	%>
 	<div class="navigation">
+
+		<!-- Web site name and logo -->
 		<h1>
 			<i class="fas fa-paw" style="color: white;"></i> Pet Shop
 		</h1>
+   <nav>
+		<!-- Menu bar -->
 		<ul id="menu">
-			<li><a href="myprofile.jsp">My Profile</a></li>
-			<li><a href="mycart.jsp">My cart</a></li>
-			<li><a href="myorders.jsp">My orders</a></li>
+			<li><a href="MyProfile.jsp">My Profile</a></li>
+			<li><a href="MyCart.jsp">My cart</a></li>
+			<li><a href="MyOrders.jsp">My orders</a></li>
 			<li><a href="AddItem.jsp">Add item</a></li>
 			<li><a href="MyPets.jsp">My pets</a></li>
-			<li><a href="home.jsp">Home</a></li>
+			<li><a href="Home.jsp">Home</a></li>
 		</ul>
+	</nav>
 	</div>
-	<div>
+</header>
+<jsp:useBean id="PetDao" class="com.petshopapp.daoimpl.PetDAO"/> 
+
+	 <c:set var="pet" value="${PetDao.showCurrentPet(param.petid)}" ></c:set>
+		
 		<form class="animalform" action="AnimalUpdateForm.jsp?">
 			<table>
 				<tr>
-					<th id="register" colspan="4">Update Pet details</th>
+					<th id="register" colspan="4">Update Pet details  ${param.petid}</th>
 					<th></th>
 				</tr>
 
@@ -198,11 +193,11 @@ textarea {
 						<td><label for="animaltype">Animal Type </label></td>
 						<td><input type="text" name="animaltype" id="animaltype"
 							placeholder="Type" pattern="[a-zA-Z]{3,20}"
-							value="<%=pet.getPetType()%>" list="typelist" required></td>
+							value="${pet.getPetType()}" list="typelist" required></td>
 						<td><label for="animalname">Name</label></td>
 						<td><input type="text" name="animalname" id="animalname"
 							placeholder="Name" pattern="[a-zA-Z ]{3,20}"
-							value="<%=pet.getPetName()%>" list="namelist" required></td>
+							value="${pet.getPetName()}" list="namelist" required></td>
 					</tr>
 					<tr>
 						<td><label for="animalgender">Gender</label></td>
@@ -212,24 +207,24 @@ textarea {
 								<option value="Female">others</option>
 						</select>
 						<td><label for="dob" name="dob">Date of birth</label></td>
-						<td><input type="date" name="dob" id="dob" value="<%=dob%>"></td>
+						<td><input type="date" name="dob" id="dob" value="${pet.getPetDob()}"></td>
 					</tr>
 					<tr>
 						<td><label for="color">Color</label></td>
 						<td><input type="text" name="color" id="color"
-							placeholder="Color" value="<%=pet.getPetColor()%>"
+							placeholder="Color" value="${pet.getPetColor()}"
 							pattern="[a-zA-Z]{3,20}" list="colors"></td>
 						<td><label for="price">price</label></td>
 						<td><input type="number" 5 name="price" id="price" min="0"
-							placeholder="Price" value="<%=pet.getPetprice()%>" required></td>
+							placeholder="Price" value="${pet.getPetprice()}" required></td>
 					</tr>
 					<tr>
 						<td><label for="imagelink">Image Link</label></td>
 						<td><input type="file" 5 name="imagelink" id="imagelink"
-							placeholder="Image file" value="./Pets/<%=pet.getPetImage()%>" required></td>
+							placeholder="Image file" value="${pet.getPetImage()}" required></td>
 						<td><label for="qty">Quantity</label></td>
 						<td><input type="number" name="quantity" id="quantityt"
-							min="0" placeholder="Quantity" value="<%=pet.getPetQty()%>"
+							min="0" placeholder="Quantity" value="${pet.getPetQty()}"
 							required></td>
 
 					</tr>
@@ -237,7 +232,7 @@ textarea {
 						<td><label for="description">Description</label></td>
 						<td><textarea name="description" id="description"
 								placeholder="Description about pet" cols="30"
-								style="margin-top: 10px;"><%=pet.getDescription()%></textarea></td>
+								style="margin-top: 10px;">${pet.getDescription()}</textarea></td>
 						<td><button type="submit">update</button></td>
 					</tr>
 				</tbody>

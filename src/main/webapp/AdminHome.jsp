@@ -4,6 +4,7 @@
 <%@page import="java.sql.ResultSet"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -122,12 +123,8 @@ h1{
     
 </head>
 <body>
-<%      List<PetDetails> petList=new ArrayList<PetDetails>();
-        PetDetails pet=new PetDetails();
-        PetDAO petdao=new PetDAO();      
-        petList=petdao.showNotApprovedPetList();
-       %>
-    <div class="backgroundpage">
+
+        <div class="backgroundpage">
         <div class="head">
         <div class="navigation">
         <h1><i class="fas fa-paw" style="color: white;"></i> PET SHOP</h1>
@@ -144,35 +141,40 @@ h1{
         <table>
             <tbody>
                 <tr>
-                <%int count=0;
-                for(PetDetails petDetails: petList){
-                	%>
-                    <td>
+                <jsp:useBean id="PetDao" class="com.petshopapp.daoimpl.PetDAO"/>               
+                	<c:set var="count" value="1" />  
+                 <c:forEach items="${PetDao.showNotApprovedPetList()}" var="pet">
+                    <td id="${count}">
                         <table id="pets">
                             <tbody>
                                 <tr>
-                                    <td><img src="./Pets/<%=petDetails.getPetImage()%>" alt="pet image"></td>    
+                                    <td><img src="./Pets/${pet.getPetImage()}" alt="pet image"></td>    
                                     <td class="petdetails">
-                                        <pre>Type       : <%=petDetails.getPetType()%> </pre>
-                                        <pre>Name     : <%=petDetails.getPetName()%>  </pre>
-                                        <pre>Color      : <%=petDetails.getPetColor()%> </pre>
-                                        <pre>price       : Rs.<%=petDetails.getPetprice() %> </pre>
-                                        <pre>Quantity : <%=petDetails.getAvilableQty() %></pre>
-                                        <pre>Status    : <%=petDetails.getStatus() %></pre>
-                                        <button type="button" onclick="UpdateStatus('<%=petDetails.getPetId() %>','approved')">accept</button>
-                                        <button type="button" onclick="UpdateStatus('<%=petDetails.getPetId() %>','declined')">decline</button>
+                                        <pre>Type       : ${pet.getPetType()}</pre>
+                                        <pre>Name     : ${pet.getPetName()}</pre>
+                                        <pre>Color      : ${pet.getPetColor()}</pre>
+                                        <pre>price       : Rs. ${pet.getPetprice()}</pre>
+                                        <pre>Quantity : ${pet.getAvilableQty()}</pre>
+                                        <pre>Status    : ${pet.getStatus()}</pre>
+                                        <button type="button" onclick="UpdateStatus('${pet.getPetId()}','approved')">accept</button>
+                                        <button type="button" onclick="UpdateStatus('${pet.getPetId()}','declined')">decline</button>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>  
                             
                     </td>
-                       <% count ++;
-                       if(count==2){ %> 
-                    	   </tr>
-                    	   <tr>              
-                     <%count=0; }}%>  
-                       
+                    <c:choose>
+						<c:when test="${count==2}">
+						<c:set var="count" value="1" />
+			          	</tr>
+			        	<tr>
+					</c:when>
+					<c:otherwise>
+						<c:set var="count" value="2" />
+					</c:otherwise>
+					</c:choose>
+					</c:forEach>                      
                 </tr>
             </tbody>
         </table>
@@ -183,11 +185,8 @@ h1{
       
    <script type="text/javascript">
    
-   function UpdateStatus(petId,status){     
-	   
-   
-   	var url="UpdatePetStatus.jsp?petId="+petId+"&status="+status;  
-   	
+   function UpdateStatus(petId,status){        
+   	var url="UpdatePetStatus.jsp?petId="+petId+"&status="+status;   	
    	if(window.XMLHttpRequest){  
    		request=new XMLHttpRequest();  
    		}  
@@ -204,16 +203,13 @@ h1{
    	{  
    	alert("Unable to connect to server");  
    	}
-       }
-      
-    
+       }  
    
    function getInfo(){  
    	if(request.readyState==4){  
-   	var val=request.responseText;
-   	    
+   	var val=request.responseText; 	    
    	    alert(val); 
-   		location.reload();
+   	 location.reload();	
    	}  
    	}  
   

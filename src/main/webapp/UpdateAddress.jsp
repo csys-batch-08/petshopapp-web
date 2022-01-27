@@ -13,5 +13,5 @@
 	CustomerDAO customerDao = new CustomerDAO();
 	customerDao.updateAddressDetails(customer);
 	session.setAttribute("profileMessage", "address updated");
-	response.sendRedirect("myprofile.jsp");
+	response.sendRedirect("MyProfile.jsp");
 	%>
