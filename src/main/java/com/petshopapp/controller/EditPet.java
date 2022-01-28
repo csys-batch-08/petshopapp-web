@@ -25,7 +25,7 @@ public class EditPet extends HttpServlet{
     		session.setAttribute("updatePet", petId);
     		pet = petdao.showCurrentPet(petId);
     		session.setAttribute("pet", pet);
-    	    respose.sendRedirect("EditPet.jsp");	 
+    	    respose.sendRedirect("editpet.jsp");	 
     	    	
     }
   

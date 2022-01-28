@@ -38,7 +38,7 @@ public class Register extends HttpServlet {
 			}
 			else {
 				 out.print("	<script type=\"text/javascript\">alert('Something went to wrong try again');"
-		            		+ "window.location = 'Register.jsp';</script>");
+		            		+ "window.location = 'register.jsp';</script>");
 
 			}
 }

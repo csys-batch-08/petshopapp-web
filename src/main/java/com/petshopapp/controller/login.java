@@ -35,18 +35,17 @@ public class login extends HttpServlet{
 		String firstName=customerDao.customerLoginValidation(customerValidation);
 
 		HttpSession session=req.getSession();
-		session.setAttribute("message", " ");
+	
 		if (firstName != null) {
 			String name = firstName.substring(1);
 			PetDAO petdao = new PetDAO();
 			List<PetDetails> petList = new ArrayList<PetDetails>();
 			if (firstName.charAt(0) == '1') {
-				session.setAttribute("message", "none");
-				session.setAttribute("profileMessage", "none");
+			
 				Customers customerDetails=new Customers(userName,passwowrd);
 				customerDetails = customerDao.customerDetails(userName);				
 				session.setAttribute("customer", customerDetails);              
-			    RequestDispatcher rd =req.getRequestDispatcher("Home.jsp");
+			    RequestDispatcher rd =req.getRequestDispatcher("home.jsp");
 			    rd.forward(req, resp);
 			
 			}
@@ -56,16 +55,14 @@ public class login extends HttpServlet{
 					try {
 						admin = adminDao.show(userName);
 						session.setAttribute("Admin", admin);				         
-						resp.sendRedirect("AdminHome.jsp");						
+						resp.sendRedirect("adminhome.jsp");						
 					} catch (ClassNotFoundException | SQLException e) {		
 						e.printStackTrace();
 					}	
 			}				
-}		else {
-	            session.setAttribute("message", "Invalid username or password");
+}		else {	           
 	            out.print("	<script type=\"text/javascript\">alert('invalid username or password');"
-	            		+ "window.location = 'index.jsp';</script>");
-	         
+	            		+ "window.location = 'index.jsp';</script>");	         
 }
 
     }

@@ -27,7 +27,7 @@ public class Search extends HttpServlet{
     	PetDAO petdao = new PetDAO();
     	petListSearch = petdao.searchPetDetails(search,customerDetails.getCustomerId());
     	session.setAttribute("PetListSearch", petListSearch); 
-    	RequestDispatcher rd =req.getRequestDispatcher("Search.jsp");
+    	RequestDispatcher rd =req.getRequestDispatcher("search.jsp");
 	    rd.forward(req, resp);		
     }
   

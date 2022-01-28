@@ -1,0 +1,155 @@
+@charset "ISO-8859-1";
+* {
+	margin: 0;
+	padding: 0;
+	color: white;
+}
+
+body {
+	background-image: linear-gradient(rgba(0, 0, 0, .4) 50%,
+		rgb(0, 0, 0, .4) 50%), url("../Images/myordersbackground.jpg");
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+	text-transform: capitalize;
+	color: white;
+}
+
+.navigation {
+	padding-top: 15px;
+	font-family: sans-serif;
+}
+
+h1 {
+	display: inline;
+	width: 300px;
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	font-size: 25px;
+}
+
+#menu li {
+	display: inline;
+}
+
+#menu a {
+	float: right;
+	padding-right: 20px;
+	margin-top: 2px;
+	font-size: 20px;
+	font-weight: bold;
+	text-decoration: none;
+	transition: 0.5s;
+	font-weight: bold;
+}
+
+#menu a:hover {
+	color: black;
+}
+
+h2 {
+	margin-top: 60px;
+	margin-left: 40px;
+	width: 150px;
+	font-size: 30px;
+	width: 150px;
+}
+
+h2:hover {
+	color: black;
+}
+
+table {
+	font-size: 20px;
+	margin-top: 20px;
+}
+
+table p {
+	margin-left: 20px;
+}
+
+table img {
+	width: 400px;
+	height: 350px;
+	margin-left: 30px;
+}
+
+table tr, th, td {
+	line-height: 2;
+}
+
+#buynow {
+	width: 120px;
+	height: 30px;
+	font-size: 15px;
+	font-weight: bold;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	background-color: rgb(16, 177, 16);
+	box-shadow: 0 0 5px black;
+}
+
+#view {
+	width: 120px;
+	height: 30px;
+	font-size: 15px;
+	font-weight: bold;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	background-color: rgb(16, 177, 16);
+	box-shadow: 0 0 5px black;
+}
+
+#remove {
+	width: 120px;
+	height: 30px;
+	font-size: 15px;
+	font-weight: bold;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	background-color: tomato;
+	box-shadow: 0 0 5px black;
+}
+
+#buyall {
+	margin-left: 450px;
+	margin-top: 30px;
+	width: 120px;
+	height: 30px;
+	font-size: 15px;
+	font-weight: bold;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	background-color: rgb(16, 177, 16);
+	box-shadow: 0 0 5px black;
+}
+
+#removeall {
+	margin-left: 20px;
+	margin-top: 30px;
+	width: 120px;
+	height: 30px;
+	font-size: 15px;
+	font-weight: bold;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	background-color: tomato;
+	box-shadow: 0 0 5px black;
+}
+
+#empty {
+	position: absolute;
+	margin-top: 40px;
+	margin-left: 40px;
+	font-size: 30px;
+}
+
+#move p {
+	margin-left: -200px;
+}

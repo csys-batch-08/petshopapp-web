@@ -21,10 +21,8 @@ public class UpdatePetStatus extends HttpServlet{
     		Admin admin = (Admin) session.getAttribute("Admin");
     		PetDAO petDao = new PetDAO();
     		petDao.updatePetStatus(petId, status, admin.getAdminId());
-    	    PrintWriter writer=response.getWriter();
-    	    writer.print("<script type=\\\"text/javascript\\\">alert('Status updated');\"\r\n"
-    	    		+ "	            		+ \"window.location = 'AdminHome';</script>");
-    		
+    	    PrintWriter write=response.getWriter();
+    	    write.print("Status updated");   		
     }
   
       @Override

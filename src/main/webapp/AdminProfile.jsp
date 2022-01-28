@@ -1,6 +1,3 @@
-<%@page import="com.petshopapp.daoimpl.PetDAO"%>
-<%@page import="com.petshopapp.controller.login"%>
-<%@page import="com.petshopapp.model.Admin"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -8,120 +5,28 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Admin profile</title>
+<link rel="stylesheet" href="css/adminprofile.css"></link>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://kit.fontawesome.com/aeca6704b2.js" crossorigin="anonymous"></script>
-  <style type="text/css">
-   
-   
-   body{
-   background-image:linear-gradient(rgba(0,0,0,.5)50%,rgb(0,0,0,.5)50%), url("./Images/background1.jpg");
-   background-repeat: no-repeat;
-   background-size: cover;
-   height:100vh;
-   text-transform: capitalize;
-   color:white;
-   
-}
-.head{
-    height: 40px;
-    width: 100%;
-    padding-top: 15px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 20px;   
-}
 
-h1{
-    display: inline;
-    width: 300px;
-    position: absolute;
-    top: 5px;
-    left: 10px;
-    font-size: x-large;
-}
-#menu {
-    height: 40px;
-    display: inline;
-}
-#menu li{
-    display: inline;
-}
-#menu a{
-    color: white;
-    font-size:22px;
-    font-weight: bold;
-    text-decoration: none;
-    float: right;
-    padding-right: 20px;
-    margin-top: -10px;
-    transition: 0.5s;
-}
-#menu a:hover{
-    color: tomato;
-}
-h1{
-    display: inline;
-    width: 300px;
-    position: absolute;
-    font-size: x-large;
-    margin-top: 5px;
-}
-input:focus{
-    outline: none;
-}
-
-#menu {
-    display: inline;
-}
-#menu li{
-    display: inline;
-}
-#menu a{
-    text-decoration: none;
-    float: right;
-    padding-right: 20px;
-    margin-top: 10px;
-}
-table{
-margin: 40px;
-font-size: 20px;
-font-weight: bold;}
-
-table img{
-    width: 300px;
-    height: 350px;
-    border: 1px solid;
-    border-color:black;
-}
-table tr,td{
-    padding-left: 25px;
-    padding-top: 20px;
-}
-    #logout {
-	width: 130px;
-	height: 30px;
-	font-size: 15px;
-	font-weight: bold;
-	color: white;
-	background-color: tomato;
-	border: none;
-	margin: auto;
-	border-radius: 10px;
-	box-shadow: 0 0 5px black;
-}
-</style>
 </head>
 <body>
-<% Admin adminDetails=new Admin();
-  adminDetails=(Admin)session.getAttribute("Admin");%>
 
+<header>
+        <div class="backgroundpage">
+        <div class="head">
         <div class="navigation">
-        	<h1><i class="fas fa-paw" style="color: white;"></i> Pet Shop</h1>
+        <h1><i class="fas fa-paw" style="color: white;"></i> PET SHOP</h1>
+        <nav>
         <ul  id="menu">
-        <li><a href="Adminprofile.jsp">My Profile</a></li>
-        <li><a href="UserList.jsp">User List</a></li>
-        <li><a href="AdminHome.jsp">Home</a></li>
+        <li><a href="adminprofile.jsp">My Profile</a></li>
+        <li><a href="userlist.jsp">User List</a></li>
+        <li><a href="adminhome.jsp">Home</a></li>
         </ul>
         </div>
+        </nav>
+</header>
+        
     
     <table>
         <tbody>
@@ -147,7 +52,7 @@ table tr,td{
                 <td> : ${Admin.getNumber()}</td>
               </tr>     
               <tr>
-			<td><a href="Logout.jsp"><button type="button" id="logout">Logout</button></a></td>
+			<td><a href="Logout"><button type="button" id="logout">Logout</button></a></td>
 			</tr>         
         </tbody>
     </table>

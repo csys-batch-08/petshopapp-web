@@ -6,6 +6,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>User List</title>
+<link rel="stylesheet" href="css/userlist.css"></link>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://kit.fontawesome.com/aeca6704b2.js"
@@ -16,92 +17,30 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
 <style type="text/css">
-body {
-	background-image: linear-gradient(rgba(0, 0, 0, .5) 50%,
-		rgb(0, 0, 0, .5) 50%), url("./Images/background1.jpg");
-	background-repeat: no-repeat;
-	background-position: center;
-	background-size: cover;
-	background-attachment: fixed;
-	background-size: cover;
-	background-attachment: fixed;
-	color: white;
-}
-
-.head {
-	height: 40px;
-	width: 100%;
-	padding-top: 15px;
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 20px;
-}
-
-h1 {
-	display: inline;
-	width: 300px;
-	position: absolute;
-	top: -5px;
-	left: 10px;
-	font-size: x-large;
-}
-
-#menu {
-	height: 40px;
-	display: inline;
-}
-
-#menu li {
-	display: inline;
-}
-
-#menu a {
-	color: white;
-	font-size: 22px;
-	font-weight: bold;
-	text-decoration: none;
-	float: right;
-	padding-right: 20px;
-	margin-top: 8px;
-	transition: 0.5s;
-}
-
-#menu a:hover {
-	color: tomato;
-}
-
-h2 {
-	margin-top: 50px;
-	margin-left: 30px;
-}
-
-table {
-	top: 90px;
-	margin: 40px;
-	font-size: 20px;
-	text-align: left;
-}
-table tr,th{
-padding: 20px;
-}
-</style>
+*{
+color: white;}</style>
 </head>
 <body>
-	<div class="navigation">
-		<h1>
-			<i class="fas fa-paw" style="color: white;"></i> Pet Shop
-		</h1>
-		<ul id="menu">
-			<li><a href="AdminProfile.jsp">My Profile</a></li>
-			<li><a href="UserList.jsp">User List</a></li>
-			<li><a href="AdminHome.jsp">Home</a></li>
-		</ul>
-	</div>
+<header>
+        <div class="backgroundpage">
+        <div class="head">
+        <div class="navigation">
+        <h1 style="font-size: 25px;"><i class="fas fa-paw" style="color: white;"></i> PET SHOP</h1>
+        <nav>
+        <ul  id="menu">
+        <li><a href="adminprofile.jsp">My Profile</a></li>
+        <li><a href="userlist.jsp">User List</a></li>
+        <li><a href="adminhome.jsp">Home</a></li>
+        </ul>
+        </div>
+        </nav>
+</header>
+        
 
 
 	<div>
-		<h2>Customers List</h2>
+		<h2 style="margin-top: 40px;">Customers List</h2>
 	</div>
 	<table class="table table-bordered" style="width: 500px;">
 		<thead>

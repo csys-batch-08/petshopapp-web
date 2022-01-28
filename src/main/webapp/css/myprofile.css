@@ -1,0 +1,208 @@
+@charset "ISO-8859-1";
+*{
+margin: 0;
+padding: 0;
+}
+
+body {
+	background-image: linear-gradient(rgba(0, 0, 0, .5) 50%,
+		rgb(0, 0, 0, .5) 50%), url("../Images/background1.jpg");
+	background-attachment: fixed;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	text-transform: capitalize;
+	color: white;
+}
+
+.navigation {
+	font-family: sans-serif;
+}
+
+h1 {
+	display: inline;
+	width: 300px;
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	font-size: 25px;
+}
+
+
+#menu li {
+	display: inline;
+}
+
+#menu a {
+	float: right;
+	padding-right: 20px;
+	margin-top: -15px;
+	font-size: 20px;
+	font-weight: bold;
+	text-decoration: none;
+	transition: 0.5s;
+	font-weight: bold;
+	color: white;
+}
+
+#menu a:hover {
+	color: black;
+}
+
+h2 {
+	margin-top: 30px;
+	margin-bottom:10px;
+	margin-left: 40px;
+	padding:30px;
+	width: 150px;
+	font-size: 30px;
+	width: 150px;
+}
+
+h2:hover {
+	color: black;
+}
+
+table {
+	margin-top: -30px;
+	margin-left: 50px;
+	line-height: 2;
+}
+
+form {
+	margin-top: 30px;
+	font-size: 20px;
+}
+
+table td {
+	font-family: sans-serif;
+	font-size: x-large;
+	height: 25px;
+	width: 200px;
+	padding-left: 10px;
+}
+
+table img {
+	width: 300px;
+	height: 380px;
+	border: 1px solid;
+	border-color: black;
+	border-radius: 10px;
+}
+input {
+  border-radius: 5px;
+  border: none;
+  }
+#update {
+	width: 130px;
+	height: 30px;
+	font-size: 15px;
+	font-weight: bold;
+	color: white;
+	background-color: tomato;
+	border: none;
+	margin: auto;
+	border-radius: 10px;
+	box-shadow: 0 0 5px black;
+}
+
+#ok {
+	width: 80px;
+	height: 30px;
+	font-size: 15px;
+	font-weight: bold;
+	color: white;
+	background-color: rgb(4, 155, 29);
+	border: none;
+	border-radius: 10px;
+	box-shadow: 0 0 5px black;
+}
+
+#update1 {
+	width: 130px;
+	height: 30px;
+	font-size: 15px;
+	font-weight: bold;
+	color: white;
+	background-color: tomato;
+	border: none;
+	border-radius: 10px;
+	box-shadow: 0 0 5px black;
+}
+
+#updatewallet {
+	width: 130px;
+	height: 30px;
+	font-size: 15px;
+	font-weight: bold;
+	color: white;
+	background-color: rgb(4, 155, 29);
+	border: none;
+	border-radius: 10px;
+	box-shadow: 0 0 5px black;
+}
+
+#logout {
+	width: 130px;
+	height: 30px;
+	font-size: 15px;
+	font-weight: bold;
+	color: white;
+	background-color: tomato;
+	border: none;
+	margin: auto;
+	border-radius: 10px;
+	box-shadow: 0 0 5px black;
+}
+
+#updatewallet a {
+	color: white;
+	text-decoration: none;
+}
+
+#updatetable {
+	margin-top: 40px;
+	margin-left: 40px;
+}
+
+#updatetable select {
+	width: 215px;
+	height: 30px;
+	border-radius: 5px;
+	border: none;
+	color: black;
+	padding-left: 10px;
+	outline: none;
+}
+#updatetable input{
+width: 215px;
+	height: 30px;
+	border-radius: 5px;
+	border: none;
+	color: black;
+	padding-left: 10px;
+	outline: none;
+}
+
+#updatetable select option {
+	color: black;
+	padding-left: 10px;
+}
+
+pre {
+	margin-left: 20px;
+	font-family: sans-serif;
+	font-weight: bold;
+	font-size: x-large;
+	display: inline;
+}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+	-moz-appearance: textfield;
+}

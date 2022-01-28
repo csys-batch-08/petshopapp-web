@@ -32,7 +32,7 @@ public class PetDescription extends HttpServlet{
   		customer=customerDao.customerDetails(customer.getCustomerId());
   		session.setAttribute("customer", customer);
   		//session.setAttribute("petDescription", petDescription);
-  	    RequestDispatcher requestDispatcher =request.getRequestDispatcher("PetDescription.jsp");
+  	    RequestDispatcher requestDispatcher =request.getRequestDispatcher("petdescription.jsp");
 	    requestDispatcher.forward(request, response);   
     }
   

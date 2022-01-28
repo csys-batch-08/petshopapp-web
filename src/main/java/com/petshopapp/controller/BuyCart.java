@@ -13,6 +13,7 @@ import com.petshopapp.daoimpl.CustomerDAO;
 import com.petshopapp.daoimpl.OrderItemsDAO;
 import com.petshopapp.daoimpl.OrdersDAO;
 import com.petshopapp.daoimpl.PetDAO;
+import com.petshopapp.exception.LowWalletBalance;
 import com.petshopapp.model.CartItems;
 import com.petshopapp.model.Customers;
 import com.petshopapp.model.OrderItems;
@@ -23,69 +24,88 @@ import com.petshopapp.model.PetDetails;
 public class BuyCart extends HttpServlet{
 	
       @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    	// TODO Auto-generated method stub
-    
-    	  int itemId=Integer.parseInt(req.getParameter("itemId"));
-    	   HttpSession session=req.getSession();
-           PrintWriter write=resp.getWriter();
-    	   CartItemsDAO cartDao=new CartItemsDAO();
-    	   CartItems cartItems=cartDao.showCartItem(itemId);
-    	   
-    	   Customers customerDetails=(Customers)session.getAttribute("customer"); 
-    	   Orders orders=new Orders();
-    	   OrdersDAO ordersDao=new OrdersDAO();
-    	   OrderItems orderItems=new OrderItems();
-    	   OrderItemsDAO orderItemsDao=new OrderItemsDAO();
-    	   PetDAO petDao=new PetDAO();
-    	   
-    	   PetDetails pet =petDao.showCurrentPet(cartItems.getPet().getPetId());
-    	   CustomerDAO customerDao=new CustomerDAO();   
-    	   Customers petCustomerDetails=customerDao.customerDetails(pet.getCustomer().getUserName());
-    	   
-    	   
-    	   if(customerDetails.getWallet()>(cartItems.getTotalPrice())){  
-    		   if(pet.getAvilableQty()>=cartItems.getQuantity()){	
-    			   
-    	   orders.getCustomer().setCustomerId(customerDetails.getCustomerId());
-    	   orders.setTotalprice(cartItems.getTotalPrice());
-    	   
-    	   // insert values in orders
-    	   ordersDao.insertOrder(orders);
-    	     
-    	   int orderId=ordersDao.getCurrentOrderId();  
-    	   orderItems.getOrders().setOrderId(orderId);
-    	   orderItems.getPet().setPetId(pet.getPetId());
-    	   orderItems.setQuantity(cartItems.getQuantity());
-    	   orderItems.setUnitPrice(pet.getPetprice());
-    	   orderItems.setTotalPrice(cartItems.getTotalPrice());
-    	   
-    	   // insert the values in order items
-    	   orderItemsDao.insertOrderItems(orderItems);
-    	   
-    	   //update pet available quantity
-    	   pet.setAvilableQty((pet.getAvilableQty()-cartItems.getQuantity()));
-    	   petDao.updatePetAvailableQuantity(pet);
-    	   
-    	   //update buyer wallet
-    	   customerDetails.setWallet(customerDetails.getWallet()-cartItems.getTotalPrice());
-    	   customerDao.updateCustomerWallet(customerDetails);
-    	   
-    	   //update seller wallet
-    	   petCustomerDetails.setWallet(petCustomerDetails.getWallet()+cartItems.getQuantity());
-    	   customerDao.updateCustomerWallet(petCustomerDetails);
-    	   
-    	   write.print("order placed sucussfully");
-    	   }
-    		   else{
-    			   
-    			   write.print("Quantity not avilable");
-    		   }
-    	   }
-    	   
-    	   else{
-    		   write.print("low Wallet balance");
-    	   }
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	
+    	   HttpSession session=request.getSession();
+           PrintWriter write=response.getWriter();
+           Orders orders = new Orders();
+   		OrdersDAO ordersDao = new OrdersDAO();
+   		
+   		
+   		OrderItems orderItems = new OrderItems();
+   		OrderItemsDAO orderItemsDao = new OrderItemsDAO();
+   		
+   		PetDAO petDao = new PetDAO();
+   		
+   		CustomerDAO customerDao = new CustomerDAO();
+   		CartItemsDAO cartDao = new CartItemsDAO();
+   		
+   		
+   		
+   		int itemId = Integer.parseInt(request.getParameter("itemId"));
+   		
+   		CartItems cartItems = cartDao.showCartItem(itemId);
+
+   		Customers customerDetails = (Customers) session.getAttribute("customer");
+   			
+   		PetDetails pet = petDao.showCurrentPet(cartItems.getPet().getPetId());
+   		
+   		Customers petCustomerDetails = customerDao.customerDetails(pet.getCustomer().getCustomerId());
+   		
+   		if (customerDetails.getWallet() >= (cartItems.getTotalPrice())) {
+   			
+   			if (pet.getAvilableQty() >= cartItems.getQuantity()) {
+
+   		 orders.getCustomer().setCustomerId(customerDetails.getCustomerId());
+   		   orders.setTotalprice(cartItems.getTotalPrice());
+   		   
+   		   // insert values in orders
+   		   ordersDao.insertOrder(orders);
+   		     
+   		   int orderId=ordersDao.getCurrentOrderId();  
+   		   orderItems.getOrders().setOrderId(orderId);
+   		   orderItems.getPet().setPetId(pet.getPetId());
+   		   orderItems.setQuantity(cartItems.getQuantity());
+   		   orderItems.setUnitPrice(cartItems.getUnitPrice());
+   		   orderItems.setTotalPrice(cartItems.getTotalPrice());
+   		   
+   		   // insert the values in order items
+   		   orderItemsDao.insertOrderItems(orderItems);
+   		   
+   		   //update pet available quantity
+   		   pet.setAvilableQty((pet.getAvilableQty()-cartItems.getQuantity()));
+   		   petDao.updatePetAvailableQuantity(pet);
+   		   
+   		   //update buyer wallet
+   		   customerDetails.setWallet(customerDetails.getWallet()-(cartItems.getTotalPrice()));
+   		   customerDao.updateCustomerWallet(customerDetails);
+   		   
+   		   //update seller wallet
+   		   petCustomerDetails.setWallet(petCustomerDetails.getWallet()+(cartItems.getTotalPrice()));
+   		   customerDao.updateCustomerWallet(petCustomerDetails);
+   			       
+   		
+   			    	cartDao.deleteCartItem(cartItems.getItemId());
+   		   
+   			    	write.print("order placed sucussfully \n deducted Amount : "+cartItems.getTotalPrice()+
+   			    			"\n Wallet Amount : "+customerDetails.getWallet());
+   			} else {
+
+   		write.print("Quantity not avilable");
+   			}
+   		}
+
+   		else {
+   			try{
+   		
+   		   		throw new LowWalletBalance();
+   		   		}
+   		   		catch(LowWalletBalance e){	
+   		   			write.print(e+"\n Low wallet balance "+customerDetails.getWallet()+
+   		   					       "\n Product amount"+ cartItems.getTotalPrice());
+   		   		}
+   			 
+   		}
     }
       
       @Override

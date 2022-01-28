@@ -1,6 +1,9 @@
 package com.petshopapp.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,11 +20,10 @@ public class updateprofile extends HttpServlet{
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     
     	 boolean flag=true;
+    	 PrintWriter writer=resp.getWriter();
          HttpSession session=req.getSession();
-         System.out.println("called");
          Customers customerDetails=(Customers)session.getAttribute("customer");
          Customers customers=new Customers();
-         String updateProfile="none";
          CustomerDAO customerDao=new CustomerDAO();
          String firstName=req.getParameter("firstname");
          String lastName=req.getParameter("lastname");
@@ -29,14 +31,14 @@ public class updateprofile extends HttpServlet{
          customers.setUserName(userName);
          
          if((customerDao.validateUsername(customers)==false) && (!userName.equals(customerDetails.getUserName()))) {
-        	updateProfile+="username not avliable";
+   
         	flag=false;
          }
          String password=req.getParameter("password");
          String email=req.getParameter("email");
          customers.setEmail(email);
          if((customerDao.validateUsername(customers)==false) && (!email.equals(customerDetails.getEmail()))) {
-         	updateProfile +="  email not avliable";
+
          	flag=false;
           }
          long number=Long.parseLong(req.getParameter("number"));
@@ -49,13 +51,10 @@ public class updateprofile extends HttpServlet{
          customerDetails.setPassword(password);
          customerDetails.setEmail(email);
          customerDetails.setNumber(number);
-         customerDetails.setGender(gender);
-         
+         customerDetails.setGender(gender);        
          customerDao.updateCustomerDetails(customerDetails);
-         updateProfile="profile updated";
          }
-         session.setAttribute("profileMessage", updateProfile);
-         resp.sendRedirect("MyProfile.jsp");          
+             writer.print("	<script type=\"text/javascript\"> alert('Profile updated successfully'); window.location = 'myprofile.jsp';</script>");
     }
       
       @Override

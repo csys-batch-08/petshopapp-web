@@ -6,235 +6,48 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv='cache-control' content='no-cache'>
+<meta http-equiv='expires' content='0'>
+<meta http-equiv='pragma' content='no-cache'>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>My profile</title>
-<link rel="stylesheet" href="myprofile.css">
+
+<link rel="stylesheet" href="css/myprofile.css"></link>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://kit.fontawesome.com/aeca6704b2.js"
 	crossorigin="anonymous"></script>
-<style type="text/css">
-body {
-	background-image: linear-gradient(rgba(0, 0, 0, .5) 50%,
-		rgb(0, 0, 0, .5) 50%), url("./Images/background1.jpg");
-	background-attachment: fixed;
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: cover;
-	text-transform: capitalize;
-	color: white;
-}
 
-.navigation {
-	padding-top: 15px;
-	font-family: sans-serif;
-}
-
-h1 {
-	display: inline;
-	width: 300px;
-	position: absolute;
-	top: 10px;
-	left: 10px;
-	font-size: 25px;
-}
-
-#search:hover {
-	background-color: white;
-	border-color: white;
-	color: black;
-}
-
-#menu li {
-	display: inline;
-}
-
-#menu a {
-	float: right;
-	padding-right: 20px;
-	margin-top: 2px;
-	font-size: 20px;
-	font-weight: bold;
-	text-decoration: none;
-	transition: 0.5s;
-	font-weight: bold;
-}
-
-#menu a:hover {
-	color: black;
-}
-
-h2 {
-	margin-top: 30px;
-	margin-left: 70px;
-	width: 150px;
-	font-size: 30px;
-	width: 150px;
-}
-
-h2:hover {
-	color: black;
-}
-
-table {
-	margin-top: -30px;
-	margin-left: 50px;
-}
-
-form {
-	margin-top: 30px;
-	font-size: 20px;
-}
-
-table td {
-	font-family: sans-serif;
-	font-size: x-large;
-	height: 25px;
-	width: 200px;
-	padding-left: 10px;
-}
-
-table img {
-	width: 300px;
-	height: 380px;
-	border: 1px solid;
-	border-color: black;
-	border-radius: 10px;
-}
-input {
-  border-radius: 5px;
-  border: none;
-  }
-#update {
-	width: 130px;
-	height: 30px;
-	font-size: 15px;
-	font-weight: bold;
-	color: white;
-	background-color: tomato;
-	border: none;
-	margin: auto;
-	border-radius: 10px;
-	box-shadow: 0 0 5px black;
-}
-
-#ok {
-	width: 80px;
-	height: 30px;
-	font-size: 15px;
-	font-weight: bold;
-	color: white;
-	background-color: rgb(4, 155, 29);
-	border: none;
-	border-radius: 10px;
-	box-shadow: 0 0 5px black;
-}
-
-#update1 {
-	width: 130px;
-	height: 30px;
-	font-size: 15px;
-	font-weight: bold;
-	color: white;
-	background-color: tomato;
-	border: none;
-	border-radius: 10px;
-	box-shadow: 0 0 5px black;
-}
-
-#updatewallet {
-	width: 130px;
-	height: 30px;
-	font-size: 15px;
-	font-weight: bold;
-	color: white;
-	background-color: rgb(4, 155, 29);
-	border: none;
-	border-radius: 10px;
-	box-shadow: 0 0 5px black;
-}
-
-#logout {
-	width: 130px;
-	height: 30px;
-	font-size: 15px;
-	font-weight: bold;
-	color: white;
-	background-color: tomato;
-	border: none;
-	margin: auto;
-	border-radius: 10px;
-	box-shadow: 0 0 5px black;
-}
-
-#updatewallet a {
-	color: white;
-	text-decoration: none;
-}
-
-#updatetable {
-	margin-top: 40px;
-	margin-left: 40px;
-}
-
-table select {
-	width: 215px;
-	height: 30px;
-	border-radius: 5px;
-	border: none;
-	color: black;
-	padding-left: 10px;
-	outline: none;
-}
-
-table select option {
-	color: black;
-	padding-left: 10px;
-}
-
-pre {
-	margin-left: 20px;
-	font-family: sans-serif;
-	font-weight: bold;
-	font-size: x-large;
-	display: inline;
-}
-/* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
-	-webkit-appearance: none;
-	margin: 0;
-}
-
-/* Firefox */
-input[type=number] {
-	-moz-appearance: textfield;
-}
-</style>
 </head>
 <body>
-<!-- Header -->
-<header>
-	<!-- Navigation bar -->
+<c:if test="${empty cusomer}">
+<script type="text/javascript">
+window.locaion='index.jsp';</script>
+</c:if>
 
-	<div class="navigation">
+	<!-- Header -->
+	<header>
+		<!-- Navigation bar -->
 
-		<!-- Web site name and logo -->
-		<h1>
-			<i class="fas fa-paw" style="color: white;"></i> Pet Shop
-		</h1>
-   <nav>
-		<!-- Menu bar -->
-		<ul id="menu">
-			<li><a href="MyProfile.jsp">My Profile</a></li>
-			<li><a href="MyCart.jsp">My cart</a></li>
-			<li><a href="MyOrders.jsp">My orders</a></li>
-			<li><a href="AddItem.jsp">Add item</a></li>
-			<li><a href="MyPets.jsp">My pets</a></li>
-			<li><a href="Home.jsp">Home</a></li>
-		</ul>
-	</nav>
-	</div>
-</header>
+		<div class="navigation">
+
+			<!-- Web site name and logo -->
+			<h1>
+				<i class="fas fa-paw" style="color: white;"></i> Pet Shop
+			</h1>
+			<nav>
+				<!-- Menu bar -->
+				<ul id="menu">
+					<li><a href="myprofile.jsp">My Profile</a></li>
+					<li><a href="mycart.jsp">My cart</a></li>
+					<li><a href="myorders.jsp">My orders</a></li>
+					<li><a href="additem.jsp">Add item</a></li>
+					<li><a href="mypets.jsp">My pets</a></li>
+					<li><a href="home.jsp">Home</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
   
 	<h2>My profile</h2>
     <jsp:useBean id="CustomerDao" class="com.petshopapp.daoimpl.CustomerDAO"/> 
@@ -339,7 +152,7 @@ input[type=number] {
 			</tr>
 
 			<tr>
-				<form action="UpdateAddress.jsp">
+				<form action="UpdateAddress">
 					<td><label for="address">Street</label></td>
 				
 					<td><input type="text" name="address" id="address"
@@ -375,79 +188,13 @@ input[type=number] {
 						type="button">Add</button></td>
 			</tr>
 			<tr>
-				<td><a href="Logout.jsp">
+				<td><a href="Logout">
 						<button type="button" id="logout">Logout</button>
 				</a></td>
 			</tr>
 		</tbody>
 	</table>
-	<script type="text/javascript">
-	
-  function UpdateWallet(){
-	  var wallet=document.getElementById("updatewallet1").value;
-  	var url="UpdateWallet.jsp?wallet="+wallet;  
-  	if(window.XMLHttpRequest){  
-  		request=new XMLHttpRequest();  
-  		}  
-  		else if(window.ActiveXObject){  
-  		request=new ActiveXObject("Microsoft.XMLHTTP");  
-  		}  
-  	try  
-  	{  
-  	request.onreadystatechange=getInfo;  
-  	request.open("GET",url,true);  
-  	request.send();  
-  	}  
-  	catch(e)  
-  	{  
-  	alert("Unable to connect to server");  
-  	}    
-  } 
- 	
-  function UpdateImage(){
-	  var image=document.getElementById("image").value;
-	  console.log(image);
-	  const name = image.substring(12, image.length);
-  	var url="UpdateImage.jsp?image="+name;  
-  	if(window.XMLHttpRequest){  
-  		request=new XMLHttpRequest();  
-  		}  
-  		else if(window.ActiveXObject){  
-  		request=new ActiveXObject("Microsoft.XMLHTTP");  
-  		}  
-  	try  
-  	{  
-  	request.onreadystatechange=getInfo;  
-  	request.open("GET",url,true);  
-  	request.send();  
-  	}  
-  	catch(e)  
-  	{  
-  	alert("Unable to connect to server");  
-  	}    
-  }
-  
-  function getInfo(){  
-  	if(request.readyState==4){  
-  	var val=request.responseText;
-  	   alert(val.trim()); 
-  	  location.reload();
-  	}  
-  	}  
-
- 
-  function showPassword() {
-	  var show = document.getElementById("password");
-	  if (show.type === "password") {
-	    show.type = "text";
-	  } else {
-	    show.type = "password";
-	  }
-	}
-  
-  
-		
-	</script>
+	<script type="text/javascript" src="js/myprofile.js"></script>
 
 </body>
 </html>

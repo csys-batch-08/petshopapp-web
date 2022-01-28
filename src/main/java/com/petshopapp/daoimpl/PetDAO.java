@@ -33,6 +33,7 @@ public class PetDAO {
 
 	public List<PetDetails> getPetList() {
 		try {
+			if(!(resultSet == null)) {
 			while (resultSet.next()) {
 
 				pet = new PetDetails(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3),
@@ -41,6 +42,7 @@ public class PetDAO {
 						resultSet.getString(11), resultSet.getInt(12), resultSet.getInt(13), resultSet.getDate(14),
 						resultSet.getInt(15));
 				petList.add(pet);
+			}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -206,12 +208,12 @@ public class PetDAO {
 			query = "select pet_id,pet_type,pet_name,pet_gender,"
 					+ "pet_dob,pet_qty,pet_description,pet_color,pet_price,"
 					+ "pet_image,status,customer_id,admin_id,pet_registerdate,"
-					+ "available_qty from pet_details where (pet_type like '%?%' or pet_name like '%?%') "
-					+ "and status='approved' and available_qty > 0 and customer_id not in(?)";
+					+ "available_qty from pet_details where (pet_type like '%"+search+"%' or pet_name like '%"+search+"%') "
+					+ "and status='approved' and available_qty > 0 and customer_id not in("+customerId+")";
 			preparedStatement = connection.prepareStatement(query);
-			preparedStatement.setString(1, search);
-			preparedStatement.setString(2, search);
-			preparedStatement.setInt(3, customerId);
+		//	preparedStatement.setString(1, search);
+		//	preparedStatement.setString(2, search);
+		//	preparedStatement.setInt(3, customerId);
 			resultSet = preparedStatement.executeQuery();
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();

@@ -27,7 +27,7 @@ public class MyPets extends HttpServlet{
     		Customers customerDetails = (Customers) session.getAttribute("customer");
     	//	myPetList = petdao.showMypetdetails(customerDetails.getCustomerId());
     	//	session.setAttribute("myPetList", myPetList);  
-		    RequestDispatcher rd =req.getRequestDispatcher("MyPets.jsp");
+		    RequestDispatcher rd =req.getRequestDispatcher("mypets.jsp");
 		    rd.forward(req, resp);
 
     }

@@ -1,0 +1,112 @@
+@charset "ISO-8859-1";
+* {
+	margin: 0;
+	padding: 0;
+	color: white;
+}
+
+body {
+	background-image: linear-gradient(rgba(0, 0, 0, .5) 50%,
+		rgb(0, 0, 0, .5) 50%), url("../Images/background.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-attachment: fixed;
+	text-transform: capitalize;
+}
+
+.navigation {
+	padding-top: 15px;
+	font-family: sans-serif;
+}
+
+h1 {
+	display: inline;
+	width: 300px;
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	font-size: 25px;
+}
+
+#menu li {
+	display: inline;
+}
+
+#menu a {
+	float: right;
+	padding-right: 20px;
+	margin-top: 2px;
+	font-size: 20px; font-weight : bold;
+	text-decoration: none;
+	transition: 0.5s;
+	font-weight: bold;
+}
+
+#menu a:hover {
+	color: black;
+}
+
+h2 {
+	margin-top: 50px;
+	margin-left: 30px;
+	width: 150px;
+	font-size: 30px;
+}
+
+table img{
+	width: 500px;
+	height: 400px;
+	margin-left: 20px;
+	margin-top: 20px;
+}
+table td p{
+	line-height: 2;
+	margin-left: 15px;
+	font-size: 20px;
+}
+
+#description{
+	width: 450px;
+	position: absolute;
+	font-size:20px;
+	text-align:justify;
+	top: 135px;
+	left: 870px;
+	line-height: 2;
+}
+
+#description button{
+	width: 130px;
+	height: 30px;
+	font-size: 17px;
+	font-weight: bold;
+	color: white;
+	background-color:  rgb(16, 177, 16);
+	border: none;
+	border-radius: 5px; 
+	box-shadow: 0 0 5px black;
+}
+
+#quantity{
+	width: 20px;
+	height: 25px;
+	border:none;
+	border-radius: 5px;
+	background-color: transparent;
+	color: white;
+	text-align: center;
+    position: relative;
+    top:-3px;
+    left: 3px;
+    outline: none;
+}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+	-moz-appearance: textfield;
+}

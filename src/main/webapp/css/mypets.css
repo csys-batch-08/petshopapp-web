@@ -1,0 +1,128 @@
+@charset "ISO-8859-1";
+
+/*Page margin setup */
+* {
+	margin: 0;
+	padding: 0;
+	color: white;
+}
+/*Background styles */
+body {
+	background-image: linear-gradient(rgba(0, 0, 0, .4) 50%,
+		rgb(0, 0, 0, .4) 50%), url("../Images/background6.jpg");
+    background-repeat: no-repeat;
+	background-position:center;
+	background-size: cover;
+	background-attachment: fixed;
+	text-transform: capitalize;
+	font-weight:bold;
+	color: white;
+}
+
+/* Navigation styles */
+.navigation {
+	padding-top: 15px;
+	font-family: sans-serif;
+}
+
+h1 {
+	display: inline;
+	width: 300px;
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	font-size: 25px;
+}
+
+#search:hover {
+	background-color: white;
+	border-color: white;
+	color: black;
+}
+
+#menu li {
+	display: inline;
+}
+
+#menu a {
+	float: right;
+	padding-right: 20px;
+	margin-top: 2px;
+	font-size: 20px;
+	font-weight: bold;
+	text-decoration: none;
+	transition: 0.5s;
+	font-weight: bold;
+}
+
+#menu a:hover {
+	color: black;
+}
+
+
+/* My pet list styles */
+#content {
+	margin-top: 40px;
+}
+
+#content h2 {
+	margin-top: 30px;
+	margin-left: 20px;
+	width: 150px;
+	font-size: 30px;
+	width: 150px;
+}
+
+.petlist {
+	margin-top: 40px;
+	padding-top: 20px;
+	margin-left: 50px;
+	transition: 0.5s;
+}
+
+h2:hover {
+	color: black;
+}
+
+#pets {
+	margin-left: 20px;
+	margin-top: 20px;
+	line-height: 1.5;
+	font-size: 20px;
+	background-color: transparent;
+	border-radius: 10px;
+}
+
+#pets img {
+	width: 320px;
+	height: 250px;
+	border-radius: 10px;
+}
+
+#pets p {
+	margin-left: 10px;
+	color: white;
+}
+
+#pets p a {
+	margin-left: -10px;
+}
+
+#pets button {
+	margin-left: 10px;
+	margin-top: 5px;
+	width: 120px;
+	height: 30px;
+	background-color: rgb(16, 177, 16);
+	border-radius: 10px;
+	border: none;
+	color: white;
+	font-size: 17px;
+	font-weight: bold;
+	box-shadow: 0 0 5px black;
+}
+
+#pets button:hover {
+	background-color: white;
+	color: black;
+}

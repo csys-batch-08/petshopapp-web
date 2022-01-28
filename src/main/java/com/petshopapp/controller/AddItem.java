@@ -15,7 +15,7 @@ import com.petshopapp.model.Customers;
 public class AddItem extends HttpServlet{
 	
       @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     		HttpSession session=req.getSession();
     		Customers customerDetails=(Customers) session.getAttribute("customer");
     		CustomerDAO customerDao=new CustomerDAO();
@@ -27,13 +27,9 @@ public class AddItem extends HttpServlet{
 	
     	    }
     	    else {
-    	    	resp.sendRedirect("AddItem.jsp");	 
+    	    	resp.sendRedirect("additem.jsp");	 
     	    	}
     }
-  
-      @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-    	doGet(req, resp);
-    }
 }
+  
+

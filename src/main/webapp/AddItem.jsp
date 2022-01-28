@@ -1,329 +1,129 @@
-<%@page import="java.nio.channels.SeekableByteChannel"%>
-<%@page import="com.petshopapp.model.Customers"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Animal register</title>
-<link rel="stylesheet" href="AddItem.css">
+<title>Pet register</title>
+<link rel="stylesheet" href="css/additem.css"></link>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="https://kit.fontawesome.com/aeca6704b2.js"
-	crossorigin="anonymous"></script>
-<style type="text/css">
+<script src="https://kit.fontawesome.com/aeca6704b2.js" crossorigin="anonymous"></script>
 
-/* Page Margin styles */
-* {
-	margin: 0;
-	padding: 0;
-	color: white;
-}
-
-/* Page background styles */
-body {
-	background-image: linear-gradient(rgba(0, 0, 0, .5) 50%,
-		rgb(0, 0, 0, .5) 50%), url("./Images/background.jpg");
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-attachment: fixed;
-	text-transform: capitalize;
-}
-
-/* Navigation bar styles */
-.navigation {
-	padding-top: 15px;
-	font-family: sans-serif;
-}
-
-h1 {
-	display: inline;
-	width: 300px;
-	position: absolute;
-	top: 10px;
-	left: 10px;
-	font-size: 25px;
-}
-
-#searchinput {
-	padding-left: 10px;
-	position: absolute;
-	font-size: 17px;
-	top: 13px;
-	left: 230px;
-	width: 300px;
-	height: 30px;
-	border: 1px solid;
-	border-color: tomato;
-	border-top-left-radius: 10px;
-	border-bottom-left-radius: 10px;
-	background-color: transparent;
-	border-right: none;
-}
-
-#searchinput::placeholder {
-	color: white;
-}
-
-#search {
-	position: absolute;
-	left: 530px;
-	width: 100px;
-	height: 30px;
-	margin-top: -2px;
-	border: 1px solid;
-	border-color: tomato;
-	font-size: 17px;
-	font-weight: bold;
-	border-top-right-radius: 10px;
-	border-left: none;
-	background-color: tomato;
-}
-
-#search:hover {
-	background-color: white;
-	border-color: white;
-	color: black;
-}
-
-#menu li {
-	display: inline;
-}
-
-#menu a {
-	float: right;
-	padding-right: 20px;
-	margin-top: 2px;
-	font-size: 20px;
-	font-weight: bold;
-	text-decoration: none;
-	transition: 0.5s;
-	font-weight: bold;
-}
-
-#menu a:hover {
-	color: black;
-}
-
-
-
-/* Pet register form styles */
-.animalform {
-	position: absolute;
-	left: 20%;
-	top: 21%;
-	font-family: 'Times New Roman', Times, serif;
-	font-size: 22px;
-}
-
-table {
-	margin-top: -30px;
-	border-radius: 5px;
-	padding-left: 20px;
-	background-color: rgba(194, 204, 198, 0.959);
-	font-size: 20px;
-	width: 850px;
-	height: 450px;
-}
-
-table th, td {
-	padding-left: 10px;
-	line-height: 2;
-	margin-top: 10px;
-	color: black;
-}
-
-table input:focus {
-	outline: none;
-}
-
-table label {
-	color: black;
-}
-
-table input {
-	width: 200px;
-	height: 30px;
-	border-radius: 5px;
-	border: none;
-	color: black;
-	padding-left: 10px;
-}
-
-table select {
-	width: 210px;
-	height: 30px;
-	border-radius: 5px;
-	border: none;
-	color: black;
-	padding-left: 10px;
-}
-
-table select option {
-	color: black;
-	padding-left: 10px;
-}
-
-table button {
-	width: 130px;
-	height: 30px;
-	color: white;
-	background-color: rgb(61, 160, 36);
-	border: none;
-	border-radius: 5px;
-	font-size: 17px;
-	font-weight: bold;
-	box-shadow: 0 0 5px black;
-}
-
-table button:hover {
-	color: black;
-	background-color: white;
-}
-
-textarea {
-	width: 200px;
-	height: 50px;
-	border-radius: 5px;
-	border: none;
-	resize: none;
-	padding-left: 20px;
-	padding-top: 20px;
-	color: black;
-}
-</style>
 </head>
 <body>
-<!-- Header -->
-<header>
-	<!-- Navigation bar -->
+	<!-- Header -->
+	<header>
+		<!-- Navigation bar -->
 
-	<div class="navigation">
+		<div class="navigation">
 
-		<!-- Web site name and logo -->
-		<h1>
-			<i class="fas fa-paw" style="color: white;"></i> Pet Shop
-		</h1>
-   <nav>
-		<!-- Menu bar -->
-		<ul id="menu">
-			<li><a href="MyProfile.jsp">My Profile</a></li>
-			<li><a href="MyCart.jsp">My cart</a></li>
-			<li><a href="MyOrders.jsp">My orders</a></li>
-			<li><a href="AddItem.jsp">Add item</a></li>
-			<li><a href="MyPets.jsp">My pets</a></li>
-			<li><a href="Home.jsp">Home</a></li>
-		</ul>
-	</nav>
-	</div>
-</header>
+			<!-- Web site name and logo -->
+			<h1>
+				<i class="fas fa-paw" style="color: white;"></i> Pet Shop
+			</h1>
+			<nav>
+				<!-- Menu bar -->
+				<ul id="menu">
+					<li><a href="myprofile.jsp">My Profile</a></li>
+					<li><a href="mycart.jsp">My cart</a></li>
+					<li><a href="myorders.jsp">My orders</a></li>
+					<li><a href="additem.jsp">Add item</a></li>
+					<li><a href="mypets.jsp">My pets</a></li>
+					<li><a href="home.jsp">Home</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
 	<!-- Add pet from -->
-		<form class="animalform" action="AddPet">
-			<table>
+	<form class="animalform" action="AddPet">
+		<table>
+			<tr>
+				<th id="register" colspan="4">Register Animal</th>
+				<th></th>
+			</tr>
+
+			<tbody>
 				<tr>
-					<th id="register" colspan="4">Register Animal</th>
-					<th></th>
+					<td><label for="animaltype">Animal Type </label></td>
+					<td><input type="text" name="animaltype" id="animaltype"
+						placeholder="Type" pattern="[a-zA-Z]{3,20}" list="typelist"
+						required></td>
+					<td><label for="animalname">Name</label></td>
+					<td><input type="text" name="animalname" id="animalname"
+						placeholder="Name" pattern="[a-zA-Z ]{3,20}" list="namelist"
+						required></td>
 				</tr>
+				<tr>
+					<td><label for="animalgender">Gender</label></td>
+					<td><select id="genderlist" name="animalgender">
+							<option value="Male">male</option>
+							<option value="Female">female</option>
+							<option value="others">others</option>
+					</select>
+					<td><label for="dob" name="dob">Date of birth</label></td>
+					<td><input type="date" name="dob" id="dob"></td>
+				</tr>
+				<tr>
+					<td><label for="color">Color</label></td>
+					<td><input type="text" name="color" id="color"
+						placeholder="Color" pattern="[a-zA-Z]{3,20}" list="colors"></td>
+					<td><label for="price">price</label></td>
+					<td><input type="number" 5 name="price" id="price" min="0"
+						placeholder="Price" required></td>
+				</tr>
+				<tr>
+					<td><label for="imagelink">Image Link</label></td>
+					<td><input type="file" 5 name="imagelink" id="imagelink"
+						placeholder="Image file" required></td>
+					<td><label for="qty">Quantity</label></td>
+					<td><input type="number" name="quantity" id="quantityt"
+						min="0" placeholder="Quantity" required></td>
 
-				<tbody>
-					<tr>
-						<td><label for="animaltype">Animal Type </label></td>
-						<td><input type="text" name="animaltype" id="animaltype"
-							placeholder="Type" pattern="[a-zA-Z]{3,20}" list="typelist"
-							required></td>
-						<td><label for="animalname">Name</label></td>
-						<td><input type="text" name="animalname" id="animalname"
-							placeholder="Name" pattern="[a-zA-Z ]{3,20}" list="namelist"
-							required></td>
-					</tr>
-					<tr>
-						<td><label for="animalgender">Gender</label></td>
-						<td><select id="genderlist" name="animalgender">
-								<option value="Male">male</option>
-								<option value="Female">female</option>
-								<option value="others">others</option>
-						</select>
-						<td><label for="dob" name="dob">Date of birth</label></td>
-						<td><input type="date" name="dob" id="dob"></td>
-					</tr>
-					<tr>
-						<td><label for="color">Color</label></td>
-						<td><input type="text" name="color" id="color"
-							placeholder="Color" pattern="[a-zA-Z]{3,20}" list="colors"></td>
-						<td><label for="price">price</label></td>
-						<td><input type="number" 5 name="price" id="price" min="0"
-							placeholder="Price" required></td>
-					</tr>
-					<tr>
-						<td><label for="imagelink">Image Link</label></td>
-						<td><input type="file" 5 name="imagelink" id="imagelink"
-							placeholder="Image file" required></td>
-						<td><label for="qty">Quantity</label></td>
-						<td><input type="number" name="quantity" id="quantityt"
-							min="0" placeholder="Quantity" required></td>
+				</tr>
+				<tr>
+					<td><label for="description">Description</label></td>
+					<td><textarea name="description" id="description"
+							placeholder="Description about pet" cols="30"
+							style="margin-top: 10px;"></textarea></td>
+					<td><button>Register</button></td>
+				</tr>
+			</tbody>
+		</table>
 
-					</tr>
-					<tr>
-						<td><label for="description">Description</label></td>
-						<td><textarea name="description" id="description"
-								placeholder="Description about pet" cols="30"
-								style="margin-top: 10px;"></textarea></td>
-						<td><button>Register</button></td>
-					</tr>
-				</tbody>
-			</table>
-			
-	<!-- Add pet from data list -->
-			<datalist id="typelist">
-				<option value="Dog"></option>
-				<option value="Cat"></option>
-				<option value="Birds"></option>
-				<option value="Fish"></option>
-			</datalist>
-			<datalist id="namelist">
-				<option value="french bulldog"></option>
-				<option value="German Shepherd"></option>
-				<option value="Maine Coon"></option>
-				<option value="Ragdoll"></option>
-				<option value="Parakeets"></option>
-				<option value="Cockatiels"></option>
-				<option value="Angelfish"></option>
-				<option value="Rainbow"></option>
-			</datalist>
+		<!-- Add pet from data list -->
+		<datalist id="typelist">
+			<option value="Dog"></option>
+			<option value="Cat"></option>
+			<option value="Birds"></option>
+			<option value="Fish"></option>
+		</datalist>
+		<datalist id="namelist">
+			<option value="french bulldog"></option>
+			<option value="German Shepherd"></option>
+			<option value="Maine Coon"></option>
+			<option value="Ragdoll"></option>
+			<option value="Parakeets"></option>
+			<option value="Cockatiels"></option>
+			<option value="Angelfish"></option>
+			<option value="Rainbow"></option>
+		</datalist>
 
-			<datalist id="colors">
-				<option value="Black"></option>
-				<option value="White"></option>
-				<option value="Gray"></option>
-				<option value="Gold"></option>
-				<option value="Sliver"></option>
-				<option value="Green"></option>
-				<option value="Rainbow"></option>
-				<option value="Blue"></option>
-			</datalist>
-		</form>
-			
-	<script>
-	
-<!--To set min and max attribute for date -->
-		today();
-		function today() {
-			var today = new Date();
-			var dd = String(today.getDate()).padStart(2, '0');
-			var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-			var yyyy = today.getFullYear();
-			var yyyy1 = today.getFullYear() - 10;
-
-			maxdate = yyyy + '-' + mm + '-' + dd;
-			mindate = yyyy1 + '-' + mm + '-' + dd;
-			document.getElementById("dob").setAttribute("max", maxdate);
-			document.getElementById("dob").setAttribute("min", mindate);
-		}
-	</script>
+		<datalist id="colors">
+			<option value="Black"></option>
+			<option value="White"></option>
+			<option value="Gray"></option>
+			<option value="Gold"></option>
+			<option value="Sliver"></option>
+			<option value="Green"></option>
+			<option value="Rainbow"></option>
+			<option value="Blue"></option>
+		</datalist>
+	</form>
+	<!--To set min and max attribute for date -->
+	<script type="text/javascript" src="js/additem.js"></script>
 </body>
 
 </html>
