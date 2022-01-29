@@ -35,7 +35,6 @@ public class CancelOrder extends HttpServlet{
     		Customers customer = new Customers();
     		PetDetails pet = new PetDetails();
     		PetDAO petDao = new PetDAO();
-    		OrderItems orderItems = new OrderItems();
     		OrderItemsDAO orderItemDao = new OrderItemsDAO();
     		List<OrderItems> orderItemList = new ArrayList<OrderItems>();
     		Orders order = new Orders();

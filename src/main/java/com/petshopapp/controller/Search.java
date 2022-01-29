@@ -23,7 +23,6 @@ public class Search extends HttpServlet{
     	HttpSession session=req.getSession();
 		Customers customerDetails = (Customers) session.getAttribute("customer");
     	String search=req.getParameter("search").toLowerCase();
-    	PetDetails pet = new PetDetails();
     	PetDAO petdao = new PetDAO();
     	petListSearch = petdao.searchPetDetails(search,customerDetails.getCustomerId());
     	session.setAttribute("PetListSearch", petListSearch); 

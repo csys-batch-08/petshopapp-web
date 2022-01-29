@@ -9,6 +9,7 @@ import java.util.*;
 import com.petshopapp.model.*;
 import com.petshopapp.util.*;
 
+
 public class PetDAO {
 	
 	String query = "";
@@ -22,14 +23,16 @@ public class PetDAO {
 
 	public void commit() {
 		try {
-			connection = connectionUtil.getDbConnect();
+			connection = ConnectionUtil.getDbConnect();
 			query = "commit";
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.executeUpdate();
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());			
 		}
 	}
+	
+
 
 	public List<PetDetails> getPetList() {
 		try {
@@ -45,8 +48,9 @@ public class PetDAO {
 			}
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());	
 		}
+		
 		return petList;
 	}
 
@@ -54,7 +58,7 @@ public class PetDAO {
 	public void insertPetDetails(PetDetails pet) {
 
 		try {
-			connection = connectionUtil.getDbConnect();
+			connection = ConnectionUtil.getDbConnect();
 			query = "INSERT into pet_details(pet_type,pet_name,pet_gender,pet_dob,pet_Qty,pet_description,\r\n"
 					+ "pet_color,pet_price,pet_image,customer_id,available_qty) values(?,?,?,?,?,?,?,?,?,?,?)";
 
@@ -74,14 +78,14 @@ public class PetDAO {
 			preparedStatement.executeUpdate();
 			commit();
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());	
 		}
 	}
 
 	// Update pet_details
 	public void updatePetDetails(PetDetails pet) {
 		try {
-			connection = connectionUtil.getDbConnect();
+			connection = ConnectionUtil.getDbConnect();
 			query = "update pet_details set pet_type=?,pet_name=?,"
 					+ "pet_gender=?,pet_dob=?,pet_Qty=?,pet_description=?,"
 					+ "pet_color=?,pet_price=?,pet_image=?,customer_id=?," + "available_qty=? where pet_id=?";
@@ -103,14 +107,14 @@ public class PetDAO {
 			preparedStatement.executeUpdate();
 			commit();
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());	
 		}
 	}
 
 	// To update pet Status admin approval
 	public void updatePetStatus(int petId, String status, int adminId) {
 		try {
-			connection = connectionUtil.getDbConnect();
+			connection = ConnectionUtil.getDbConnect();
 			query = "update pet_details set status=?,admin_id=? where pet_id=?";
 			PreparedStatement pstmt = connection.prepareStatement(query);
 			pstmt.setString(1, status);
@@ -119,21 +123,20 @@ public class PetDAO {
 			pstmt.executeUpdate();
 			commit();
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());	
 		}
-
 	}
 
 	// to show all the approved pet details
 	public List<PetDetails> showAllpetsDetails(Customers customer) {
 		try {
-			connection = connectionUtil.getDbConnect();
+			connection = ConnectionUtil.getDbConnect();
 			query = "select pet_id,pet_type,pet_name,pet_gender,pet_dob,pet_qty,pet_description,pet_color,pet_price,pet_image,status,customer_id,admin_id,pet_registerdate,available_qty from pet_details where status='approved' and available_qty > 0 and customer_id not in(?)";
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1, customer.getCustomerId());
 			resultSet = preparedStatement.executeQuery();
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());	
 		}
 		return getPetList();
 	}
@@ -141,7 +144,7 @@ public class PetDAO {
 	// to get particular pet data
 	public PetDetails showCurrentPet(int petId) {
 		try {
-			connection = connectionUtil.getDbConnect();
+			connection = ConnectionUtil.getDbConnect();
 			query = "select pet_id,pet_type,pet_name,pet_gender,pet_dob,"
 					+ "pet_qty,pet_description,pet_color,pet_price,pet_image,"
 					+ "status,customer_id,admin_id,pet_registerdate,"
@@ -165,7 +168,7 @@ public class PetDAO {
 				}
 			}
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());	
 		}
 		return pet;
 	}
@@ -173,13 +176,13 @@ public class PetDAO {
 	// pet list to show admin
 	public List<PetDetails> showNotApprovedPetList() {
 		try {
-			connection = connectionUtil.getDbConnect();
+			connection = ConnectionUtil.getDbConnect();
 			query = "select PET_ID,PET_TYPE,PET_NAME,PET_GENDER,PET_DOB,PET_QTY,PET_DESCRIPTION,PET_COLOR,PET_PRICE,PET_IMAGE,\r\n"
 					+ "STATUS,CUSTOMER_ID,ADMIN_ID,PET_REGISTERDATE,AVAILABLE_QTY from pet_details where status='Not approved'";
 			preparedStatement = connection.prepareStatement(query);
 			resultSet = preparedStatement.executeQuery();
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());	
 		}
 		return getPetList();
 	}
@@ -187,7 +190,7 @@ public class PetDAO {
 	// My pet details for customer
 	public List<PetDetails> showMypetdetails(int cusId) {
 		try {
-			connection = connectionUtil.getDbConnect();
+			connection = ConnectionUtil.getDbConnect();
 			query = "select pet_id,pet_type,pet_name,pet_gender,pet_dob,"
 					+ "pet_qty,pet_description,pet_color,pet_price,pet_image,"
 					+ "status,customer_id,admin_id,pet_registerdate,"
@@ -196,7 +199,7 @@ public class PetDAO {
 			preparedStatement.setInt(1, cusId);
 			resultSet = preparedStatement.executeQuery();
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());	
 		}
 		return getPetList();
 	}
@@ -204,7 +207,7 @@ public class PetDAO {
 	// search pet
 	public List<PetDetails> searchPetDetails(String search, int customerId) {
 		try {
-			connection = connectionUtil.getDbConnect();
+			connection = ConnectionUtil.getDbConnect();
 			query = "select pet_id,pet_type,pet_name,pet_gender,"
 					+ "pet_dob,pet_qty,pet_description,pet_color,pet_price,"
 					+ "pet_image,status,customer_id,admin_id,pet_registerdate,"
@@ -216,7 +219,7 @@ public class PetDAO {
 		//	preparedStatement.setInt(3, customerId);
 			resultSet = preparedStatement.executeQuery();
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());	
 		}
 		return getPetList();
 	}
@@ -224,22 +227,21 @@ public class PetDAO {
 	// delete status to update
 	public void delete(PetDetails pet) {
 		try {
-			connection = connectionUtil.getDbConnect();
+			connection = ConnectionUtil.getDbConnect();
 			String query = "update pet_details set status='deleted' where pet_id=?";
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1, pet.getPetId());
 			preparedStatement.executeUpdate();
 			commit();
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());	
 		}
-
 	}
 
 	// update available qty
 	public void updatePetAvailableQuantity(PetDetails pet) {
 		try {
-			connection = connectionUtil.getDbConnect();
+			connection = ConnectionUtil.getDbConnect();
 			query = "update Pet_details set available_qty=? where pet_id=?";
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1, pet.getAvilableQty());
@@ -247,16 +249,15 @@ public class PetDAO {
 			preparedStatement.executeUpdate();
 			commit();
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());	
 		}
-
 	}
 
 	// get status
 	public String getPetStatus(PetDetails pet) throws SQLException {
 		String status = "";
 		try {
-			connection = connectionUtil.getDbConnect();
+			connection = ConnectionUtil.getDbConnect();
 			query = "select status from Pet_details  where pet_id=?";
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1, pet.getPetId());
@@ -264,8 +265,9 @@ public class PetDAO {
 			resultSet.next();
 			status = resultSet.getString(1);
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());	
 		}
+		
 		return status;
 
 	}

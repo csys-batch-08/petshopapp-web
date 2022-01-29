@@ -18,11 +18,11 @@ public class CustomerDAO {
 	PreparedStatement preparedStatement = null;
 	ConnectionUtil connectionUtil = new ConnectionUtil();
 	List<Customers> customerList = new ArrayList<Customers>();
-
+	
 	// Commit for every DML operation
 	public void commit() {
 		try {
-			connection = connectionUtil.getDbConnect();
+			connection = ConnectionUtil.getDbConnect();
 			query = "commit";
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.executeUpdate();
@@ -37,7 +37,7 @@ public class CustomerDAO {
 		Connection con;
 		boolean register=true;
 		try {
-			con = connectionUtil.getDbConnect();
+			con = ConnectionUtil.getDbConnect();
 			query = "insert into customers(customer_firstname,customer_lastname,"
 					+ "customer_username,customer_password,customer_email,customer_mobilenumber,customer_gender)\r\n"
 					+ "values (?,?,?,?,?,?,?)";
@@ -68,7 +68,7 @@ public class CustomerDAO {
 	// update Customer profile
 	public void updateCustomerDetails(Customers customer) {
 		try {
-			connection = connectionUtil.getDbConnect();
+			connection = ConnectionUtil.getDbConnect();
 			query = "update Customers set customer_firstname=?,customer_lastname=?,"
 					+ "customer_username=?,customer_password=?,customer_email=?,customer_mobilenumber=?,customer_gender=? where customer_id=?";
 			preparedStatement = connection.prepareStatement(query);
@@ -90,7 +90,7 @@ public class CustomerDAO {
 	// Update Customer Address Details
 	public void updateAddressDetails(Customers customer) {
 		try {
-			connection = connectionUtil.getDbConnect();
+			connection = ConnectionUtil.getDbConnect();
 			query = "update Customers set customer_address=?,customer_pincode=?,customer_city=? where customer_id=?";
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setString(1, customer.getAddress());
@@ -107,7 +107,7 @@ public class CustomerDAO {
 	// Update customer status
 	public void updateCustomerStatus(Customers customer, String status) {
 		try {
-			connection = connectionUtil.getDbConnect();
+			connection = ConnectionUtil.getDbConnect();
 			query = "update Customers set status=? where customer_id=?";
             preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setString(1, status);
@@ -117,14 +117,13 @@ public class CustomerDAO {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	
 	// Customer login validation 
 	public String customerLoginValidation(Customers customer) {
 		try {
-			connection = connectionUtil.getDbConnect();
+			connection = ConnectionUtil.getDbConnect();
 		    query = "select customer_firstname from customers where customer_username=? and customer_password=?";
             preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setString(1, customer.getUserName());
@@ -153,7 +152,7 @@ public class CustomerDAO {
 	public boolean validateUsername(Customers customer) {
 		boolean flag = true;
 		try {
-			connection = connectionUtil.getDbConnect();
+			connection = ConnectionUtil.getDbConnect();
 		    query = "select customer_firstname from customers where customer_username=?";
             preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setString(1, customer.getUserName());
@@ -173,6 +172,7 @@ public class CustomerDAO {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return flag;
 	}
 
@@ -180,7 +180,7 @@ public class CustomerDAO {
 	public boolean validateEmail(Customers customer) {
 		boolean flag = true;
 		try {
-			connection = connectionUtil.getDbConnect();
+			connection = ConnectionUtil.getDbConnect();
 			query = "select customer_email from customers where customer_email=?";
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setString(1, customer.getEmail());
@@ -205,7 +205,7 @@ public class CustomerDAO {
 	// Show all customers
 	public List<Customers> customersList() {
 		try {
-			connection = connectionUtil.getDbConnect();
+			connection = ConnectionUtil.getDbConnect();
 			query = "select customer_id,customer_firstname,customer_lastname,"
 					+ "customer_gender,customer_username,customer_password,"
 					+ "customer_email,customer_mobilenumber,customer_wallet,"
@@ -230,7 +230,7 @@ public class CustomerDAO {
 	// Customer details using user name
 	public Customers customerDetails(String userName) {
 		try {
-			connection = connectionUtil.getDbConnect();
+			connection = ConnectionUtil.getDbConnect();
 			query = "select customer_id,customer_firstname,customer_lastname,"
 					+ "customer_gender,customer_username,customer_password,"
 					+ "customer_email,customer_mobilenumber,customer_wallet,"
@@ -256,7 +256,7 @@ public class CustomerDAO {
 	// Customers details using id
 	public Customers customerDetails(int customerId) {
 		try {
-			connection = connectionUtil.getDbConnect();
+			connection = ConnectionUtil.getDbConnect();
 			query = "select customer_id,customer_firstname,customer_lastname,"
 					+ "customer_gender,customer_username,customer_password,"
 					+ "customer_email,customer_mobilenumber,customer_wallet,"
@@ -282,7 +282,7 @@ public class CustomerDAO {
 	// Update Customer Image
 	public void updateCustomerProfileImage(Customers cus) {
 		try {
-			connection = connectionUtil.getDbConnect();
+			connection = ConnectionUtil.getDbConnect();
 			query = "update Customers set customer_image=? where customer_id=?";
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setString(1, cus.getImage());
@@ -297,7 +297,7 @@ public class CustomerDAO {
 	//Update Wallet
 	public void updateCustomerWallet(Customers cus) {
 		try {
-			connection = connectionUtil.getDbConnect();
+			connection = ConnectionUtil.getDbConnect();
 			query = "update Customers set customer_wallet=? where customer_id=?";
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setDouble(1, cus.getWallet());

@@ -3,8 +3,6 @@ package com.petshopapp.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,10 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import com.petshopapp.daoimpl.AdminDAO;
 import com.petshopapp.daoimpl.CustomerDAO;
-import com.petshopapp.daoimpl.PetDAO;
 import com.petshopapp.model.Admin;
 import com.petshopapp.model.Customers;
-import com.petshopapp.model.PetDetails;
 
 @WebServlet("/login")
 public class login extends HttpServlet{
@@ -37,11 +33,7 @@ public class login extends HttpServlet{
 		HttpSession session=req.getSession();
 	
 		if (firstName != null) {
-			String name = firstName.substring(1);
-			PetDAO petdao = new PetDAO();
-			List<PetDetails> petList = new ArrayList<PetDetails>();
-			if (firstName.charAt(0) == '1') {
-			
+			if (firstName.charAt(0) == '1') {			
 				Customers customerDetails=new Customers(userName,passwowrd);
 				customerDetails = customerDao.customerDetails(userName);				
 				session.setAttribute("customer", customerDetails);              

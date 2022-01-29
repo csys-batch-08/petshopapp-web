@@ -20,18 +20,19 @@ public class AddPet extends HttpServlet{
 	
       @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    		HttpSession session=request.getSession();
-    		PrintWriter out=response.getWriter();
+    		
+    	    HttpSession session=request.getSession();
     		Customers customerDetails=(Customers) session.getAttribute("customer");
     		String petType = request.getParameter("animaltype").toLowerCase();
     		String petName = request.getParameter("animalname").toLowerCase();
     		String petGender = request.getParameter("animalgender").toLowerCase();
     		String petDob = request.getParameter("dob");
     		SimpleDateFormat formet = new SimpleDateFormat("yyyy-mm-dd");    		
-    		String petColor = request.getParameter("color").toLowerCase();
-    		double petPrice = Double.parseDouble(request.getParameter("price"));
+    		String petColor = request.getParameter("color").toLowerCase();	
     		String petImage = request.getParameter("imagelink");
     		String petDescription = request.getParameter("description");
+    		PrintWriter out=response.getWriter();
+    		double petPrice = Double.parseDouble(request.getParameter("price"));
     		int petQty = Integer.parseInt(request.getParameter("quantity"));
     		if(petQty>0){
     		PetDetails petDetails = new PetDetails();

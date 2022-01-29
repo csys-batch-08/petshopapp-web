@@ -20,13 +20,21 @@ public class OrderItemsDAO  {
 	Connection connection=null;
 	PreparedStatement preparedStatement=null;
 	OrderItems orderitems=new OrderItems();
-	ConnectionUtil connectionUtil = new ConnectionUtil();
 	List<OrderItems> orderItemList=new ArrayList<OrderItems>();
+	
+	public void close() {
+		try {
+			preparedStatement.close();
+			resultSet.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}			
+}
 	
 	//Commit for every DML operation
 	public void commit() {
 		try {
-			connection = connectionUtil.getDbConnect();
+			connection = ConnectionUtil.getDbConnect();
 			query = "commit";
 		    preparedStatement = connection.prepareStatement(query);
 			preparedStatement.executeUpdate();
@@ -38,7 +46,7 @@ public class OrderItemsDAO  {
 	// insert order item
 	public void insertOrderItems(OrderItems orditm) {
 		try {
-			connection = connectionUtil.getDbConnect();
+			connection = ConnectionUtil.getDbConnect();
 			query = "insert into order_items (order_id,pet_id,quantity,unit_price,total_price) values(?,?,?,?,?)";
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1, orditm.getOrders().getOrderId());
@@ -49,16 +57,15 @@ public class OrderItemsDAO  {
 			preparedStatement.executeUpdate();
 			commit();
 		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		close();	
 	}
 
 	// Cancel Order item
 	public void cancelOrderitem(OrderItems ord) {
 		try {
-			connection = connectionUtil.getDbConnect();
+			connection = ConnectionUtil.getDbConnect();
 			query = "delete from order_items where item_id=?";
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1, ord.getOrders().getOrderId());
@@ -67,12 +74,13 @@ public class OrderItemsDAO  {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
+		close();
 	}
 	
 	//Show My order items List
 	public List<OrderItems> showMyOrdersItemsList(Customers cus)  {
 		try {
-			connection = connectionUtil.getDbConnect();
+			connection = ConnectionUtil.getDbConnect();
 			query = "select oi.order_id,oi.pet_id,p.pet_name,oi.quantity,oi.unit_price,oi.total_price,o.order_status,o.order_date,p.pet_image "
 					+ "from order_items oi inner join orders o on oi.order_id=o.order_id inner join pet_details p on oi.pet_id=p.pet_id "
 					+ "where o.customer_id='"+cus.getCustomerId()+"' order by o.order_id";
@@ -90,12 +98,14 @@ public class OrderItemsDAO  {
 				orderitems.getOrders().setOrderDate(resultSet.getDate(8));
 				orderitems.getPet().setPetImage(resultSet.getString(9));			
 				orderItemList.add(orderitems);
-			}		
+			}	
+			close();
 		}
 		
 		 catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}		
+		close();
 		return orderItemList;
 	}
 	
@@ -103,7 +113,7 @@ public class OrderItemsDAO  {
 	// Get Current Order Item details 
 	public List<OrderItems> getCurrentOrderItemDetails(int orderId){
 		try {
-			connection = connectionUtil.getDbConnect();
+			connection = ConnectionUtil.getDbConnect();
 			String query = "select item_id,order_id,pet_id,quantity,unit_price,total_price from order_items where order_id=?";
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1, orderId);
@@ -115,6 +125,7 @@ public class OrderItemsDAO  {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
+		close();
 		return orderItemList;
 			}	
 }

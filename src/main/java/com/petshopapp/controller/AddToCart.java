@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.petshopapp.daoimpl.CartItemsDAO;
-import com.petshopapp.daoimpl.CustomerDAO;
 import com.petshopapp.exception.ItemAlreadyInCart;
 import com.petshopapp.exception.QuantityNotAvalilable;
 import com.petshopapp.model.CartItems;

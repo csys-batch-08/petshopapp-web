@@ -17,12 +17,12 @@ public class OrdersDAO{
 	ResultSet resultSet=null;
 	Connection connection=null;
 	PreparedStatement preparedStatement=null;
-	ConnectionUtil connectionUtil = new ConnectionUtil();
+
 	
 	// commit every DML operation
 	public void commit() {
 		try {
-			connection = connectionUtil.getDbConnect();
+			connection = ConnectionUtil.getDbConnect();
 			query = "commit";
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.executeUpdate();
@@ -31,10 +31,18 @@ public class OrdersDAO{
 		}
 	}
 	
+	public void close() {
+		try {
+			preparedStatement.close();
+			resultSet.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}			
+}
 	//insert order 
 	public void insertOrder(Orders ord) {
 		try {
-			connection = connectionUtil.getDbConnect();
+			connection = ConnectionUtil.getDbConnect();
 			query = "insert into orders(Customer_id,total_price) \r\n"
 					+ "values(?,?)";
 			preparedStatement = connection.prepareStatement(query);
@@ -45,12 +53,13 @@ public class OrdersDAO{
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
+		close();
 	}
         
 	// Cancel order
 	public void updateOrderStatus(Orders order)  {
 		try {
-			connection = connectionUtil.getDbConnect();
+			connection = ConnectionUtil.getDbConnect();
 			query = "update orders set order_status='cancelled' where order_id=?";
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1, order.getOrderId());
@@ -58,14 +67,15 @@ public class OrdersDAO{
 			commit();
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
-		}		
+		}
+		close();
 	}
        
 	// To get last orderId value to insert
 	public int getCurrentOrderId() {
 		int orderid=0;
 		try {
-			connection = connectionUtil.getDbConnect();
+			connection = ConnectionUtil.getDbConnect();
 			query = "select max(order_id) from orders";
 			preparedStatement = connection.prepareStatement(query);
 			resultSet = preparedStatement.executeQuery();
@@ -75,6 +85,7 @@ public class OrdersDAO{
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
+		close();
        return orderid;
 	}	
 }

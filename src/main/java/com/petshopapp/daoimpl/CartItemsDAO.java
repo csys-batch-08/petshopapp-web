@@ -17,14 +17,13 @@ public class CartItemsDAO {
 	ResultSet resultSet = null;
 	PreparedStatement preparedStatement = null;
 	CartItems cartItem = new CartItems();
-	ConnectionUtil connectionUtil = new ConnectionUtil();
 	List<CartItems> cartList = new ArrayList<CartItems>();
 	
-	
+
 	// Commit during DML operation
 	public void commit() {
 		try {
-			connection = connectionUtil.getDbConnect();
+			connection = ConnectionUtil.getDbConnect();
 			query = "commit";
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.executeUpdate();
@@ -36,9 +35,8 @@ public class CartItemsDAO {
 	// Insert Cart Items
 	public void insertCartItem(CartItems cartit) {
 		Connection con;
-
 		try {
-			con = connectionUtil.getDbConnect();
+			con = ConnectionUtil.getDbConnect();
 			query = "insert into cart_items(pet_id,customer_id,quantity,unit_price,total_price) values(?,?,?,?,?)";
 			preparedStatement = con.prepareStatement(query);
 			preparedStatement.setInt(1, cartit.getPet().getPetId());
@@ -51,15 +49,16 @@ public class CartItemsDAO {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			e.printStackTrace();	
 		}
+	
 	}
 
 	// To update cartItems Quantity
 	public void updateCartItemQuantity(int itemId, int qty) {
 		query = "update cart_items set quantity=? where item_id=?";
 		try {
-			connection = connectionUtil.getDbConnect();
+			connection = ConnectionUtil.getDbConnect();
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1, qty);
 			preparedStatement.setInt(2, itemId);
@@ -68,12 +67,13 @@ public class CartItemsDAO {
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
+		
 	}
 
 	// Delete Cart item
 	public void deleteCartItem(int itemId) {
 		try {
-			connection = connectionUtil.getDbConnect();
+			connection = ConnectionUtil.getDbConnect();
 			query = "delete from cart_items where item_id=" + itemId + "";
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.executeUpdate();
@@ -81,7 +81,6 @@ public class CartItemsDAO {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	// Show My Cart Items
@@ -89,7 +88,7 @@ public class CartItemsDAO {
 
 		
 		try {
-			connection = connectionUtil.getDbConnect();
+			connection = ConnectionUtil.getDbConnect();
 			query = "select ci.item_id,ci.pet_id,ci.customer_id,ci.quantity,ci.unit_price,ci.total_price,p.pet_type,p.pet_name,pet_image,p.available_qty from cart_items ci "
 					+ "inner join pet_details p on p.pet_id=ci.pet_id where ci.customer_id=? order by ci.item_id";
 			preparedStatement = connection.prepareStatement(query);
@@ -113,7 +112,7 @@ public class CartItemsDAO {
 	// Show Particular Cart Item
 	public CartItems showCartItem(int itemId) {
 		try {
-			connection = connectionUtil.getDbConnect();
+			connection = ConnectionUtil.getDbConnect();
 			query = "select item_id,pet_id,customer_id,quantity,unit_price,total_price from cart_items where item_id=?";
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1, itemId);
@@ -127,5 +126,4 @@ public class CartItemsDAO {
 		}
 		return cartItem;
 	}
-
 }

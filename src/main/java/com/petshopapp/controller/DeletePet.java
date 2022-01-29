@@ -7,9 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.petshopapp.daoimpl.CustomerDAO;
 import com.petshopapp.daoimpl.PetDAO;
-import com.petshopapp.model.Customers;
 import com.petshopapp.model.PetDetails;
 
 @WebServlet("/DeletePet")
