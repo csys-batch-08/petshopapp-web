@@ -48,7 +48,6 @@
 	<h2>Pet Lists</h2>
 
 	<jsp:useBean id="PetDao" class="com.petshopapp.daoimpl.PetDAO" />
-	<c:set var="count" value="1" />
 	<c:forEach items="${PetDao.showAllpetsDetails(customer)}" var="pet">
 
 		<div id="data">

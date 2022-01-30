@@ -12,7 +12,7 @@ import com.petshopapp.daoimpl.CustomerDAO;
 import com.petshopapp.model.Customers;
 
 @WebServlet("/UpdateProfile")
-public class updateprofile extends HttpServlet{
+public class UpdateProfile extends HttpServlet{
 	
       @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -28,14 +28,14 @@ public class updateprofile extends HttpServlet{
          String userName=req.getParameter("username");
          customers.setUserName(userName);
          
-         if((customerDao.validateUsername(customers)==false) && (!userName.equals(customerDetails.getUserName()))) {
+         if((!customerDao.validateUsername(customers)) && (!userName.equals(customerDetails.getUserName()))) {
    
         	flag=false;
          }
          String password=req.getParameter("password");
          String email=req.getParameter("email");
          customers.setEmail(email);
-         if((customerDao.validateUsername(customers)==false) && (!email.equals(customerDetails.getEmail()))) {
+         if((!customerDao.validateUsername(customers)) && (!email.equals(customerDetails.getEmail()))) {
 
          	flag=false;
           }
@@ -52,7 +52,7 @@ public class updateprofile extends HttpServlet{
          customerDetails.setGender(gender);        
          customerDao.updateCustomerDetails(customerDetails);
          }
-             writer.print("	<script type=\"text/javascript\"> alert('Profile updated successfully'); window.location = 'myprofile.jsp';</script>");
+             writer.print("<script type=\"text/javascript\"> alert('Profile updated successfully'); window.location = 'myprofile.jsp';</script>");
     }
       
 }

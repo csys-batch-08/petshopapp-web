@@ -23,12 +23,13 @@ public class ValidateUsername extends HttpServlet{
          String userName=request.getParameter("userName");
          customer.setUserName(userName);
          boolean condition=customerDao.validateUsername(customer);
-         if(condition==false){
+         if(userName.length()>0) {
+         if(!condition){
            write.print("UserName Not available");
          }
          else{
         	  write.print("Available");
          }
       }
-      
+	}  
 }

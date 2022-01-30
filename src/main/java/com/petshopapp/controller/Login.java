@@ -16,7 +16,7 @@ import com.petshopapp.model.Admin;
 import com.petshopapp.model.Customers;
 
 @WebServlet("/login")
-public class login extends HttpServlet{
+public class Login extends HttpServlet{
 	
       @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -25,16 +25,17 @@ public class login extends HttpServlet{
     	String userName=req.getParameter("usernameinput");
 		String passwowrd=req.getParameter("passwordinput");
 		
-		Customers customerValidation=new Customers(userName,passwowrd);
-		CustomerDAO customerDao=new CustomerDAO();
-		
+		Customers customerValidation=new Customers();
+		customerValidation.setUserName(userName);
+		customerValidation.setPassword(passwowrd);
+		CustomerDAO customerDao=new CustomerDAO();		
 		String firstName=customerDao.customerLoginValidation(customerValidation);
-
 		HttpSession session=req.getSession();
 	
 		if (firstName != null) {
 			if (firstName.charAt(0) == '1') {			
-				Customers customerDetails=new Customers(userName,passwowrd);
+				Customers customerDetails=new Customers();
+				
 				customerDetails = customerDao.customerDetails(userName);				
 				session.setAttribute("customer", customerDetails);              
 			    RequestDispatcher rd =req.getRequestDispatcher("home.jsp");
@@ -43,17 +44,13 @@ public class login extends HttpServlet{
 			}
 			else {
 				Admin admin;
-				AdminDAO adminDao=new AdminDAO();
-					try {
+				AdminDAO adminDao=new AdminDAO();			
 						admin = adminDao.show(userName);
 						session.setAttribute("Admin", admin);				         
-						resp.sendRedirect("adminhome.jsp");						
-					} catch (ClassNotFoundException | SQLException e) {		
-						e.printStackTrace();
-					}	
+						resp.sendRedirect("adminhome.jsp");										
 			}				
 }		else {	           
-	            out.print("	<script type=\"text/javascript\">alert('invalid username or password');"
+	            out.print("<script type=\"text/javascript\">alert('invalid username or password');"
 	            		+ "window.location = 'index.jsp';</script>");	         
 }
 

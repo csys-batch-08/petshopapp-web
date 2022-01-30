@@ -53,7 +53,6 @@ public class CartItems {
 	}
 	public CartItems() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public CartItems(int itemId, int petId,int customerId, int quantity, double unitPrice,
 			double totalPrice) {

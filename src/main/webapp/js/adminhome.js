@@ -2,7 +2,7 @@
 function UpdateStatus(petId,status){        
     var url="UpdatePetStatus?petId="+petId+"&status="+status;   	
     if(window.XMLHttpRequest){  
-        request=new XMLHttpRequest();  
+         request=new XMLHttpRequest();  
         }  
         else if(window.ActiveXObject){  
         request=new ActiveXObject("Microsoft.XMLHTTP");  

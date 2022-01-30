@@ -16,7 +16,6 @@ public class CustomerDAO {
 	ResultSet resultSet=null;
 	Customers customer = null;
 	PreparedStatement preparedStatement = null;
-	ConnectionUtil connectionUtil = new ConnectionUtil();
 	List<Customers> customerList = new ArrayList<Customers>();
 	
 	// Commit for every DML operation
@@ -239,7 +238,7 @@ public class CustomerDAO {
 					+ "where customer_username=?";
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setString(1, userName);
-			ResultSet resultSet = preparedStatement.executeQuery();
+			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				customer = new Customers(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4),
 						resultSet.getString(5), resultSet.getString(6), resultSet.getString(7), resultSet.getLong(8), resultSet.getDouble(9),

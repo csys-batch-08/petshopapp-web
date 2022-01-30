@@ -5,7 +5,7 @@ function cancelOrder(orderId) {
         var url = "CancelOrder?orderId=" + orderId;
         console.log(url);
         if (window.XMLHttpRequest) {
-            request = new XMLHttpRequest();
+           request = new XMLHttpRequest();
         } else if (window.ActiveXObject) {
             request = new ActiveXObject("Microsoft.XMLHTTP");
         }

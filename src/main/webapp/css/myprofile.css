@@ -41,7 +41,6 @@ h1 {
 	font-weight: bold;
 	text-decoration: none;
 	transition: 0.5s;
-	font-weight: bold;
 	color: white;
 }
 
@@ -56,7 +55,6 @@ h2 {
 	padding:30px;
 	width: 150px;
 	font-size: 30px;
-	width: 150px;
 }
 
 h2:hover {

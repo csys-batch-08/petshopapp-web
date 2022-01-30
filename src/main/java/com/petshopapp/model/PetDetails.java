@@ -118,7 +118,6 @@ public class PetDetails {
 	}
 	public PetDetails() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public PetDetails(int petId, String petType, String petName, String petGender, Date petDob, int petQty,
 			String description, String petColor, double petprice, String petImage, String status, int customerId,

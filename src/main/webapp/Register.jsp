@@ -36,7 +36,8 @@
 	
 <!--register Table-->	
 			<table>
-				<thead>
+			<caption></caption>
+				<thead>				
 					<tr>
 						<th id="registername" colspan="2">Register here</th>
 						<th></th>

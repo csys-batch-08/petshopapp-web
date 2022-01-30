@@ -50,7 +50,6 @@ public class OrderItems {
 	}
 	public OrderItems() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public OrderItems(int itemId, int  orderId, int petId, int quantity, double unitPrice, double totalPrice) {
 		super();

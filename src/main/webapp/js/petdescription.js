@@ -6,7 +6,7 @@
     	var url="AddToCart?quantity="+qty;  
     	
     	if(window.XMLHttpRequest){  
-    		request=new XMLHttpRequest();  
+    	request=new XMLHttpRequest();  
     		}  
     		else if(window.ActiveXObject){  
     		request=new ActiveXObject("Microsoft.XMLHTTP");  
@@ -34,13 +34,10 @@
 						if (confirmAction) {
 							  window.location = 'myprofile.jsp';
 						}
-						else{
-							
-						}
 					} 
 					else {
-						var confirmAction = confirm("Are you sure you want buy this item");
-						if (confirmAction) {
+						var confirmAction1 = confirm("Are you sure you want buy this item");
+						if (confirmAction1) {
 							let qty = document.getElementById("quantity").value;
 							console.log(qty);
 							if (qty > 0) {								

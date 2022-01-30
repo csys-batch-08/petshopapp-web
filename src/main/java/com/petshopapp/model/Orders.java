@@ -5,7 +5,7 @@ public class Orders {
 	
 	private int orderId;
 	private Customers customer = new Customers();
-	private double Totalprice;
+	private double totalprice;
 	private String orderStatus;
 	private Date orderDate;
 	public int getOrderId() {
@@ -21,10 +21,10 @@ public class Orders {
 		this.customer = customer;
 	}
 	public double getTotalprice() {
-		return Totalprice;
+		return totalprice;
 	}
 	public void setTotalprice(double totalprice) {
-		Totalprice = totalprice;
+		this.totalprice = totalprice;
 	}
 	public String getOrderStatus() {
 		return orderStatus;
@@ -40,18 +40,17 @@ public class Orders {
 	}
 	@Override
 	public String toString() {
-		return "Orders [orderId=" + orderId + ", customer=" + customer + ", Totalprice=" + Totalprice + ", orderStatus="
+		return "Orders [orderId=" + orderId + ", customer=" + customer + ", Totalprice=" + totalprice + ", orderStatus="
 				+ orderStatus + ", orderDate=" + orderDate + "]";
 	}
 	public Orders() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public Orders(int orderId, Customers customer, double totalprice, String orderStatus, Date orderDate) {
 		super();
 		this.orderId = orderId;
 		this.customer = customer;
-		Totalprice = totalprice;
+		this.totalprice = totalprice;
 		this.orderStatus = orderStatus;
 		this.orderDate = orderDate;
 	}

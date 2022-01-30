@@ -17,8 +17,7 @@ public class PetDAO {
 	Connection connection = null;
 	PreparedStatement preparedStatement = null;
 	PetDetails pet = new PetDetails();
-	ConnectionUtil connectionUtil = new ConnectionUtil();
-	List<PetDetails> petList = new ArrayList<PetDetails>();
+	List<PetDetails> petList = new ArrayList<>();
 	SimpleDateFormat formeter = new SimpleDateFormat("dd-mm-yyyy");
 
 	public void commit() {
@@ -36,7 +35,7 @@ public class PetDAO {
 
 	public List<PetDetails> getPetList() {
 		try {
-			if(!(resultSet == null)) {
+			if(resultSet != null) {
 			while (resultSet.next()) {
 
 				pet = new PetDetails(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3),
@@ -228,7 +227,7 @@ public class PetDAO {
 	public void delete(PetDetails pet) {
 		try {
 			connection = ConnectionUtil.getDbConnect();
-			String query = "update pet_details set status='deleted' where pet_id=?";
+			query = "update pet_details set status='deleted' where pet_id=?";
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1, pet.getPetId());
 			preparedStatement.executeUpdate();

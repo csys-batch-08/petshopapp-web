@@ -13,7 +13,7 @@ import com.petshopapp.daoimpl.CustomerDAO;
 import com.petshopapp.model.Customers;
 
 @WebServlet("/updateProfileImage")
-public class updateProfileImage extends HttpServlet{
+public class UpdateProfileImage extends HttpServlet{
 	
       @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -56,11 +56,11 @@ public class AddPet extends HttpServlet{
     		petDetails.getCustomer().setCustomerId(customerDetails.getCustomerId());
     		petDao.insertPetDetails(petDetails);	
             
-    		out.print("	<script type=\"text/javascript\">alert('Pet items add successfully');"
+    		out.print("<script type=\"text/javascript\">alert('Pet items add successfully');"
 	            		+ "window.location = 'additem.jsp';</script>");
     		}
     		else{
-    			out.print("	<script type=\"text/javascript\">alert('Invalid quantity');"
+    			out.print("<script type=\"text/javascript\">alert('Invalid quantity');"
 	            		+ "window.location = 'additem.jsp';</script>");
     		}
     }

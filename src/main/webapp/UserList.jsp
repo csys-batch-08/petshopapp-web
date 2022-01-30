@@ -2,7 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="ISO-8859-1">
 <title>User List</title>
@@ -43,8 +43,8 @@ color: white;}</style>
 		<h2 style="margin-top: 40px;">Customers List</h2>
 	</div>
 	<table class="table table-bordered" style="width: 500px;">
+	<caption></caption>
 		<thead>
-
 			<tr>
 				<th>Id</th>
 				<th>FirstName</th>

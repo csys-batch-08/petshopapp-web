@@ -14,9 +14,9 @@ public interface CustomerInterface {
 	
 	public String cusValidation(Customers cus);
 	
-	public boolean ValidatUsername(Customers customer);
+	public boolean validatUsername(Customers customer);
 	
-	public boolean ValidateEmail(Customers customer);
+	public boolean validateEmail(Customers customer);
 	
 	public List<Customers> showCustomerList();
 	

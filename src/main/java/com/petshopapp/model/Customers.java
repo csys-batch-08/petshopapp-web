@@ -153,35 +153,8 @@ public class Customers {
 
 	public Customers() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 		
-	public Customers(String userName, String password) {
-		super();
-		this.userName = userName;
-		this.password = password;
-	}
-	
-	public Customers(int customerId, String address, String city, int pincode) {
-		super();
-		this.customerId = customerId;
-		this.address = address;
-		this.city = city;
-		this.pincode = pincode;
-	}
-
-	public Customers( String firstName, String lastName, String userName, String password, String email,
-			long number,String gender) {
-		super();
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.userName = userName;
-		this.password = password;
-		this.email = email;
-		this.number = number;
-		this.gender=gender;
-	}
-	
 	public Customers(int customerId, String firstName, String lastName, String gender, String userName, String password, String email,
 			long number, double wallet, Date regDate, String address, int pincode, String image,String city,String status) {
 		super();

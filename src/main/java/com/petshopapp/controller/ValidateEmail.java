@@ -16,15 +16,14 @@ public class ValidateEmail extends HttpServlet{
       @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     
-
-    	 PrintWriter write=response.getWriter();
-    	 
+    	 PrintWriter write=response.getWriter();	 
          Customers customer =new Customers();
          CustomerDAO customerDao=new CustomerDAO();
          String email=request.getParameter("email");
          customer.setEmail(email);
+         if(email.length()>0) {
          boolean condition=customerDao.validateEmail(customer);
-         if(condition==false){
+         if(!condition){
            write.print("Email not available");
          }
          else{
@@ -32,4 +31,5 @@ public class ValidateEmail extends HttpServlet{
          }
                }
    
+}
 }

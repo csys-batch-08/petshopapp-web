@@ -27,9 +27,7 @@ function buyAll(address) {
         if (confirms) {
               window.location = 'myprofile.jsp';
         }
-        else{
-            
-        }
+
     }
 }
 
@@ -62,9 +60,6 @@ function buy(itemId,availableQuantity,cartQuantity,price,address) {
         var confirms = confirm("Please add address before buy");
         if (confirms) {
               window.location = 'myprofile.jsp';
-        }
-        else{
-            
         }
     }
     }

@@ -46,12 +46,9 @@ public class CartItemsDAO {
 			preparedStatement.setDouble(5, cartit.getTotalPrice());
 			preparedStatement.executeUpdate();
 			commit();
-		} catch (ClassNotFoundException e) {
+		} catch (ClassNotFoundException | SQLException e) {
 			System.out.println(e.getMessage());
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-	
+		} 
 	}
 
 	// To update cartItems Quantity

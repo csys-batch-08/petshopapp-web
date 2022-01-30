@@ -6,7 +6,6 @@
 			document.getElementById("register").disabled = false;
 			if (password == repassword) {
 				comment.style.display = "none";
-				d
 			} else {
 				comment.style.display = "block";
 				comment.innerHTML = "password does not match";
@@ -17,7 +16,6 @@
 			}
 		}
 		
-
 //Validation Of Username using Ajax -->	
 
 		function validateUsername() {
@@ -30,7 +28,7 @@
 					request = new ActiveXObject("Microsoft.XMLHTTP");
 				}
 				try {
-					request.onreadystatechange = getInfoBuyUsername;
+					request.onreadystatechange = getInfoUsername;
 					request.open("GET", url, true);
 					request.send();
 				} catch (e) {
@@ -53,7 +51,7 @@
 				request = new ActiveXObject("Microsoft.XMLHTTP");
 			}
 			try {
-				request.onreadystatechange = getInfoBuyEmail;
+				request.onreadystatechange = getInfoEmail;
 				request.open("GET", url, true);
 				request.send();
 			} catch (e) {
@@ -64,7 +62,7 @@
   		
  //Ajax Respose For Username validation-->
  
-		function getInfoBuyUsername() {
+		function getInfoUsername() {
 			if (request.readyState == 4) {
 				var val = request.responseText;
 				if (!val.includes("Available")) {
@@ -78,7 +76,7 @@
 
 //Ajax Respose For Email Validation-->
 
-		function getInfoBuyEmail() {
+		function getInfoEmail() {
 			if (request.readyState == 4) {
 				var val = request.responseText;
 				if (!val.includes("Available")) {

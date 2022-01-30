@@ -12,9 +12,10 @@ import com.petshopapp.model.Customers;
 
 @WebServlet("/register")
 public class Register extends HttpServlet {
+	@Override
 	public void service(HttpServletRequest req,HttpServletResponse res) throws IOException, ServletException {
 		String firstName=req.getParameter("username");
-		String LastName=req.getParameter("password");
+		String LastName=req.getParameter("lastname");
 		String gender=req.getParameter("gender");
 		String userName=req.getParameter("username");
 		String passweord=req.getParameter("password");
@@ -33,11 +34,11 @@ public class Register extends HttpServlet {
 		boolean register=customerDao.insertNewCustomer(customer);
 		
 			if(register) {
-	            out.print("	<script type=\"text/javascript\">alert('registration completed successfully login now');"
+	            out.print("<script type=\"text/javascript\">alert('registration completed successfully login now');"
 	            		+ "window.location = 'index.jsp';</script>");
 			}
 			else {
-				 out.print("	<script type=\"text/javascript\">alert('Something went to wrong try again');"
+				 out.print("<script type=\"text/javascript\">alert('Something went to wrong try again');"
 		            		+ "window.location = 'register.jsp';</script>");
 
 			}
