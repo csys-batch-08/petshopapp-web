@@ -12,14 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 public class Logout extends HttpServlet{
 	
       @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	  request.getSession().invalidate();
     	  response.sendRedirect("index.jsp");
       }
       
-      @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    	
-    	doGet(req, resp);
-    }
+    
 }

@@ -117,7 +117,6 @@
 				<option value="Angelfish"></option>
 				<option value="Rainbow"></option>
 			</datalist>
-
 			<datalist id="colors">
 				<option value="Black"></option>
 				<option value="White"></option>

@@ -19,7 +19,7 @@ import com.petshopapp.model.PetDetails;
 public class AddPet extends HttpServlet{
 	
       @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     		
     	    HttpSession session=request.getSession();
     		Customers customerDetails=(Customers) session.getAttribute("customer");
@@ -64,9 +64,5 @@ public class AddPet extends HttpServlet{
 	            		+ "window.location = 'additem.jsp';</script>");
     		}
     }
-  
-      @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    	doGet(req, resp);
-    }
+
 }

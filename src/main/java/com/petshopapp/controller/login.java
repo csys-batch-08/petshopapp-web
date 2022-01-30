@@ -19,7 +19,7 @@ import com.petshopapp.model.Customers;
 public class login extends HttpServlet{
 	
       @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     	
     	PrintWriter out=resp.getWriter();
     	String userName=req.getParameter("usernameinput");
@@ -59,9 +59,4 @@ public class login extends HttpServlet{
 
     }
       
-      @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-    	doGet(req, resp);
-    }
 }

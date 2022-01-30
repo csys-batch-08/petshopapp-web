@@ -17,7 +17,7 @@ import com.petshopapp.model.CartItems;
 public class RemoveCatItems extends HttpServlet{
 	
       @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     
     	
     	PrintWriter write=response.getWriter();
@@ -31,9 +31,4 @@ public class RemoveCatItems extends HttpServlet{
 
     }
       
-      @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    	
-    	doGet(req, resp);
-    }
 }

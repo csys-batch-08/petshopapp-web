@@ -27,7 +27,7 @@ public class CustomerDAO {
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.executeUpdate();
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 
 	}
@@ -58,7 +58,7 @@ public class CustomerDAO {
 				register=false;
 			}
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 		
      return register;
@@ -83,7 +83,7 @@ public class CustomerDAO {
 			preparedStatement.executeUpdate();
 			commit();
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -100,7 +100,7 @@ public class CustomerDAO {
 			preparedStatement.executeUpdate();
 			commit();
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -115,7 +115,7 @@ public class CustomerDAO {
 			preparedStatement.executeUpdate();
 			commit();
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -143,7 +143,7 @@ public class CustomerDAO {
 					return "2" + resultSet.getString(1);
 				}
 			}		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+				System.out.println(e.getMessage());
 		}
 		return null;
 	}
@@ -170,7 +170,7 @@ public class CustomerDAO {
 				}
 			}
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 		
 		return flag;
@@ -197,7 +197,7 @@ public class CustomerDAO {
 				}
 			}
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 		return flag;
 	}
@@ -221,7 +221,7 @@ public class CustomerDAO {
 				customerList.add(customer);
 			}
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 		return customerList;
 
@@ -248,7 +248,7 @@ public class CustomerDAO {
 			}
 
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 		return customer;
 	}
@@ -274,7 +274,7 @@ public class CustomerDAO {
 			}
 
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 		return customer;
 	}
@@ -290,7 +290,7 @@ public class CustomerDAO {
 			preparedStatement.executeUpdate();
 			commit();
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -305,7 +305,7 @@ public class CustomerDAO {
 			preparedStatement.executeUpdate();
 			commit();
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 	}
 

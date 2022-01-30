@@ -18,7 +18,7 @@ import com.petshopapp.model.PetDetails;
 public class Home extends HttpServlet{
 	
       @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     		HttpSession session=req.getSession();
     		Customers customerDetails=(Customers) session.getAttribute("customer");
     	    PetDAO petdao = new PetDAO();
@@ -29,8 +29,4 @@ public class Home extends HttpServlet{
 		    rd.forward(req, resp);
     }
   
-      @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    	doGet(req, resp);
-    }
 }

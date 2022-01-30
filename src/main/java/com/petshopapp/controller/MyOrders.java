@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/MyOrders")
 public class MyOrders extends HttpServlet{
       @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {	    
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {	    
   
 //     		HttpSession session=req.getSession();
 //    		Customers customerDetails = (Customers) session.getAttribute("customer");     	
@@ -23,8 +23,5 @@ public class MyOrders extends HttpServlet{
 //		    rd.forward(req, resp);
     }
  
-      @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    	doGet(req, resp);
-    }
+
 }

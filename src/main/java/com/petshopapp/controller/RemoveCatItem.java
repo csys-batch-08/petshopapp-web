@@ -14,7 +14,7 @@ import com.petshopapp.daoimpl.CartItemsDAO;
 public class RemoveCatItem extends HttpServlet{
 	
       @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
     	
     	 PrintWriter writer=response.getWriter();     
     	int itemId=Integer.parseInt(request.getParameter("itemId"));		
@@ -23,9 +23,5 @@ public class RemoveCatItem extends HttpServlet{
         writer.print("Cart Item Removed");
     }
       
-      @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    	
-    	doGet(req, resp);
-    }
+
 }

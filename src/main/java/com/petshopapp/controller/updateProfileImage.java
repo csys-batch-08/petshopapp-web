@@ -16,7 +16,7 @@ import com.petshopapp.model.Customers;
 public class updateProfileImage extends HttpServlet{
 	
       @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     
     	 PrintWriter write=response.getWriter();
     	 HttpSession session=request.getSession();
@@ -29,9 +29,4 @@ public class updateProfileImage extends HttpServlet{
     	 
       }
       
-      @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    	
-    	doGet(req, resp);
-    }
 }

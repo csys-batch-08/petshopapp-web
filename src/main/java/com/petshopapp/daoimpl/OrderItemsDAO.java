@@ -27,7 +27,7 @@ public class OrderItemsDAO  {
 			preparedStatement.close();
 			resultSet.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}			
 }
 	
@@ -39,7 +39,7 @@ public class OrderItemsDAO  {
 		    preparedStatement = connection.prepareStatement(query);
 			preparedStatement.executeUpdate();
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 	}
 	
@@ -57,7 +57,7 @@ public class OrderItemsDAO  {
 			preparedStatement.executeUpdate();
 			commit();
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 		close();	
 	}
@@ -72,7 +72,7 @@ public class OrderItemsDAO  {
 			preparedStatement.executeUpdate();
 			commit();
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 		close();
 	}
@@ -103,7 +103,7 @@ public class OrderItemsDAO  {
 		}
 		
 		 catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			 System.out.println(e.getMessage());
 		}		
 		close();
 		return orderItemList;
@@ -123,7 +123,7 @@ public class OrderItemsDAO  {
 				orderItemList.add(orderitems);
 			}		
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 		close();
 		return orderItemList;

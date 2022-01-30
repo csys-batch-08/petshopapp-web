@@ -13,8 +13,8 @@ import com.petshopapp.model.Customers;
 @WebServlet("/ValidateUsername")
 public class ValidateUsername extends HttpServlet{
 	
-      @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	@Override
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     
 
     	 PrintWriter write=response.getWriter();
@@ -31,9 +31,4 @@ public class ValidateUsername extends HttpServlet{
          }
       }
       
-      @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    	
-    	doGet(req, resp);
-    }
 }

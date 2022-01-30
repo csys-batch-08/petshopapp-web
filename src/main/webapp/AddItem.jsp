@@ -22,6 +22,7 @@
 
 			<!-- Web site name and logo -->
 			<h1>
+			     <!-- icon for pet shop -->
 				<i class="fas fa-paw" style="color: white;"></i> Pet Shop
 			</h1>
 			<nav>
@@ -37,9 +38,11 @@
 			</nav>
 		</div>
 	</header>
+	
 	<!-- Add pet from -->
 	<form class="animalform" action="AddPet">
 		<table>
+		<caption></caption>
 			<tr>
 				<th id="register" colspan="4">Register Animal</th>
 				<th></th>

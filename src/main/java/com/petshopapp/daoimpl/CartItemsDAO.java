@@ -28,7 +28,7 @@ public class CartItemsDAO {
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.executeUpdate();
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -47,9 +47,9 @@ public class CartItemsDAO {
 			preparedStatement.executeUpdate();
 			commit();
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		} catch (SQLException e) {
-			e.printStackTrace();	
+			System.out.println(e.getMessage());
 		}
 	
 	}
@@ -65,7 +65,7 @@ public class CartItemsDAO {
 			preparedStatement.executeUpdate();
 			commit();
 		} catch (SQLException | ClassNotFoundException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 		
 	}
@@ -79,7 +79,7 @@ public class CartItemsDAO {
 			preparedStatement.executeUpdate();
 			commit();
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -104,7 +104,7 @@ public class CartItemsDAO {
 				cartList.add(cartItem);
 			}
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 		return cartList;
 	}
@@ -122,7 +122,7 @@ public class CartItemsDAO {
 						resultSet.getInt(4), resultSet.getDouble(5), resultSet.getDouble(6));
 			}
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 		return cartItem;
 	}

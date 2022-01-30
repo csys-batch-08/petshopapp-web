@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 public class MyCart extends HttpServlet{
 	
       @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //    	    CartItemsDAO cartItemDao = new CartItemsDAO();
 //    		Customers customerDetails = new Customers();
 //    		HttpSession session=request.getSession();
@@ -23,9 +23,5 @@ public class MyCart extends HttpServlet{
 //		    requestDispatcher.forward(request, response);
     }
   
-      @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-    	doGet(req, resp);
-    }
 }

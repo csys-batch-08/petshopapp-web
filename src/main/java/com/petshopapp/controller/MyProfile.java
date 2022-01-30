@@ -16,7 +16,7 @@ import com.petshopapp.model.Customers;
 public class MyProfile extends HttpServlet{
 	
       @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	
     		HttpSession session=request.getSession();	
     		CustomerDAO customerDao=new CustomerDAO();
@@ -27,9 +27,4 @@ public class MyProfile extends HttpServlet{
 		    requestDispatcher.forward(request, response);
     }
   
-      @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-    	doGet(req, resp);
-    }
 }

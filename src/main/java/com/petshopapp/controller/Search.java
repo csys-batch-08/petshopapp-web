@@ -18,7 +18,7 @@ import com.petshopapp.model.PetDetails;
 public class Search extends HttpServlet{
 	
       @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     	List<PetDetails> petListSearch = new ArrayList<PetDetails>();
     	HttpSession session=req.getSession();
 		Customers customerDetails = (Customers) session.getAttribute("customer");
@@ -29,9 +29,5 @@ public class Search extends HttpServlet{
     	RequestDispatcher rd =req.getRequestDispatcher("search.jsp");
 	    rd.forward(req, resp);		
     }
-  
-      @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    	doGet(req, resp);
-    }
+
 }

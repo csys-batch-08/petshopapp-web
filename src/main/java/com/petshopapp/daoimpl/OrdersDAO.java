@@ -27,7 +27,7 @@ public class OrdersDAO{
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.executeUpdate();
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 	}
 	
@@ -36,7 +36,7 @@ public class OrdersDAO{
 			preparedStatement.close();
 			resultSet.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}			
 }
 	//insert order 
@@ -51,7 +51,7 @@ public class OrdersDAO{
 			preparedStatement.executeUpdate();
 			commit();
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 		close();
 	}
@@ -66,7 +66,7 @@ public class OrdersDAO{
 			preparedStatement.executeUpdate();
 			commit();
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 		close();
 	}
@@ -83,7 +83,7 @@ public class OrdersDAO{
 				orderid=resultSet.getInt(1);
 			}
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 		close();
        return orderid;

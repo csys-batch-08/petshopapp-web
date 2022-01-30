@@ -27,7 +27,7 @@ import com.petshopapp.model.PetDetails;
 public class BuyAll extends HttpServlet{
 	
       @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     	   HttpSession session=request.getSession();
            PrintWriter write=response.getWriter();
@@ -108,9 +108,5 @@ public class BuyAll extends HttpServlet{
            
     }
       
-      @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-   
-    	doGet(req, resp);
-    }
+
 }

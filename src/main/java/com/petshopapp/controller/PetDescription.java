@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/PetDescription")
 public class PetDescription extends HttpServlet{	
       @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //        PetDetails petDescription = new PetDetails();
 //  		PetDAO petdao = new PetDAO();
 //  		int petid = Integer.parseInt(request.getParameter("petid"));
@@ -27,9 +27,5 @@ public class PetDescription extends HttpServlet{
 //  	    RequestDispatcher requestDispatcher =request.getRequestDispatcher("petdescription.jsp");
 //	    requestDispatcher.forward(request, response);   
     }
-  
-      @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    	doGet(req, resp);
-    }
+
 }

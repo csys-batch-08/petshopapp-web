@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 public class MyPets extends HttpServlet {
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		/*
 		 * 
 		 * PetDAO petdao = new PetDAO(); PetDetails pet = new PetDetails(); HttpSession
@@ -26,8 +26,4 @@ public class MyPets extends HttpServlet {
 		 */
 	}
 
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		doGet(req, resp);
-	}
 }

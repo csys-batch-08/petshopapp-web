@@ -15,7 +15,7 @@ import com.petshopapp.model.Customers;
 public class updateprofile extends HttpServlet{
 	
       @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     
     	 boolean flag=true;
     	 PrintWriter writer=resp.getWriter();
@@ -55,9 +55,4 @@ public class updateprofile extends HttpServlet{
              writer.print("	<script type=\"text/javascript\"> alert('Profile updated successfully'); window.location = 'myprofile.jsp';</script>");
     }
       
-      @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    	
-    	doGet(req, resp);
-    }
 }

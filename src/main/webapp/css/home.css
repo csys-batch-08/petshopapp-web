@@ -1,5 +1,4 @@
 @charset "ISO-8859-1";
-/* Margin styles */
 * {
 	margin: 0;
 	padding: 0;
@@ -16,26 +15,15 @@ body {
 	text-transform: capitalize;
 }
 
-/* Navigation styles */
-.navigation {
-	padding-top: 15px;
-	font-family: sans-serif;
+header{
+padding-top: 15px;
 }
 
-h1 {
-	display: inline;
-	width: 300px;
-	position: absolute;
-	top: 10px;
-	left: 10px;
-	font-size: 25px;
-}
-
-#searchinput {
+header input {
 	padding-left: 10px;
-	position: absolute;
 	font-size: 17px;
-	top: 13px;
+	position:absolute;
+	top:20px;
 	left: 230px;
 	width: 300px;
 	height: 30px;
@@ -47,16 +35,20 @@ h1 {
 	border-right: none;
 }
 
-#searchinput::placeholder {
+header input:focus {
+	outline: none;
+}
+
+header input::placeholder {
 	color: white;
 }
 
-#search {
+header button {
 	position: absolute;
-	left: 530px;
-	width: 80px;
+	top: 20px;
+	left:530px;
 	height: 30px;
-	margin-top: -2px;
+	width:100px;
 	border: 1px solid;
 	border-color: tomato;
 	font-size: 17px;
@@ -66,62 +58,82 @@ h1 {
 	background-color: tomato;
 }
 
-#search:hover {
+header button:hover {
 	background-color: white;
 	border-color: white;
 	color: black;
 }
 
-#menu li {
+nav {
+	position: relative;
+	top: -28px;
+}
+
+nav li {
 	display: inline;
 }
 
-#menu a {
+nav a {
 	float: right;
 	padding-right: 20px;
-	margin-top: 2px;
 	font-size: 20px;
 	font-weight: bold;
 	text-decoration: none;
 	transition: 0.5s;
-	font-weight: bold;
 }
 
-#menu a:hover {
+nav a:hover {
 	color: black;
 }
 
-/* Pet List styles */
-.petlist {
-	margin-top: 40px;
+h2{
+margin-top: 20px;
+margin-left: 20px;
+font-size: 30px;
+}
+
+#data {
+	width: 48%;
+	margin-left: 0;
+	padding-left: 20px;
 	padding-top: 20px;
-	margin-left: 30px;
-	transition: 0.5s;
-}
-
-.petlist:hover {
-	color: black;
-}
-
-.content h2 {
-	margin-top: 30px;
-	width: 150px;
-	font-size: 30px;
-}
-
-#pets {
-	margin-left: 25px;
-	margin-top: 20px;
-	line-height: 2;
 	font-size: 20px;
-}
-
-#pets p {
-	margin-left: 10px;
 	font-weight: bold;
+	display: inline;
+	height: 300px;
+	float: left;
 }
 
-#pets button {
+#data p {
+	line-height: 2;
+	padding-left: 20px;
+}
+
+#data div {
+	display: inline;
+	float: left;
+}
+
+#image {
+	height: 250px;
+	width: 320px;
+}
+
+#image img {
+	width: 320px;
+	height: 250px;
+	border-radius: 10px;
+}
+
+#divcontent {
+	width: 110px;
+}
+
+#divdata {
+	width: 200px;
+}
+
+#data button {
 	margin-left: 10px;
 	margin-top: 5px;
 	width: 120px;
@@ -133,23 +145,4 @@ h1 {
 	font-size: 17px;
 	font-weight: bold;
 	box-shadow: 0 0 5px black;
-}
-
-#pets button:hover {
-	background-color: white;
-	color: black;
-}
-
-#pets img {
-	width: 350px;
-	height: 280px;
-	border-radius: 10px;
-}
-
-#petdetails {
-	width: 100px;
-}
-
-input:focus {
-	outline: none;
 }

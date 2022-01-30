@@ -14,7 +14,7 @@ import com.petshopapp.model.Admin;
 @WebServlet("/UpdatePetStatus")
 public class UpdatePetStatus extends HttpServlet{	
       @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     		HttpSession session=request.getSession();
     		int petId = Integer.parseInt(request.getParameter("petId"));
     		String status = request.getParameter("status");
@@ -24,10 +24,5 @@ public class UpdatePetStatus extends HttpServlet{
     	    PrintWriter write=response.getWriter();
     	    write.print("Status updated");   		
     }
-  
-      @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-    	doGet(req, resp);
-    }
 }

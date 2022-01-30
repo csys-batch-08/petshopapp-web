@@ -20,8 +20,6 @@
 	<header>
 		<!-- Navigation bar -->
 
-		<div class="navigation">
-
 			<!-- Web site name and logo -->
 			<h1>
 				<i class="fas fa-paw" style="color: white;"></i> Pet Shop
@@ -43,65 +41,38 @@
 					<li><a href="home.jsp">Home</a></li>
 				</ul>
 			</nav>
-		</div>
 	</header>
+	
+	<h2 >Pet Lists</h2>
 	<!-- Pet list -->
-	<div class="content">
-		<h2 class="petlist">Pet Lists</h2>
-		<table>
-			<tbody>
-				<tr>
-					<jsp:useBean id="PetDao" class="com.petshopapp.daoimpl.PetDAO"/>                                
+	<jsp:useBean id="PetDao" class="com.petshopapp.daoimpl.PetDAO"/>                                
    					<c:set var="count" value="1" />
 					  <c:forEach items="${PetDao.searchPetDetails(param.search,customer.getCustomerId())}" var="pet">
-						<td>
-							<table id="pets">
-								<tbody>
-									<!-- Pet Image -->
-									<tr>
-										<td><img src="./Pets/${pet.petImage}" alt="petimage"></td>
+               	<div id="data">
+				<div id="image">
+					<img src="./Pets/${pet.petImage}" alt="petimage">
+				</div>
+				<div id="divcontent">
+					<p>Pet Type</p>
+					<p>Pet Name</p>
+					<p>Pet Color</p>
+					<p>Unit price</p>
+					<p>Available</p>
+					<p style="visibility: hidden;">empty</p>
+				</div>
+				<div id="divdata">
+					<p>: ${pet.petType}</p>
+					<p>: ${pet.petName}</p>
+					<p>: ${pet.petColor}</p>
+					<p>: Rs. ${pet.petprice}</p>
+					<p>: ${pet.avilableQty} Quantity</p>
+					<p>
+					<a href="petdescription.jsp?petid=${pet.petId}"><button>view</button></a>
+					</p>
+				</div>
+			</div>
+	</c:forEach>
 
-										<!-- Pet description -->
-										<td id="petdetails">
-											<p>Pet Type</p>
-											<p>Pet Name</p>
-											<p>Pet Color</p>
-											<p>Unit price</p>
-											<p>Available</p>
-											<p style="visibility: hidden;">empty</p>
-										</td>
-
-										<!-- Pet description data -->
-										<td>
-											<p>: ${pet.petType}</p>
-											<p>: ${pet.petName}</p>
-											<p>: ${pet.petColor}</p>
-											<p>: Rs. ${pet.petprice}</p>
-											<p>: ${pet.avilableQty} Quantity</p>
-											<p>
-												<a href="petdescription.jsp?petid=${pet.petId}"><button>view</button></a>
-											</p>
-										</td>
-									</tr>
-								</tbody>
-							</table>
-						</td>
-						<c:choose>
-						<c:when test="${count==2}">
-						<c:set var="count" value="1" />
-				</tr>
-				<tr>
-					</c:when>
-					<c:otherwise>
-						<c:set var="count" value="2" />
-					</c:otherwise>
-					</c:choose>
-					</c:forEach>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-	
 </body>
 </html>
 </html>
