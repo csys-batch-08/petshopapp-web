@@ -2,7 +2,6 @@ package com.petshopapp.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,44 +15,71 @@ import com.petshopapp.model.Admin;
 import com.petshopapp.model.Customers;
 
 @WebServlet("/login")
-public class Login extends HttpServlet{
-	
-      @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    	
-    	PrintWriter out=resp.getWriter();
-    	String userName=req.getParameter("usernameinput");
-		String passwowrd=req.getParameter("passwordinput");
+public class Login extends HttpServlet {
+
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+		doGet(request, response);
+	}
+
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 		
-		Customers customerValidation=new Customers();
-		customerValidation.setUserName(userName);
-		customerValidation.setPassword(passwowrd);
-		CustomerDAO customerDao=new CustomerDAO();		
-		String firstName=customerDao.customerLoginValidation(customerValidation);
-		HttpSession session=req.getSession();
-	
+		// User details
+		String userName = request.getParameter("usernameinput");
+		String passwowrd = request.getParameter("passwordinput");
+       
+		HttpSession session = request.getSession();	
+		
+		Customers customerDetails = new Customers();
+		CustomerDAO customerDao = new CustomerDAO();
+		customerDetails.setUserName(userName);
+		customerDetails.setPassword(passwowrd);
+		
+		String firstName = customerDao.customerLoginValidation(customerDetails);	
+		
+		// login validation 
 		if (firstName != null) {
-			if (firstName.charAt(0) == '1') {			
-				Customers customerDetails=new Customers();
-				
-				customerDetails = customerDao.customerDetails(userName);				
-				session.setAttribute("customer", customerDetails);              
-			    RequestDispatcher rd =req.getRequestDispatcher("home.jsp");
-			    rd.forward(req, resp);
 			
+			//customer login
+			if (firstName.charAt(0) == 'C') {
+				customerDetails = customerDao.customerDetails(userName);
+				session.setAttribute("customer", customerDetails);
+				
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("Home");
+				try {
+					requestDispatcher.forward(request, response);
+				} catch (ServletException | IOException e) {
+					e.printStackTrace();
+				}
+
 			}
+			
+			// Admin login
 			else {
 				Admin admin;
-				AdminDAO adminDao=new AdminDAO();			
-						admin = adminDao.show(userName);
-						session.setAttribute("Admin", admin);				         
-						resp.sendRedirect("adminhome.jsp");										
-			}				
-}		else {	           
-	            out.print("<script type=\"text/javascript\">alert('invalid username or password');"
-	            		+ "window.location = 'index.jsp';</script>");	         
-}
+				AdminDAO adminDao = new AdminDAO();
+				admin = adminDao.show(userName);
+				session.setAttribute("Admin", admin);
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("adminhome.jsp");
+				try {
+					requestDispatcher.forward(request, response);
+				} catch (ServletException | IOException e) {
+					e.printStackTrace();
+				}
 
-    }
-      
+			}
+		} 
+		// If user name password does not match send redirect page
+		else {
+			request.setAttribute("message","invalid username or password");
+			RequestDispatcher requestDispatcher=request.getRequestDispatcher("redirect.jsp");
+			try {
+				requestDispatcher.forward(request, response);
+			} catch (ServletException | IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
 }

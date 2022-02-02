@@ -31,14 +31,7 @@ public class OrdersDAO{
 		}
 	}
 	
-	public void close() {
-		try {
-			preparedStatement.close();
-			resultSet.close();
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}			
-}
+
 	//insert order 
 	public void insertOrder(Orders ord) {
 		try {
@@ -53,7 +46,7 @@ public class OrdersDAO{
 		} catch (ClassNotFoundException | SQLException e) {
 			System.out.println(e.getMessage());
 		}
-		close();
+
 	}
         
 	// Cancel order
@@ -68,7 +61,7 @@ public class OrdersDAO{
 		} catch (ClassNotFoundException | SQLException e) {
 			System.out.println(e.getMessage());
 		}
-		close();
+	
 	}
        
 	// To get last orderId value to insert
@@ -85,7 +78,7 @@ public class OrdersDAO{
 		} catch (ClassNotFoundException | SQLException e) {
 			System.out.println(e.getMessage());
 		}
-		close();
+	
        return orderid;
 	}	
 }

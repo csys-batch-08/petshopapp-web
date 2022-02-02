@@ -15,18 +15,34 @@ import com.petshopapp.model.Customers;
 import com.petshopapp.model.PetDetails;
 
 @WebServlet("/Home")
-public class Home extends HttpServlet{
-	
-      @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    		HttpSession session=req.getSession();
-    		Customers customerDetails=(Customers) session.getAttribute("customer");
-    	    PetDAO petdao = new PetDAO();
-			List<PetDetails> petList = new ArrayList<PetDetails>();
-			petList = petdao.showAllpetsDetails(customerDetails);
-			session.setAttribute("PetList", petList);  
-		    RequestDispatcher rd =req.getRequestDispatcher("home.jsp");
-		    rd.forward(req, resp);
-    }
-  
+public class Home extends HttpServlet {
+
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+		doGet(request, response);
+
+	}
+
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+		
+		// session for get customer details
+		HttpSession session = request.getSession();
+		Customers customerDetails = (Customers) session.getAttribute("customer");
+		
+		// Petdao used for get petlist
+		PetDAO petdao = new PetDAO();
+		List<PetDetails> petList = petdao.showAllpetsDetails(customerDetails);	
+		
+		//send pet list through request object
+		request.setAttribute("PetList", petList);
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("home.jsp");
+		try {
+			requestDispatcher.forward(request, response);
+		} catch (ServletException | IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
 }

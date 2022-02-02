@@ -37,7 +37,7 @@ public class PetDAO {
 		try {
 			if(resultSet != null) {
 			while (resultSet.next()) {
-
+			
 				pet = new PetDetails(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3),
 						resultSet.getString(4), resultSet.getDate(5), resultSet.getInt(6), resultSet.getString(7),
 						resultSet.getString(8), resultSet.getDouble(9), resultSet.getString(10),

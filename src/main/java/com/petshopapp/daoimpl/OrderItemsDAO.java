@@ -21,16 +21,7 @@ public class OrderItemsDAO  {
 	PreparedStatement preparedStatement=null;
 	OrderItems orderitems=new OrderItems();
 	List<OrderItems> orderItemList=new ArrayList<OrderItems>();
-	
-	public void close() {
-		try {
-			preparedStatement.close();
-			resultSet.close();
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}			
-}
-	
+		
 	//Commit for every DML operation
 	public void commit() {
 		try {
@@ -59,7 +50,7 @@ public class OrderItemsDAO  {
 		} catch (ClassNotFoundException | SQLException e) {
 			System.out.println(e.getMessage());
 		}
-		close();	
+	
 	}
 
 	// Cancel Order item
@@ -74,7 +65,7 @@ public class OrderItemsDAO  {
 		} catch (ClassNotFoundException | SQLException e) {
 			System.out.println(e.getMessage());
 		}
-		close();
+	
 	}
 	
 	//Show My order items List
@@ -99,13 +90,13 @@ public class OrderItemsDAO  {
 				orderitems.getPet().setPetImage(resultSet.getString(9));			
 				orderItemList.add(orderitems);
 			}	
-			close();
+		
 		}
 		
 		 catch (ClassNotFoundException | SQLException e) {
 			 System.out.println(e.getMessage());
 		}		
-		close();
+	
 		return orderItemList;
 	}
 	
@@ -125,7 +116,7 @@ public class OrderItemsDAO  {
 		} catch (ClassNotFoundException | SQLException e) {
 			System.out.println(e.getMessage());
 		}
-		close();
+	
 		return orderItemList;
 			}	
 }

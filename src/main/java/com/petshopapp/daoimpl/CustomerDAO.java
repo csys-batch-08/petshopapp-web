@@ -130,7 +130,7 @@ public class CustomerDAO {
 			resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
 				customer.setFirstName(resultSet.getString(1));
-				return "1" + resultSet.getString(1);
+				return "C" + resultSet.getString(1);
 			} else if (true) {
 				query = "select Admin_firstname from admin_details where admin_username=? and admin_password=?";
 			    preparedStatement = connection.prepareStatement(query);
@@ -139,7 +139,7 @@ public class CustomerDAO {
 				resultSet = preparedStatement.executeQuery();
 				if (resultSet.next()) {
 					customer.setFirstName(resultSet.getString(1));
-					return "2" + resultSet.getString(1);
+					return "A" + resultSet.getString(1);
 				}
 			}		} catch (ClassNotFoundException | SQLException e) {
 				System.out.println(e.getMessage());

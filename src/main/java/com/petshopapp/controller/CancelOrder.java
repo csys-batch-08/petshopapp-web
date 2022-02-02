@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -25,50 +24,76 @@ import com.petshopapp.model.PetDetails;
 public class CancelOrder extends HttpServlet{
 	
       @Override
-    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-   
-        	 PrintWriter write=response.getWriter();
-    	    HttpSession session=request.getSession();
-    	    Customers customerDetails = (Customers) session.getAttribute("customer");
-    	   
-    		CustomerDAO customerDao = new CustomerDAO();
-    		Customers customer = new Customers();
-    		PetDetails pet = new PetDetails();
-    		PetDAO petDao = new PetDAO();
-    		OrderItemsDAO orderItemDao = new OrderItemsDAO();
-    		List<OrderItems> orderItemList = new ArrayList<OrderItems>();
-    		Orders order = new Orders();
-    		OrdersDAO orderDao = new OrdersDAO();
-    		int orderId = Integer.parseInt(request.getParameter("orderId"));
-    		
-    		order.setOrderId(orderId);
-    		orderItemList = orderItemDao.getCurrentOrderItemDetails(orderId);
-
-    		int Amount = 0;
-    		
-    		for (OrderItems orderItem : orderItemList) {
-    			
-    			
-    		pet = petDao.showCurrentPet(orderItem.getPet().getPetId());
-
-    		pet.setAvilableQty((pet.getAvilableQty() + orderItem.getQuantity()));
-    		petDao.updatePetAvailableQuantity(pet);
-
-    		Amount += orderItem.getTotalPrice();
-    		
-    		customerDetails.setWallet(customerDetails.getWallet() + (orderItem.getTotalPrice()));
-    		customerDao.updateCustomerWallet(customerDetails);
-
-    		customer = customerDao.customerDetails(pet.getCustomer().getCustomerId());
-    		customer.setWallet(customer.getWallet() - orderItem.getTotalPrice());
-    		customerDao.updateCustomerWallet(customer);
-
-    	}
-    	    orderDao.updateOrderStatus(order);
-    	    write.print("order cancelld "+
-    	                "\n credit amount :" + Amount + 
-    	                "\n Total Wallet balance :" + customerDetails.getWallet());
+      protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+      		doGet(request, response);
+      		
       }
-      
+       @Override
+       protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+    	   	
+    	   //print writer for ajax response
+        	 PrintWriter write=null;
+			try {
+				write = response.getWriter();
+			} catch (IOException e) {
+				
+				e.printStackTrace();
+			}
+			
+			// session used for customer details
+     	    HttpSession session=request.getSession();
+     	    Customers customerDetails = (Customers) session.getAttribute("customer");
+     	   
+     		CustomerDAO customerDao = new CustomerDAO();
+     		Customers customer = new Customers();
+     		
+     		// petdetails and petdao for update pet available qantity
+     		PetDetails pet = new PetDetails();
+     		PetDAO petDao = new PetDAO();
+     		
+     		//order item and order objects are used cancel orders and order items
+     		OrderItemsDAO orderItemDao = new OrderItemsDAO();
+     		List<OrderItems> orderItemList = new ArrayList<OrderItems>();
+     		Orders order = new Orders();
+     		OrdersDAO orderDao = new OrdersDAO();
+     		
+     		// order id for cancel id
+     		int orderId = Integer.parseInt(request.getParameter("orderId"));
+     		order.setOrderId(orderId);
+     		orderItemList = orderItemDao.getCurrentOrderItemDetails(orderId);
+
+     		int Amount = 0;
+     		
+     		for (OrderItems orderItem : orderItemList) {
+     			
+     	    // get order item pet details
+     		pet = petDao.showCurrentPet(orderItem.getPet().getPetId());
+            
+     		
+     		// update pet quantity
+     		pet.setAvilableQty((pet.getAvilableQty() + orderItem.getQuantity()));
+     		petDao.updatePetAvailableQuantity(pet);
+            
+     		// refund amount 
+     		Amount += orderItem.getTotalPrice();
+     		
+     		//update buyer customer wallet
+     		customerDetails.setWallet(customerDetails.getWallet() + (orderItem.getTotalPrice()));
+     		customerDao.updateCustomerWallet(customerDetails);
+            
+     		// update seller wallet
+     		customer = customerDao.customerDetails(pet.getCustomer().getCustomerId());
+     		customer.setWallet(customer.getWallet() - orderItem.getTotalPrice());
+     		customerDao.updateCustomerWallet(customer);
+
+     	}
+     	    orderDao.updateOrderStatus(order);
+     	    
+     	    //ajax response message
+     	    write.print("order cancelld "+
+     	                "\n credit amount :" + Amount + 
+     	                "\n Total Wallet balance :" + customerDetails.getWallet());
+       		
+       }
 
 }

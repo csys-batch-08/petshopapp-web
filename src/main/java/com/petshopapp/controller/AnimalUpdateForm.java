@@ -1,11 +1,11 @@
 package com.petshopapp.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,58 +18,69 @@ import com.petshopapp.model.Customers;
 import com.petshopapp.model.PetDetails;
 
 @WebServlet("/AnimalUpdateForm")
-public class AnimalUpdateForm extends HttpServlet{
-	
-      @Override
-    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+public class AnimalUpdateForm extends HttpServlet {
 
-    	   HttpSession session=request.getSession();
-           PrintWriter write=response.getWriter();
-           int petId=Integer.parseInt(request.getParameter("petid"));
-   		PetDetails petDetails = new PetDetails();
-   		PetDAO petDao=new PetDAO();
-   		petDetails.setPetId(petId);	
-   		Customers customerDetails=(Customers) session.getAttribute("customer");
-   		String petType = request.getParameter("animaltype").toLowerCase();
-   		String petName = request.getParameter("animalname").toLowerCase();
-   		String petGender = request.getParameter("animalgender").toLowerCase();
-   		String petDob = request.getParameter("dob");
-   		SimpleDateFormat formet = new SimpleDateFormat("yyyy-mm-dd");
-   		Date date;
-		try {
-			date = formet.parse(petDob);
-			petDetails.setPetDob(date);
-		} catch (ParseException e) {
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+		doGet(request, response);
+
+	}
+
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+		// Session for to get customer details and pet details
+		HttpSession session = request.getSession();
+		Customers customerDetails = (Customers) session.getAttribute("customer");
+        
+	    // Pet DAO object for update the pet values
+		PetDAO petDao = new PetDAO();
+		
+		//PetDetails object for to store the values
+		PetDetails petDetails = new PetDetails();
+		
+		//User given quantity
+		petDetails.setPetQty(Integer.parseInt(request.getParameter("quantity")));
+		
+	    // Ensure user Given quantity greater then 0
+		if (petDetails.getPetQty() > 0) {
 			
+			// Update the pet values
+			petDetails.setPetId(Integer.parseInt(request.getParameter("petid")));
+			petDetails.setPetType(request.getParameter("animaltype").toLowerCase());
+			petDetails.setPetName(request.getParameter("animalname").toLowerCase());
+			petDetails.setPetGender(request.getParameter("animalgender").toLowerCase());
+			SimpleDateFormat formet = new SimpleDateFormat("yyyy-mm-dd");
+			Date date;
+			try {
+				date = formet.parse(request.getParameter("dob"));
+				petDetails.setPetDob(date);
+			} catch (ParseException e) {
+
+				e.printStackTrace();
+			}
+
+			petDetails.setPetColor(request.getParameter("color").toLowerCase());
+			petDetails.setPetprice(Double.parseDouble(request.getParameter("price")));
+			petDetails.setPetImage(request.getParameter("imagelink"));
+			petDetails.setDescription(request.getParameter("description"));
+			petDetails.setAvilableQty(Integer.parseInt(request.getParameter("quantity")));
+			petDetails.getCustomer().setCustomerId(customerDetails.getCustomerId());
+			petDao.updatePetDetails(petDetails);
+			request.setAttribute("message","Pet Details updated");
+		}
+		// Invalid Quantity message 
+		else {
+			request.setAttribute("message","Invalid pet quantity");
+		}
+		
+		//Redirect to message page
+		RequestDispatcher requestDispatcher=request.getRequestDispatcher("redirect.jsp");
+		try {
+			requestDispatcher.forward(request, response);
+		} catch (ServletException | IOException e) {
 			e.printStackTrace();
 		}
-   		String petColor = request.getParameter("color").toLowerCase();
-   		double petPrice = Double.parseDouble(request.getParameter("price"));
-   		String petImage = request.getParameter("imagelink");
-   		String petDescription = request.getParameter("description");
-   		int petQty = Integer.parseInt(request.getParameter("quantity"));
-   		if(petQty>0){
-   		
-   		petDetails.setPetType(petType);
-   		petDetails.setPetName(petName);
-   		petDetails.setPetGender(petGender);
-   	
-   		petDetails.setPetColor(petColor);
-   		petDetails.setPetprice(petPrice);
-   		petDetails.setPetImage(petImage);
-   		petDetails.setDescription(petDescription);
-   		petDetails.setPetQty(petQty);
-   		petDetails.setAvilableQty(petQty);
-   		petDetails.getCustomer().setCustomerId(customerDetails.getCustomerId());
-   		petDao.updatePetDetails(petDetails);	
-   		write.print("<script type=\"text/javascript\">alert('Pet Details updated');window.location = 'mypets.jsp';</script>");
-   		}
-   		
-   		else{
-   			write.print("<script type=\"text/javascript\">alert('Invalid quantity');window.location = 'editpet.jsp';</script>");
-   			write.println("Invalid quantity");
-   		}
-           
-    }
-      
+
+	}
+
 }

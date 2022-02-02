@@ -2,7 +2,6 @@ package com.petshopapp.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,24 +21,47 @@ import com.petshopapp.model.PetDetails;
 public class BuyNow extends HttpServlet{
 	
       @Override
-    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    	   HttpSession session=request.getSession();
-           PrintWriter write=response.getWriter();
+      protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+      		doGet(request, response);
+      		
+      }
+       @Override
+       protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+    	   
+    	   // session to get customer details
+     	   HttpSession session=request.getSession();
+     	  Customers customerDetails=(Customers)session.getAttribute("customer");  
+     	  
+     	  // print writer for ajax response
+           PrintWriter write=null;
+		try {
+			write = response.getWriter();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
            
+		   //customer required quantity
            int quantity=Integer.parseInt(request.getParameter("quantity"));
-
-           PetDetails pet=( PetDetails)session.getAttribute("petDescription");
-           Customers customerDetails=(Customers)session.getAttribute("customer");           
+	           int petid=Integer.parseInt(request.getParameter("petid"));
+           
+           //order and orderdao objects used to store and update order details
            Orders orders=new Orders();
            OrdersDAO ordersDao=new OrdersDAO();
+           
+           
+           //orderitems and orderitemsdao objects used to store and update order items details
            OrderItems orderItems=new OrderItems();
            OrderItemsDAO orderItemsDao=new OrderItemsDAO();
-           PetDAO petDao=new PetDAO();
-           CustomerDAO customerDao=new CustomerDAO();
            
+           //petdao object used to get pet details
+           PetDAO petDao=new PetDAO();
+           PetDetails pet=petDao.showCurrentPet(petid);
+           
+		   //customerdao used to update wallet of customer and get seller customer details
+           CustomerDAO customerDao=new CustomerDAO();        
            Customers petCustomerDetails=customerDao.customerDetails(pet.getCustomer().getCustomerId());
          
+           //check customer wallet higher then or equal to pet price
            if(customerDetails.getWallet()>=(quantity*pet.getPetprice())){  
         	   if(pet.getAvilableQty()>=quantity){	   
            orders.getCustomer().setCustomerId(customerDetails.getCustomerId());
@@ -91,7 +113,7 @@ public class BuyNow extends HttpServlet{
            		}
         	 
            }
-    }
-      
+       		
+       }  
 
 }

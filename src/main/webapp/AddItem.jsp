@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@include file="headerall.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,31 +15,6 @@
 
 </head>
 <body>
-	<!-- Header -->
-	<header>
-		<!-- Navigation bar -->
-
-		<div class="navigation">
-
-			<!-- Web site name and logo -->
-			<h1>
-			     <!-- icon for pet shop -->
-				<i class="fas fa-paw" style="color: white;"></i> Pet Shop
-			</h1>
-			<nav>
-				<!-- Menu bar -->
-				<ul id="menu">
-					<li><a href="myprofile.jsp">My Profile</a></li>
-					<li><a href="mycart.jsp">My cart</a></li>
-					<li><a href="myorders.jsp">My orders</a></li>
-					<li><a href="additem.jsp">Add item</a></li>
-					<li><a href="mypets.jsp">My pets</a></li>
-					<li><a href="home.jsp">Home</a></li>
-				</ul>
-			</nav>
-		</div>
-	</header>
-	
 	<!-- Add pet from -->
 	<form class="animalform" action="AddPet">
 		<table>

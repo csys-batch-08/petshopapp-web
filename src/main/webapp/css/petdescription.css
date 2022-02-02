@@ -14,91 +14,83 @@ body {
 	text-transform: capitalize;
 }
 
-.navigation {
-	padding-top: 15px;
-	font-family: sans-serif;
-}
-
-h1 {
-	display: inline;
-	width: 300px;
-	position: absolute;
-	top: 10px;
-	left: 10px;
-	font-size: 25px;
-}
-
-#menu li {
-	display: inline;
-}
-
-#menu a {
-	float: right;
-	padding-right: 20px;
-	margin-top: 2px;
-	font-size: 20px; font-weight : bold;
-	text-decoration: none;
-	transition: 0.5s;
-	font-weight: bold;
-}
-
-#menu a:hover {
-	color: black;
-}
-
 h2 {
-	margin-top: 50px;
-	margin-left: 30px;
+	margin-top: 30px;
+	margin-left: 60px;
 	width: 150px;
 	font-size: 30px;
 }
 
-table img{
-	width: 500px;
-	height: 400px;
-	margin-left: 20px;
-	margin-top: 20px;
-}
-table td p{
-	line-height: 2;
-	margin-left: 15px;
+#data {
+	width: 95%;
+	margin-left: 0;
+	padding-left: 50px;
+	padding-top: 20px;
 	font-size: 20px;
+	display: inline;
+	height: 670px;
+	float: left;
 }
 
-#description{
-	width: 450px;
-	position: absolute;
-	font-size:20px;
-	text-align:justify;
-	top: 135px;
-	left: 870px;
+#data p {
 	line-height: 2;
+	padding-left: 20px;
 }
 
-#description button{
+#data div {
+	display: inline;
+	float: left;
+}
+
+#image {
+	height: 380px;
+	width: 500px;
+}
+
+#image img {
+	width: 500px;
+	height: 380px;
+	border-radius: 10px;
+}
+
+#divcontent {
+	width: 180px;
+	font-weight: bold;
+}
+
+#divdata {
+	width: 250px;
+}
+
+#data button {
+	
+	margin-top: 5px;
 	width: 130px;
 	height: 30px;
+	background-color: rgb(16, 177, 16);
+	border-radius: 10px;
+	border: none;
+	color: white;
 	font-size: 17px;
 	font-weight: bold;
-	color: white;
-	background-color:  rgb(16, 177, 16);
-	border: none;
-	border-radius: 5px; 
 	box-shadow: 0 0 5px black;
 }
 
-#quantity{
-	width: 20px;
-	height: 25px;
-	border:none;
-	border-radius: 5px;
+#description{
+	margin-top: 20px;
+}
+
+#icon{
+	font-size: 27px;
+	font-weight: bold;
+}
+
+input{
 	background-color: transparent;
-	color: white;
+	border: none;
 	text-align: center;
-    position: relative;
-    top:-3px;
-    left: 3px;
-    outline: none;
+	position: relative;
+	top:-5px;
 }
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {

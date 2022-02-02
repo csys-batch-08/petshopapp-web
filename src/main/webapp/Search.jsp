@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@include file="header.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
@@ -16,40 +17,12 @@
 	crossorigin="anonymous"></script>
 </head>
 <body>
-	<!-- Header -->
-	<header>
-		<!-- Navigation bar -->
-
-		<!-- Web site name and logo -->
-		<h1>
-			<i class="fas fa-paw" style="color: white;"></i> Pet Shop
-		</h1>
-		<!-- Search bar -->
-		<form action="Search">
-			<input type="search" name="search" id="searchinput"
-				placeholder="Enter pet category or name">
-			<button type="submit" id="search">search</button>
-		</form>
-		<nav>
-			<!-- Menu bar -->
-			<ul id="menu">
-				<li><a href="myprofile.jsp">My Profile</a></li>
-				<li><a href="mycart.jsp">My cart</a></li>
-				<li><a href="myorders.jsp">My orders</a></li>
-				<li><a href="additem.jsp">Add item</a></li>
-				<li><a href="mypets.jsp">My pets</a></li>
-				<li><a href="home.jsp">Home</a></li>
-			</ul>
-		</nav>
-	</header>
-
 	<h2>Pet Lists</h2>
 	<!-- Pet list -->
-	<jsp:useBean id="PetDao" class="com.petshopapp.daoimpl.PetDAO" />
+	
 
 	 <c:forEach
-		items="${PetDao.searchPetDetails(param.search,customer.getCustomerId())}"
-		var="pet">
+		items="${PetListSearch}" var="pet">
 		<div id="data">
 			<div id="image">
 				<img src="./Pets/${pet.petImage}" alt="petimage">
@@ -74,7 +47,5 @@
 			</div>
 		</div>
 	</c:forEach>
-
 </body>
-</html>
 </html>

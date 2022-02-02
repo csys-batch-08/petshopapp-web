@@ -1,27 +1,49 @@
 package com.petshopapp.controller;
 
 import java.io.IOException;
+import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.petshopapp.daoimpl.OrderItemsDAO;
+import com.petshopapp.model.Customers;
+import com.petshopapp.model.OrderItems;
 
 @WebServlet("/MyOrders")
-public class MyOrders extends HttpServlet{
-      @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {	    
-  
-//     		HttpSession session=req.getSession();
-//    		Customers customerDetails = (Customers) session.getAttribute("customer");     	
-//    		OrderItemsDAO orderItemDao = new OrderItemsDAO();
-//    		List<OrderItems> orderItemList = orderItemDao.showMyOrdersItemsList(customerDetails);
-//    		//session.setAttribute("orderItemsList",orderItemList);
-//		    RequestDispatcher rd =req.getRequestDispatcher("myorders.jsp");
-//		    rd.forward(req, resp);
-    }
- 
+public class MyOrders extends HttpServlet {
+
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+		doGet(request, response);
+
+	}
+
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+		
+		//Get customer details
+		HttpSession session = request.getSession();
+		Customers customerDetails = (Customers) session.getAttribute("customer");
+		
+		//Get order details
+		OrderItemsDAO orderItemDao = new OrderItemsDAO();
+		List<OrderItems> orderItemList = orderItemDao.showMyOrdersItemsList(customerDetails);
+		
+		// Send orders details to myorders.jsp
+		request.setAttribute("orderItemsList", orderItemList);
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("myorders.jsp");
+		try {
+			requestDispatcher.forward(request, response);
+		} catch (ServletException | IOException e) {
+			e.printStackTrace();
+		}
+
+	}
 
 }

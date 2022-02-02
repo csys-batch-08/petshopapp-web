@@ -1,5 +1,6 @@
 //buy all
 function buyAll(address) {					
+
     if(address!='none'){				
     var confirmAction = confirm("Are you sure you want buy  all this item");
        if (confirmAction) {
@@ -22,7 +23,6 @@ function buyAll(address) {
    }
    }
    else{
-
         var confirms = confirm("Please add address before buy");
         if (confirms) {
               window.location = 'myprofile.jsp';
@@ -32,7 +32,7 @@ function buyAll(address) {
 }
 
 //buy
-function buy(itemId,availableQuantity,cartQuantity,price,address) {
+function buy(itemId,availableQuantity,cartQuantity,address) {
 
     if(availableQuantity>=cartQuantity){
     if (address != 'none') {
@@ -55,8 +55,7 @@ function buy(itemId,availableQuantity,cartQuantity,price,address) {
             alert("Action canceled");
         }
 
-    } else {
-        
+    } else {       
         var confirms = confirm("Please add address before buy");
         if (confirms) {
               window.location = 'myprofile.jsp';
@@ -70,8 +69,10 @@ function buy(itemId,availableQuantity,cartQuantity,price,address) {
 
 // remove cart
 function removeCart(itemId) {
-    var confirmAction = confirm("Are you sure you want remove this item");
-    if (confirmAction) {
+   
+ var confirmAction = confirm("Are you sure you want remove this item");
+    
+ if (confirmAction) {
 
         console.log("called buy");
         

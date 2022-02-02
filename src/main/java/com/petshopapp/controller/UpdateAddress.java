@@ -1,8 +1,7 @@
 package com.petshopapp.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,25 +12,43 @@ import com.petshopapp.daoimpl.CustomerDAO;
 import com.petshopapp.model.Customers;
 
 @WebServlet("/UpdateAddress")
-public class UpdateAddress extends HttpServlet{
-	
-      @Override
-    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    
-    	
-    	PrintWriter writer=response.getWriter();
-        HttpSession session=request.getSession();      
-        String address = request.getParameter("address");
-     	String city = request.getParameter("city");
-     	int pinCode = Integer.parseInt(request.getParameter("pincode"));
-     	Customers customer = (Customers) session.getAttribute("customer");
-     	customer.setAddress(address);
-     	customer.setCity(city);
-     	customer.setPincode(pinCode);
-     	CustomerDAO customerDao = new CustomerDAO();
-     	customerDao.updateAddressDetails(customer);
+public class UpdateAddress extends HttpServlet {
 
-       writer.print("<script type=\"text/javascript\"> alert('Address updated'); window.location = 'myprofile.jsp';</script>");
-    }
-      
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+		doGet(request, response);
+
+	}
+
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+
+		// Get customer details
+		HttpSession session = request.getSession();
+		Customers customer = (Customers) session.getAttribute("customer");
+        
+		//update values
+		customer.setAddress(request.getParameter("address"));
+		customer.setCity(request.getParameter("city"));
+		customer.setPincode(Integer.parseInt(request.getParameter("pincode")));
+
+		//check address are not equal to none
+		if (!customer.getAddress().equals("none") || !customer.getCity().equals("none")) {
+			CustomerDAO customerDao = new CustomerDAO();
+			customerDao.updateAddressDetails(customer);
+			request.setAttribute("message", "Address updated");
+		} else {
+			request.setAttribute("message", "Address or city can't be none");
+
+		}
+		
+		// redirect based on message
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("redirect.jsp");
+		try {
+			requestDispatcher.forward(request, response);
+		} catch (ServletException | IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 }

@@ -1,12 +1,13 @@
 package com.petshopapp.controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import com.petshopapp.daoimpl.PetDAO;
 import com.petshopapp.model.PetDetails;
 
@@ -14,16 +15,31 @@ import com.petshopapp.model.PetDetails;
 public class EditPet extends HttpServlet{
 	
       @Override
-    protected void service(HttpServletRequest request, HttpServletResponse respose) throws ServletException, IOException {
-    		HttpSession session=request.getSession();
-    		PetDetails pet = new PetDetails();
-    		PetDAO petdao = new PetDAO();
-    		int petId = Integer.parseInt(request.getParameter("petid"));
-    		session.setAttribute("updatePet", petId);
-    		pet = petdao.showCurrentPet(petId);
-    		session.setAttribute("pet", pet);
-    	    respose.sendRedirect("editpet.jsp");	 
-    	    	
-    }
+      protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+      		doGet(request, response);
+      		
+      }
+       @Override
+       protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+    	
+    	// User selected pet detail id
+    	int petId = Integer.parseInt(request.getParameter("petid"));
+    	
+    	// Objects used for get pet details based on the id
+   		PetDAO petdao = new PetDAO();
+   		PetDetails pet = petdao.showCurrentPet(petId);
+   		
+   		// send pet details as object editpet.jsp
+   		request.setAttribute("pet", pet);  		
+   		RequestDispatcher requestDispatcher=request.getRequestDispatcher("editpet.jsp");
+   		try {
+			requestDispatcher.forward(request, response);
+		} catch (ServletException | IOException e) {		
+			e.printStackTrace();
+		}
+   		
+   	   
+       		
+       }
   
 }

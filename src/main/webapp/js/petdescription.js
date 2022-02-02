@@ -1,15 +1,15 @@
   // Add to cart to ajax
-    function addToCart(){     
+
+    function addToCart(petId){     
         let qty=document.getElementById("quantity").value;
         if(qty>0){
-        document.getElementById("message").innerHTML=" ";
-    	var url="AddToCart?quantity="+qty;  
+    	var url="AddToCart?quantity="+ qty +"&petid=" + petId;  
     	
-    	if(window.XMLHttpRequest){  
+        if(window.XMLHttpRequest){  
     	request=new XMLHttpRequest();  
     		}  
-    		else if(window.ActiveXObject){  
-    		request=new ActiveXObject("Microsoft.XMLHTTP");  
+    	else if(window.ActiveXObject){  
+    	request=new ActiveXObject("Microsoft.XMLHTTP");  
     		}  
     	try  
     	{  
@@ -28,7 +28,7 @@
     } 
      
     // buy Now to ajax
-    function buyNow(address){  
+    function buyNow(address,petid){  
 					if (address == 'none') {
 						var confirmAction = confirm("Please add address before buy");
 						if (confirmAction) {
@@ -39,9 +39,8 @@
 						var confirmAction1 = confirm("Are you sure you want buy this item");
 						if (confirmAction1) {
 							let qty = document.getElementById("quantity").value;
-							console.log(qty);
 							if (qty > 0) {								
-								var url = "BuyNow?quantity=" + qty;
+								var url = "BuyNow?quantity=" + qty+ "&petid=" + petid;
 								if (window.XMLHttpRequest) {
 									request = new XMLHttpRequest();
 								} else if (window.ActiveXObject) {
@@ -67,13 +66,17 @@
 				}
     }
     
+  
     // Response ajax
     function getInfo(){  
     	if(request.readyState==4){  
     	var val=request.response;
-    	   alert(val.trim()) ;
+    	   alert(val.trim()) ;           
     	   if(val.includes("Low wallet balance")){
 				  window.location = 'myprofile.jsp';
+			}
+			else{	
+				location.reload();
 			}
     	}  
     	}	

@@ -2,6 +2,8 @@ package com.petshopapp.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,47 +14,59 @@ import com.petshopapp.daoimpl.CustomerDAO;
 import com.petshopapp.model.Customers;
 
 @WebServlet("/UpdateProfile")
-public class UpdateProfile extends HttpServlet{
-	
-      @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    
-    	 boolean flag=true;
-    	 PrintWriter writer=resp.getWriter();
-         HttpSession session=req.getSession();
-         Customers customerDetails=(Customers)session.getAttribute("customer");
-         Customers customers=new Customers();
-         CustomerDAO customerDao=new CustomerDAO();
-         String firstName=req.getParameter("firstname");
-         String lastName=req.getParameter("lastname");
-         String userName=req.getParameter("username");
-         customers.setUserName(userName);
-         
-         if((!customerDao.validateUsername(customers)) && (!userName.equals(customerDetails.getUserName()))) {
-   
-        	flag=false;
-         }
-         String password=req.getParameter("password");
-         String email=req.getParameter("email");
-         customers.setEmail(email);
-         if((!customerDao.validateUsername(customers)) && (!email.equals(customerDetails.getEmail()))) {
+public class UpdateProfile extends HttpServlet {
 
-         	flag=false;
-          }
-         long number=Long.parseLong(req.getParameter("number"));
-         String gender=req.getParameter("gender");
-         
-         if(flag) {
-         customerDetails.setFirstName(firstName);
-         customerDetails.setLastName(lastName);
-         customerDetails.setUserName(userName);
-         customerDetails.setPassword(password);
-         customerDetails.setEmail(email);
-         customerDetails.setNumber(number);
-         customerDetails.setGender(gender);        
-         customerDao.updateCustomerDetails(customerDetails);
-         }
-             writer.print("<script type=\"text/javascript\"> alert('Profile updated successfully'); window.location = 'myprofile.jsp';</script>");
-    }
-      
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+		doGet(request, response);
+
+	}
+
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+		
+		//Get customer details
+		HttpSession session = request.getSession();
+		Customers customerDetails = (Customers) session.getAttribute("customer");
+		
+		boolean flag = true;
+		PrintWriter writer = null;
+		try {
+			writer = response.getWriter();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Customers customers = new Customers();
+		CustomerDAO customerDao = new CustomerDAO();
+	    
+		customerDetails.setUserName(request.getParameter("username"));
+		customerDetails.setEmail(request.getParameter("email"));
+
+		if ((!customerDao.validateUsername(customers)) && (!customerDetails.getUserName().equals(customerDetails.getUserName()))) {
+
+			flag = false;
+		}
+			
+		if ((!customerDao.validateUsername(customers)) && (!customerDetails.getEmail().equals(customerDetails.getEmail()))) {
+
+			flag = false;
+		}
+
+		if (flag) {
+			customerDetails.setFirstName(request.getParameter("firstname"));
+			customerDetails.setLastName(request.getParameter("lastname"));
+			customerDetails.setPassword(request.getParameter("password"));
+			customerDetails.setNumber(Long.parseLong(request.getParameter("number")));
+			customerDetails.setGender(request.getParameter("gender"));
+			customerDao.updateCustomerDetails(customerDetails);
+		}
+		request.setAttribute("message", "Profile updated successfully");
+		RequestDispatcher requestDispatcher=request.getRequestDispatcher("redirect.jsp");
+		try {
+			requestDispatcher.forward(request, response);
+		} catch (ServletException | IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 }

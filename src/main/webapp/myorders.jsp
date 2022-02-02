@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@include file="headerall.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
@@ -12,35 +13,10 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://kit.fontawesome.com/aeca6704b2.js"
 	crossorigin="anonymous"></script>
-
 </head>
 <body>
-	<!-- Header -->
-	<header>
-		<!-- Navigation bar -->
-
-		<div class="navigation">
-
-			<!-- Web site name and logo -->
-			<h1>
-				<i class="fas fa-paw" style="color: white;"></i> Pet Shop
-			</h1>
-			<nav>
-				<!-- Menu bar -->
-				<ul id="menu">
-					<li><a href="myprofile.jsp">My Profile</a></li>
-					<li><a href="mycart.jsp">My cart</a></li>
-					<li><a href="myorders.jsp">My orders</a></li>
-					<li><a href="additem.jsp">Add item</a></li>
-					<li><a href="mypets.jsp">My pets</a></li>
-					<li><a href="home.jsp">Home</a></li>
-				</ul>
-			</nav>
-		</div>
-	</header>
-	<h2>My orders</h2>
 	<table>
-		<caption></caption>
+		<caption>My Orders</caption>
 		<tr>
 			<th id="th">Order id</th>
 			<th id="th">Pet id</th>
@@ -51,11 +27,8 @@
 			<th id="th">Status</th>
 			<th id="th">Order date</th>
 		</tr>
-
-		<jsp:useBean id="orderItemDao"
-			class="com.petshopapp.daoimpl.OrderItemsDAO" />
-		<c:set var="orderItemsList"
-			value="${orderItemDao.showMyOrdersItemsList(customer)}"></c:set>
+		
+		
 		<c:set var="length" value="${orderItemsList.size()}"></c:set>
 		<c:forEach var="i" begin="0" end="${length-1}">
 			<fmt:parseDate pattern="yyyy-MM-dd"
