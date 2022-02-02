@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+ <%@include file="adminheader.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
@@ -10,7 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Home</title>
 
-<link rel="stylesheet" href="css/adminhome.css"></link>
+<link rel="stylesheet" href="./assets/css/adminhome.css"></link>
 
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -19,27 +20,12 @@
 
 </head>
 <body>
-	<header>
-		<h1 style="font-size: 25px; margin-left: 10px;">
-			<i class="fas fa-paw" style="color: white;"></i> PET SHOP
-		</h1>
-		<nav>
-			<ul>
-				<li><a href="adminprofile.jsp">My Profile</a></li>
-				<li><a href="userlist.jsp">User List</a></li>
-				<li><a href="adminhome.jsp">Home</a></li>
-			</ul>
-		</nav>
-
-	</header>
-
+ 
 	<h2>Not Approved Pet List</h2>
-	<jsp:useBean id="PetDao" class="com.petshopapp.daoimpl.PetDAO" />
-	<c:set var="count" value="1" />
-	<c:forEach items="${PetDao.showNotApprovedPetList()}" var="pet">
+	<c:forEach items="${PetList}" var="pet">
 		<div id="data">
 			<div id="image">
-				<img src="./Pets/${pet.getPetImage()}" alt="pet image">
+				<img src="./assets/images/pets/${pet.getPetImage()}" alt="pet image">
 			</div>
 			<div id="divcontent">
 				<p>Pet Type</p>
@@ -65,7 +51,7 @@
 			</div>
 		</div>
 	</c:forEach>
-	<script type="text/javascript" src="js/adminhome.js"></script>
+	<script type="text/javascript" src="./assets/js/adminhome.js"></script>
 </body>
 </html>
 </html>

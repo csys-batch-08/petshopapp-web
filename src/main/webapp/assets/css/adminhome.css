@@ -1,0 +1,113 @@
+@charset "ISO-8859-1";
+*{
+    margin: 0;
+    padding: 0;
+    color: white;
+}
+body{
+  background-image: linear-gradient(rgba(0, 0, 0, .5) 50%,
+		rgb(0, 0, 0, .5) 50%),
+		url("../images/background/background1.jpg");
+ 	background-repeat: no-repeat;
+	background-position:center;
+	background-size: cover;
+	background-attachment: fixed;
+	color: white;
+	text-transform: capitalize;
+}
+
+header h1{
+	font-size: 25px;
+	margin: 15px 0px 0px 10px;
+	width: 200px;
+}
+
+nav{
+	width:500px;
+	position: absolute;
+	left:830px;
+}
+nav li {
+	display: inline;
+	
+}
+
+nav a {
+	text-decoration: none;
+	float: right;
+	padding-right: 20px;
+	font-size: 20px;
+	font-weight: bold;	
+	transition: 0.5s;	
+	position: relative;
+	top:-30px;
+	
+}
+
+nav a:hover {
+	color: black;
+}
+
+h2{
+margin-top: 20px;
+margin-left: 20px;
+font-size: 30px;
+}
+
+#data {
+	width: 48%;
+	margin-left: 0;
+	padding-left: 20px;
+	padding-top: 20px;
+	font-size: 20px;
+	font-weight: bold;
+	display: inline;
+	height: 300px;
+	float: left;
+}
+
+#data p {
+	line-height: 2;
+	padding-left: 20px;
+}
+
+#data div {
+	display: inline;
+	float: left;
+}
+
+#image {
+	height: 250px;
+	width: 320px;
+}
+
+#image img {
+	width: 320px;
+	height: 250px;
+	border-radius: 10px;
+}
+
+#divcontent {
+	width: 120px;
+	 
+}
+
+#divdata {
+	width: 180px;
+	white-space: nowrap;
+	overflow:hidden;
+	text-overflow: ellipsis;
+}
+
+#data button {
+	margin-top: 5px;
+	width: 110px;
+	height: 30px;
+	background-color: rgb(16, 177, 16);
+	border-radius: 10px;
+	border: none;
+	color: white;
+	font-size: 17px;
+	font-weight: bold;
+	box-shadow: 0 0 5px black;
+}

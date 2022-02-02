@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@include file="headerall.jsp"%>
+<%@include file="header.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Edit pet details</title>
-<link rel="stylesheet" href="css/editpet.css"></link>
+<link rel="stylesheet" href="./assets/css/editpet.css"></link>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://kit.fontawesome.com/aeca6704b2.js"
@@ -101,7 +101,7 @@
 		</datalist>
 	</form>
 	</div>
-	<script type="text/javascript" src="js/editpet.js"></script>
+	<script type="text/javascript" src="./assets/js/editpet.js"></script>
 </body>
 
 </html>

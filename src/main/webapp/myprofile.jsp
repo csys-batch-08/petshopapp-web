@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@include file="headerall.jsp" %>
+<%@include file="header.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>My profile</title>
-<link rel="stylesheet" href="css/myprofile.css"></link>
+<link rel="stylesheet" href="./assets/css/myprofile.css"></link>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://kit.fontawesome.com/aeca6704b2.js"></script>
@@ -24,7 +24,7 @@
 	<table>
 		<tbody>
 			<tr>
-				<td><img src="./Profile Picture/${customer.getImage()}"
+				<td><img src="./assets/images/profile picture/${customer.getImage()}"
 					alt="user picture"></td>
 				<td style="width: 600px;">
 					<p>
@@ -170,7 +170,7 @@
 			</tr>
 		</tbody>
 	</table>
-	<script type="text/javascript" src="js/myprofile.js"></script>
+	<script type="text/javascript" src="./assets/js/myprofile.js"></script>
 
 </body>
 </html>

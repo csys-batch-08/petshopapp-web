@@ -10,7 +10,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Home</title>
-<link rel="stylesheet" href="css/home.css"></link>
+<link rel="stylesheet" href="./assets/css/home.css"></link>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://kit.fontawesome.com/aeca6704b2.js"
@@ -25,7 +25,7 @@
 		items="${PetListSearch}" var="pet">
 		<div id="data">
 			<div id="image">
-				<img src="./Pets/${pet.petImage}" alt="petimage">
+				<img src="./assets/images/pets/${pet.petImage}" alt="petimage">
 			</div>
 			<div id="divcontent">
 				<p>Pet Type</p>

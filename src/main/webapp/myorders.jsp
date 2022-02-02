@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@include file="headerall.jsp" %>
+<%@include file="header.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
@@ -8,7 +8,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>My Orders</title>
-<link rel="stylesheet" href="css/myorders.css"></link>
+<link rel="stylesheet" href="./assets/css/myorders.css"></link>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://kit.fontawesome.com/aeca6704b2.js"
@@ -84,6 +84,6 @@
 			</c:if>
 		</c:forEach>
 	</table>
-	<script type="text/javascript" src="js/myorders.js"></script>
+	<script type="text/javascript" src="./assets/js/myorders.js"></script>
 </body>
 </html>

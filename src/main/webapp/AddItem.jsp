@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@include file="headerall.jsp" %>
+<%@include file="header.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +8,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pet register</title>
-<link rel="stylesheet" href="css/additem.css"></link>
+<link rel="stylesheet" href="./assets/css/additem.css"></link>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://kit.fontawesome.com/aeca6704b2.js" crossorigin="anonymous"></script>
@@ -101,8 +101,7 @@
 			<option value="Blue"></option>
 		</datalist>
 	</form>
-	<!--To set min and max attribute for date -->
-	<script type="text/javascript" src="js/additem.js"></script>
+	<script type="text/javascript" src="./assets/js/additem.js"></script>
 </body>
 
 </html>

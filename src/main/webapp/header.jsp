@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
 <meta charset="ISO-8859-1">
-<link rel="stylesheet" href="css/header.css"></link>
+<link rel="stylesheet" href="./assets/css/header.css"></link>
 </head>
 <body>
 	<header>

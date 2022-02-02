@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@ include file="headerall.jsp" %>
+<%@ include file="header.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
@@ -8,7 +8,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>My Cart</title>
-<link rel="stylesheet" href="css/mycart.css"></link>
+<link rel="stylesheet" href="./assets/css/mycart.css"></link>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://kit.fontawesome.com/aeca6704b2.js"
@@ -25,7 +25,7 @@
 				value="${totalAmount + cart.getTotalPrice()}" scope="session"></c:set>
 			<c:set var="count" value="${count + 1}"></c:set>
 			<tr>
-				<td><img src="./Pets/${cart.getPet().getPetImage()}"
+				<td><img src="./assets/images/pets/${cart.getPet().getPetImage()}"
 					alt="petimage"></td>
 
 				<td>
@@ -74,9 +74,9 @@
 			</tr>
 		</c:if>
 		<c:if test="${count == 0 }">
-			<h1 id="empty" style="margin-top: 140px">Your cart is empty</h1>
+			<h1 id="empty">Your cart is empty</h1>
 		</c:if>
 	</table>
-	<script type="text/javascript" src="js/mycart.js"></script>
+	<script type="text/javascript" src="./assets/js/mycart.js"></script>
 </body>
 </html>

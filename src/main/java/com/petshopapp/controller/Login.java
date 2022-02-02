@@ -61,7 +61,7 @@ public class Login extends HttpServlet {
 				AdminDAO adminDao = new AdminDAO();
 				admin = adminDao.show(userName);
 				session.setAttribute("Admin", admin);
-				RequestDispatcher requestDispatcher = request.getRequestDispatcher("adminhome.jsp");
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("AdminHome");
 				try {
 					requestDispatcher.forward(request, response);
 				} catch (ServletException | IOException e) {

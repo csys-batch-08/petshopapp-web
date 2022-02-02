@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+	 <%@include file="adminheader.jsp" %>
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="ISO-8859-1">
 <title>User List</title>
-<link rel="stylesheet" href="css/userlist.css"></link>
+<link rel="stylesheet" href="./assets/css/userlist.css"></link>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://kit.fontawesome.com/aeca6704b2.js"
@@ -22,23 +23,7 @@
 color: white;}</style>
 </head>
 <body>
-<header>
-        <div class="backgroundpage">
-        <div class="head">
-        <div class="navigation">
-        <h1 style="font-size: 25px;"><i class="fas fa-paw" style="color: white;"></i> PET SHOP</h1>
-        <nav>
-        <ul  id="menu">
-        <li><a href="adminprofile.jsp">My Profile</a></li>
-        <li><a href="userlist.jsp">User List</a></li>
-        <li><a href="adminhome.jsp">Home</a></li>
-        </ul>
-        </div>
-        </nav>
-</header>
-        
-
-
+      
 	<div>
 		<h2 style="margin-top: 40px;">Customers List</h2>
 	</div>
@@ -56,8 +41,7 @@ color: white;}</style>
 			</tr>
 		</thead>
 		<tbody>
-		<jsp:useBean id="CustomerDao" class="com.petshopapp.daoimpl.CustomerDAO"/> 
-		<c:forEach items="${CustomerDao.customersList()}" var="customer">		
+		<c:forEach items="${customerList}" var="customer">		
 			<tr>
 				<td class="text-capitalize">${customer.getCustomerId()}</td>
 				<td class="text-capitalize" >${customer.getFirstName()}</td>

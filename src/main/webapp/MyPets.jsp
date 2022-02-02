@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@include file="headerall.jsp" %>
+<%@include file="header.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="ISO-8859-1">
 <title>My Pets</title>
-<link rel="stylesheet" href="css/mypets.css"></link>
+<link rel="stylesheet" href="./assets/css/mypets.css"></link>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://kit.fontawesome.com/aeca6704b2.js"></script>
@@ -19,7 +19,7 @@
 	<c:forEach items="${myPetList}" var="pet">
 		<div id="data">
 			<div id="image">
-				<img src="./Pets/${pet.petImage}" alt="petimage">
+				<img src="./assets/images/pets/${pet.petImage}" alt="petimage">
 			</div>
 			<div id="divcontent">
 				<p>Name</p>
@@ -52,6 +52,6 @@
 			</div>
 		</div>
 	</c:forEach>
-	<script type="text/javascript" src="js/mypets.js"></script>
+	<script type="text/javascript" src="./assets/js/mypets.js"></script>
 </body>
 </html>

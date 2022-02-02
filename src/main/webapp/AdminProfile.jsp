@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+	<%@include file="adminheader.jsp" %>
 	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -7,29 +8,16 @@
 <meta charset="ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin profile</title>
-<link rel="stylesheet" href="css/adminprofile.css"></link>
+<link rel="stylesheet" href="./assets/css/adminprofile.css"></link>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://kit.fontawesome.com/aeca6704b2.js" ></script>
 </head>
 <body>
-	<header>
-		<h1 style="font-size: 25px;margin-left: 10px;">
-			<!-- Icon for pet shop -->
-			<i class="fas fa-paw" style="color: white;"></i> PET SHOP
-		</h1>
-		<nav>
-			<ul>
-				<li><a href="adminprofile.jsp">My Profile</a></li>
-				<li><a href="userlist.jsp">User List</a></li>
-				<li><a href="adminhome.jsp">Home</a></li>
-			</ul>
-		</nav>
-
-	</header>
+     
 	<div id="data">
 		<div id="image">
-			<img src="./Profile Picture/admin.jpg" alt="pet image">
+			<img src="./assets/images/profile picture/admin.jpg" alt="admin image">
 			<p>
 				<a href="Logout"><button type="button" id="logout">Logout</button></a>
 			</p>

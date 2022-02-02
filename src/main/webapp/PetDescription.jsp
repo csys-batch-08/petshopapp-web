@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@include file="headerall.jsp"%>
+<%@include file="header.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
@@ -8,7 +8,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Pet Details</title>
-<link rel="stylesheet" href="css/petdescription.css"></link>
+<link rel="stylesheet" href="./assets/css/petdescription.css"></link>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://kit.fontawesome.com/aeca6704b2.js"
@@ -19,7 +19,7 @@
 	<h2>Pet Details</h2>
 	<div id="data">
 		<div id="image">
-			<img src="./Pets/${petDescription.petImage}" alt="petimage">
+			<img src="./assets/images/pets/${petDescription.petImage}" alt="petimage">
 		</div>
 		<div id="divcontent">
 			<p>Id</p>
@@ -65,6 +65,6 @@
 			</p>
 		</div>
 	</div>
-	<script type="text/javascript" src="js/petdescription.js"></script> 
+	<script type="text/javascript" src="./assets/js/petdescription.js"></script> 
 </body>
 </html>
