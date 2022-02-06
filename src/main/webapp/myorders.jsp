@@ -1,22 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@include file="header.jsp" %>
+<%@include file="header.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="ISO-8859-1">
+<meta name="keywords" content="Petshop,pets,animals">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>My Orders</title>
 <link rel="stylesheet" href="./assets/css/myorders.css"></link>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://kit.fontawesome.com/aeca6704b2.js"
 	crossorigin="anonymous"></script>
 </head>
 <body>
+	<h2>My Orders</h2>
 	<table>
-		<caption>My Orders</caption>
+		<caption></caption>
 		<tr>
 			<th id="th">Order id</th>
 			<th id="th">Pet id</th>
@@ -27,8 +35,6 @@
 			<th id="th">Status</th>
 			<th id="th">Order date</th>
 		</tr>
-		
-		
 		<c:set var="length" value="${orderItemsList.size()}"></c:set>
 		<c:forEach var="i" begin="0" end="${length-1}">
 			<fmt:parseDate pattern="yyyy-MM-dd"
@@ -38,9 +44,9 @@
 				<td>${orderItemsList.get(i).getOrders().getOrderId()}</td>
 				<td>${orderItemsList.get(i).getPet().getPetId()}</td>
 				<td>${orderItemsList.get(i).getPet().getPetName()}</td>
-				<td>${orderItemsList.get(i).getUnitPrice()}</td>
+				<td>Rs.${orderItemsList.get(i).getUnitPrice()}0</td>
 				<td>${orderItemsList.get(i).getQuantity()}</td>
-				<td>${orderItemsList.get(i).getTotalPrice()}</td>
+				<td>Rs.${orderItemsList.get(i).getTotalPrice()}0</td>
 				<td>${orderItemsList.get(i).getOrders().getOrderStatus()}</td>
 				<td><fmt:formatDate pattern="dd-MM-yyyy"
 						value="${parsedStatusDate}" /></td>

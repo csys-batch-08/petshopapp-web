@@ -14,100 +14,131 @@ public class PetDetails {
 	private double petprice;
 	private String petImage;
 	private String status;
-	private Customers customer =new Customers();
+	private Customers customer = new Customers();
 	private Admin admin = new Admin();
 	private Date regDate;
 	private int avilableQty;
+
 	public int getPetId() {
 		return petId;
 	}
+
 	public void setPetId(int petId) {
 		this.petId = petId;
 	}
+
 	public String getPetType() {
 		return petType;
 	}
+
 	public void setPetType(String petType) {
 		this.petType = petType;
 	}
+
 	public String getPetName() {
 		return petName;
 	}
+
 	public void setPetName(String petName) {
 		this.petName = petName;
 	}
+
 	public String getPetGender() {
 		return petGender;
 	}
+
 	public void setPetGender(String petGender) {
 		this.petGender = petGender;
 	}
+
 	public Date getPetDob() {
 		return petDob;
 	}
+
 	public void setPetDob(Date petDob) {
 		this.petDob = petDob;
 	}
+
 	public int getPetQty() {
 		return petQty;
 	}
+
 	public void setPetQty(int petQty) {
 		this.petQty = petQty;
 	}
+
 	public String getDescription() {
 		return description;
 	}
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
 	public String getPetColor() {
 		return petColor;
 	}
+
 	public void setPetColor(String petColor) {
 		this.petColor = petColor;
 	}
+
 	public double getPetprice() {
 		return petprice;
 	}
+
 	public void setPetprice(double petprice) {
 		this.petprice = petprice;
 	}
+
 	public String getPetImage() {
 		return petImage;
 	}
+
 	public void setPetImage(String petImage) {
 		this.petImage = petImage;
 	}
+
 	public String getStatus() {
 		return status;
 	}
+
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
 	public Customers getCustomer() {
 		return customer;
 	}
+
 	public void setCustomer(Customers customer) {
 		this.customer = customer;
 	}
+
 	public Admin getAdmin() {
 		return admin;
 	}
+
 	public void setAdmin(Admin admin) {
 		this.admin = admin;
 	}
+
 	public Date getRegDate() {
 		return regDate;
 	}
+
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
 	}
+
 	public int getAvilableQty() {
 		return avilableQty;
 	}
+
 	public void setAvilableQty(int avilableQty) {
 		this.avilableQty = avilableQty;
 	}
+
 	@Override
 	public String toString() {
 		return "PetDetails [petId=" + petId + ", petType=" + petType + ", petName=" + petName + ", petGender="
@@ -116,12 +147,13 @@ public class PetDetails {
 				+ ", customer=" + customer + ", admin=" + admin + ", regDate=" + regDate + ", avilableQty="
 				+ avilableQty + "]";
 	}
+
 	public PetDetails() {
 		super();
 	}
+
 	public PetDetails(int petId, String petType, String petName, String petGender, Date petDob, int petQty,
-			String description, String petColor, double petprice, String petImage, String status, int customerId,
-			int adminId, Date regDate, int avilableQty) {
+			String description, String petColor, double petprice, String petImage, int avilableQty) {
 		super();
 		this.petId = petId;
 		this.petType = petType;
@@ -133,13 +165,7 @@ public class PetDetails {
 		this.petColor = petColor;
 		this.petprice = petprice;
 		this.petImage = petImage;
-		this.status = status;
-		this.customer.setCustomerId(customerId);
-		this.admin.setAdminId(adminId);
-		this.regDate = regDate;
 		this.avilableQty = avilableQty;
 	}
-	
-	
 
 }

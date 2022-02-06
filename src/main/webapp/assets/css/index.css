@@ -1,91 +1,146 @@
 @charset "ISO-8859-1";
 /* Margin settings */
-  *{
-    margin: 0;
-    padding: 0;
-    color:white;
+* {
+	margin: 0;
+	padding: 0;
+	color: white;
 }
 
 /* Background and body */
- body{
-    background:linear-gradient(rgba(0,0,0,.3)50%,rgb(0,0,0,.3)50%),url("../images/background/background7.jpg");
-    background-repeat: no-repeat;
-	background-position:center;
+body {
+	background: linear-gradient(rgba(0, 0, 0, .3) 50%, rgb(0, 0, 0, .3) 50%),
+		url("../images/background/background7.jpg");
+	background-repeat: no-repeat;
+	background-position: center;
 	background-size: cover;
 	background-attachment: fixed;
 	color: white;
 }
 
 /* Logo */
-h1{
-    font-family: sans-serif;
-    padding-top: 10px;
-    padding-left: 10px;
+h1 {
+	padding-top: 10px;
+	padding-left: 10px;
+	font-size: 20px;
+}
+
+#snackbar {
+	visibility: hidden;
+	left: 70%; top : 18%; width : 340px;
+	background-color: #333;
+	color: #fff;
+	text-align: center;
+	border-radius: 2px;
+	padding: 16px;
+	position: fixed;
+	font-size: 17px;
+	top: 18%;
+	width: 340px;
+}
+
+#snackbar.show {
+	visibility: visible;
+	-webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+	animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+	from {top: 18%;opacity: 0;
+}
+
+to {
+	top: 18%;
+	opacity: 1;
+}
+
+}
+@keyframes fadein {
+	from {top: 18%;
+	opacity: 0;
+}
+
+to {
+	top: 18%;
+	opacity: 1;
+}
+
+}
+
+@-webkit-keyframes fadeout {
+	from {top: 18%;
+	opacity: 1;
+}
+
+to {
+	top: 18%;
+	opacity: 0;
+}
+
+}
+@keyframes fadeout {
+	from {top: 18%;
+	opacity: 1;
+}
+
+to {
+	top: 0;
+	opacity: 0;
+}
+
 }
 
 /* form field */
-.form{
-    color: black;
-    position: absolute;
-    top: 24%;
-    left: 70%;
-    border: 1px solid transparent;
-    width: 290px;
-    height: 280px;
-    padding: 20px;
-    padding-left: 35px;
-    line-height: 2;
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 18px;
-    font-weight: bold;
-    border-radius: 15px;
-    background-color: rgb(209, 219, 209);
-    box-shadow: 0 0 10px black;
+.form {
+	color: black;
+	position: absolute;
+	top: 24%;
+	left: 70%;
+	border: 1px solid transparent;
+	width: 340px;
+	height: 330px;
+	padding: 20px;
+	padding-left: 35px;
+	line-height: 1.2;
+	font-family: 'Times New Roman', Times, serif;
+	font-size: 18px;
+	font-weight: bold;
+	border-radius: 15px;
+	background-color: rgb(209, 219, 209);
+	box-shadow: 0 0 10px black;
 }
 
-
-form label,p,a,input{
-color: black;
+form label, p, a, input {
+	color: black;
 }
 
-#head{
-    text-align: center;
-    font-size: 25px;
-    margin-top: -5px;
+#head {
+	text-align: center;
+	font-size: 25px;
+	margin-top: -5px;
 }
 
-#message{
-   position: absolute;
-   top:18%;
-   left:73%;
-   font-size: 20px;
-   font-weight:bold;
-   display:none;
-   text-align: center; 
+form input {
+	height: 30px;
+	width: 250px;
+	background: transparent;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	border-bottom: 1px solid rgb(160, 155, 155);
 }
 
-form input{
-         height: 30px;
-         width: 250px;
-         background: transparent;
-         border-top: none;
-         border-left: none;
-         border-right: none;
-         border-bottom: 1px solid rgb(160, 155, 155);         
- }
-form input:focus{
-    outline: none;
-    }
-    
- form button{
-     height: 30px;
-     width: 130px;
-     margin-top: 10px;
-     background-color: rgb(231, 112, 112);
-     color: white;
-     border-radius: 5px;
-     border: none;
-     font-weight: bold;
-     font-size: 15px;
+form input:focus {
+	outline: none;
+}
 
- }
+form button {
+	height: 30px;
+	width: 130px;
+	margin-top: 10px;
+	background-color: rgb(231, 112, 112);
+	color: white;
+	border-radius: 5px;
+	border: none;
+	font-weight: bold;
+	font-size: 17px;
+}

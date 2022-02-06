@@ -1,9 +1,9 @@
 @charset "ISO-8859-1";
 
 * {
-margin: 0;
-padding: 0;
-
+	margin: 0;
+	padding: 0;
+	color: white;
 }
 
 body {
@@ -17,12 +17,15 @@ body {
 	color: white;
 }
 
+h1{
+	color: white;
+}
 header button {
 	position: absolute;
 	top: 20px;
-	left:520px;
+	left: 520px;
 	height: 30px;
-	width:100px;
+	width: 100px;
 	border: 1px solid;
 	border-color: tomato;
 	font-size: 17px;
@@ -31,18 +34,19 @@ header button {
 	border-left: none;
 	background-color: tomato;
 }
-nav{
+
+nav {
 	position: absolute;
-    left:765px;
-    top:20px;	
+	left: 705px;
+	top: 20px;
 }
 
 h2 {
 	margin-top: 30px;
-	margin-bottom:10px;
+	margin-bottom: 10px;
 	margin-left: 40px;
-	padding:30px;
-	width: 150px;
+	padding: 30px;
+	width: 250px;
 	font-size: 30px;
 }
 
@@ -50,36 +54,87 @@ h2:hover {
 	color: black;
 }
 
+#data {
+	width: 95%;
+	margin-left: 0;
+	padding-left: 50px;
+	font-size: 25px;
+	display: inline;
+	height: 520px;
+	float: left;
+}
+
+#data p {
+	line-height: 1.7;
+	padding-left: 20px;
+}
+
+#data div {
+	display: inline;
+	float: left;
+}
+
+#image {
+	height: 380px;
+	width: 300px;
+}
+
+#image img {
+	width: 300px;
+	height: 380px;
+	border: 1px solid;
+	border-color:black;
+	border-radius: 10px;
+}
+
+#divcontent {
+	width: 160px;
+	font-weight: bold;
+}
+
+#divdata {
+	width: 650px;
+}
+
+#data button {
+	margin-top: 20px;
+	width: 150px;
+	height: 30px;
+	background-color: rgb(16, 177, 16);
+	border-radius: 10px;
+	border: none;
+	color: white;
+	font-size: 17px;
+	font-weight: bold;
+	box-shadow: 0 0 5px black;
+}
+#data input{
+	width: 200px;
+	height: 30px;
+	font-size: 15px;
+	
+}
+#description {
+	margin-top: 20px;
+}
+
 table {
-	margin-top: -30px;
 	margin-left: 50px;
 	line-height: 2;
 }
 
-form {
-	margin-top: 30px;
-	font-size: 20px;
-}
-
 table td {
-	font-family: sans-serif;
-	font-size: x-large;
+	font-size:25px;
 	height: 25px;
-	width: 200px;
+	width: 500px;
 	padding-left: 10px;
 }
 
-table img {
-	width: 300px;
-	height: 380px;
-	border: 1px solid;
-	border-color: black;
-	border-radius: 10px;
+
+table input {
+	border-radius: 5px;
+	font-size: 15px;
 }
-input {
-  border-radius: 5px;
-  border: none;
-  }
 
 #update {
 	width: 130px;
@@ -148,12 +203,7 @@ input {
 	text-decoration: none;
 }
 
-#updatetable {
-	margin-top: 40px;
-	margin-left: 40px;
-}
-
-#updatetable select {
+table select {
 	width: 215px;
 	height: 30px;
 	border-radius: 5px;
@@ -161,29 +211,25 @@ input {
 	color: black;
 	padding-left: 10px;
 	outline: none;
+	font-size: 15px;
 }
-#updatetable input{
-width: 215px;
+
+input {
+	width: 215px;
 	height: 30px;
 	border-radius: 5px;
 	border: none;
 	color: black;
 	padding-left: 10px;
 	outline: none;
+	font-size: 15px;	
 }
 
-#updatetable select option {
+ select option {
 	color: black;
 	padding-left: 10px;
 }
 
-pre {
-	margin-left: 20px;
-	font-family: sans-serif;
-	font-weight: bold;
-	font-size: x-large;
-	display: inline;
-}
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 	-webkit-appearance: none;

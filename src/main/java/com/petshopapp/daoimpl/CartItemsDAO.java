@@ -6,19 +6,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.petshopapp.model.CartItems;
 import com.petshopapp.model.Customers;
 import com.petshopapp.util.ConnectionUtil;
 
 public class CartItemsDAO {
-	
+
 	String query = "";
 	Connection connection;
 	ResultSet resultSet = null;
 	PreparedStatement preparedStatement = null;
 	CartItems cartItem = new CartItems();
 	List<CartItems> cartList = new ArrayList<CartItems>();
-	
 
 	// Commit during DML operation
 	public void commit() {
@@ -27,7 +27,7 @@ public class CartItemsDAO {
 			query = "commit";
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.executeUpdate();
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
 	}
@@ -46,9 +46,9 @@ public class CartItemsDAO {
 			preparedStatement.setDouble(5, cartit.getTotalPrice());
 			preparedStatement.executeUpdate();
 			commit();
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (SQLException e) {
 			System.out.println(e.getMessage());
-		} 
+		}
 	}
 
 	// To update cartItems Quantity
@@ -61,10 +61,10 @@ public class CartItemsDAO {
 			preparedStatement.setInt(2, itemId);
 			preparedStatement.executeUpdate();
 			commit();
-		} catch (SQLException | ClassNotFoundException e) {
+		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
-		
+
 	}
 
 	// Delete Cart item
@@ -75,7 +75,7 @@ public class CartItemsDAO {
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.executeUpdate();
 			commit();
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
 	}
@@ -83,7 +83,6 @@ public class CartItemsDAO {
 	// Show My Cart Items
 	public List<CartItems> showAllCartItems(Customers customer) {
 
-		
 		try {
 			connection = ConnectionUtil.getDbConnect();
 			query = "select ci.item_id,ci.pet_id,ci.customer_id,ci.quantity,ci.unit_price,ci.total_price,p.pet_type,p.pet_name,pet_image,p.available_qty from cart_items ci "
@@ -100,7 +99,7 @@ public class CartItemsDAO {
 				cartItem.getPet().setAvilableQty(resultSet.getInt(10));
 				cartList.add(cartItem);
 			}
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
 		return cartList;
@@ -118,7 +117,7 @@ public class CartItemsDAO {
 				cartItem = new CartItems(resultSet.getInt(1), resultSet.getInt(2), resultSet.getInt(3),
 						resultSet.getInt(4), resultSet.getDouble(5), resultSet.getDouble(6));
 			}
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
 		return cartItem;

@@ -5,13 +5,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.*;
-import com.petshopapp.model.*;
-import com.petshopapp.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.petshopapp.logger.Logger;
+import com.petshopapp.model.Customers;
+import com.petshopapp.model.PetDetails;
+import com.petshopapp.util.ConnectionUtil;
 
 public class PetDAO {
-	
+	// Instance fields for methods
 	String query = "";
 	ResultSet resultSet = null;
 	Connection connection = null;
@@ -20,47 +23,30 @@ public class PetDAO {
 	List<PetDetails> petList = new ArrayList<>();
 	SimpleDateFormat formeter = new SimpleDateFormat("dd-mm-yyyy");
 
+	/**
+	 * this method is used to commit during DML operation
+	 */
 	public void commit() {
 		try {
 			connection = ConnectionUtil.getDbConnect();
 			query = "commit";
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.executeUpdate();
-		} catch (ClassNotFoundException | SQLException e) {
-			System.out.println(e.getMessage());			
-		}
-	}
-	
-
-
-	public List<PetDetails> getPetList() {
-		try {
-			if(resultSet != null) {
-			while (resultSet.next()) {
-			
-				pet = new PetDetails(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3),
-						resultSet.getString(4), resultSet.getDate(5), resultSet.getInt(6), resultSet.getString(7),
-						resultSet.getString(8), resultSet.getDouble(9), resultSet.getString(10),
-						resultSet.getString(11), resultSet.getInt(12), resultSet.getInt(13), resultSet.getDate(14),
-						resultSet.getInt(15));
-				petList.add(pet);
-			}
-			}
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());	
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
 		}
-		
-		return petList;
 	}
 
-	// insert pet_details
+	/**
+	 * this method is used to insert new pet into database
+	 */
 	public void insertPetDetails(PetDetails pet) {
 
 		try {
 			connection = ConnectionUtil.getDbConnect();
-			query = "INSERT into pet_details(pet_type,pet_name,pet_gender,pet_dob,pet_Qty,pet_description,\r\n"
+			query = "INSERT into pet_details(pet_type,pet_name,pet_gender,pet_dob,pet_Qty," + "pet_description,\r\n"
 					+ "pet_color,pet_price,pet_image,customer_id,available_qty) values(?,?,?,?,?,?,?,?,?,?,?)";
-
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setString(1, pet.getPetType());
 			preparedStatement.setString(2, pet.getPetName());
@@ -76,12 +62,27 @@ public class PetDAO {
 			preparedStatement.setInt(11, pet.getAvilableQty());
 			preparedStatement.executeUpdate();
 			commit();
-		} catch (ClassNotFoundException | SQLException e) {
-			System.out.println(e.getMessage());	
+		} catch (SQLException e) {
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
+		} finally {
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				Logger.printStackTrace(e);
+				Logger.runTimeException(e.getMessage());
+			}
 		}
 	}
 
-	// Update pet_details
+	/**
+	 * this method is used to insert update pet details in database
+	 */
 	public void updatePetDetails(PetDetails pet) {
 		try {
 			connection = ConnectionUtil.getDbConnect();
@@ -105,12 +106,27 @@ public class PetDAO {
 			preparedStatement.setInt(12, pet.getPetId());
 			preparedStatement.executeUpdate();
 			commit();
-		} catch (ClassNotFoundException | SQLException e) {
-			System.out.println(e.getMessage());	
+		} catch (SQLException e) {
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
+		} finally {
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				Logger.printStackTrace(e);
+				Logger.runTimeException(e.getMessage());
+			}
 		}
 	}
 
-	// To update pet Status admin approval
+	/**
+	 * this method is used to update pet status by admin
+	 */
 	public void updatePetStatus(int petId, String status, int adminId) {
 		try {
 			connection = ConnectionUtil.getDbConnect();
@@ -121,109 +137,262 @@ public class PetDAO {
 			pstmt.setInt(3, petId);
 			pstmt.executeUpdate();
 			commit();
-		} catch (ClassNotFoundException | SQLException e) {
-			System.out.println(e.getMessage());	
+		} catch (SQLException e) {
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
+		} finally {
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				Logger.printStackTrace(e);
+				Logger.runTimeException(e.getMessage());
+			}
 		}
 	}
 
-	// to show all the approved pet details
+	/**
+	 * this method is used to get all pet details where approved pets and available
+	 * pet quantity higher then 0 and the pet does't add by current login customer.
+	 */
 	public List<PetDetails> showAllpetsDetails(Customers customer) {
 		try {
 			connection = ConnectionUtil.getDbConnect();
-			query = "select pet_id,pet_type,pet_name,pet_gender,pet_dob,pet_qty,pet_description,pet_color,pet_price,pet_image,status,customer_id,admin_id,pet_registerdate,available_qty from pet_details where status='approved' and available_qty > 0 and customer_id not in(?)";
+			query = "select pet_id,pet_type,pet_name,pet_color,pet_price,pet_image,"
+					+ "available_qty from pet_details where status='approved' and "
+					+ "available_qty > 0 and customer_id not in(?)";
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1, customer.getCustomerId());
 			resultSet = preparedStatement.executeQuery();
-		} catch (ClassNotFoundException | SQLException e) {
-			System.out.println(e.getMessage());	
+			while (resultSet.next()) {
+				pet = new PetDetails();
+				pet.setPetId(resultSet.getInt("pet_id"));
+				pet.setPetType(resultSet.getString("pet_type"));
+				pet.setPetName(resultSet.getString("pet_name"));
+				pet.setPetColor(resultSet.getString("pet_color"));
+				pet.setPetprice(resultSet.getDouble("pet_price"));
+				pet.setPetImage(resultSet.getString("pet_image"));
+				pet.setAvilableQty(resultSet.getInt("available_qty"));
+				petList.add(pet);
+			}
+		} catch (SQLException e) {
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
+		} finally {
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				Logger.printStackTrace(e);
+				Logger.runTimeException(e.getMessage());
+			}
 		}
-		return getPetList();
+		return petList;
 	}
 
-	// to get particular pet data
+	/**
+	 * this method is used to get Particular pet details
+	 */
 	public PetDetails showCurrentPet(int petId) {
 		try {
 			connection = ConnectionUtil.getDbConnect();
 			query = "select pet_id,pet_type,pet_name,pet_gender,pet_dob,"
 					+ "pet_qty,pet_description,pet_color,pet_price,pet_image,"
-					+ "status,customer_id,admin_id,pet_registerdate,"
-					+ "available_qty from pet_details where pet_id=?";
+					+ "available_qty,customer_id from pet_details where pet_id=?";
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1, petId);
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
-				pet = new PetDetails(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3),
-						resultSet.getString(4), resultSet.getDate(5), resultSet.getInt(6), resultSet.getString(7),
-						resultSet.getString(8), resultSet.getDouble(9), resultSet.getString(10),
-						resultSet.getString(11), resultSet.getInt(12), resultSet.getInt(13), resultSet.getDate(14),
-						resultSet.getInt(15));
+				pet = new PetDetails(resultSet.getInt("pet_id"), resultSet.getString("pet_type"),
+						resultSet.getString("pet_name"), resultSet.getString("pet_gender"),
+						resultSet.getDate("pet_dob"), resultSet.getInt("pet_qty"),
+						resultSet.getString("pet_description"), resultSet.getString("pet_color"),
+						resultSet.getDouble("pet_price"), resultSet.getString("pet_image"),
+						resultSet.getInt("available_qty"));
 
 				query = "select customer_firstname from customers where customer_id=?";
 				preparedStatement = connection.prepareStatement(query);
-				preparedStatement.setInt(1, resultSet.getInt(12));
+				preparedStatement.setInt(1, resultSet.getInt("customer_id"));
 				resultSet = preparedStatement.executeQuery();
 				if (resultSet.next()) {
-					pet.getCustomer().setFirstName(resultSet.getString(1));
+					pet.getCustomer().setFirstName(resultSet.getString("customer_firstname"));
 				}
 			}
-		} catch (ClassNotFoundException | SQLException e) {
-			System.out.println(e.getMessage());	
+
+		} catch (SQLException e) {
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
+		} finally {
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				Logger.printStackTrace(e);
+				Logger.runTimeException(e.getMessage());
+			}
 		}
 		return pet;
 	}
 
-	// pet list to show admin
+	/**
+	 * this method is used to fetch all the not approved pet list
+	 */
 	public List<PetDetails> showNotApprovedPetList() {
 		try {
 			connection = ConnectionUtil.getDbConnect();
-			query = "select PET_ID,PET_TYPE,PET_NAME,PET_GENDER,PET_DOB,PET_QTY,PET_DESCRIPTION,PET_COLOR,PET_PRICE,PET_IMAGE,\r\n"
-					+ "STATUS,CUSTOMER_ID,ADMIN_ID,PET_REGISTERDATE,AVAILABLE_QTY from pet_details where status='Not approved'";
+			query = "select pet_id,pet_type,pet_name,pet_color,pet_price,pet_image,"
+					+ "available_qty from pet_details where status='Not approved'";
 			preparedStatement = connection.prepareStatement(query);
 			resultSet = preparedStatement.executeQuery();
-		} catch (ClassNotFoundException | SQLException e) {
-			System.out.println(e.getMessage());	
+			while (resultSet.next()) {
+				pet = new PetDetails();
+				pet.setPetId(resultSet.getInt("pet_id"));
+				pet.setPetType(resultSet.getString("pet_type"));
+				pet.setPetName(resultSet.getString("pet_name"));
+				pet.setPetColor(resultSet.getString("pet_color"));
+				pet.setPetprice(resultSet.getDouble("pet_price"));
+				pet.setPetImage(resultSet.getString("pet_image"));
+				pet.setAvilableQty(resultSet.getInt("available_qty"));
+				petList.add(pet);
+			}
+		} catch (SQLException e) {
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
+		} finally {
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				Logger.printStackTrace(e);
+				Logger.runTimeException(e.getMessage());
+			}
 		}
-		return getPetList();
+		return petList;
 	}
 
-	// My pet details for customer
+	/**
+	 * this method is used to fetch current login customer pet details
+	 */
 	public List<PetDetails> showMypetdetails(int cusId) {
 		try {
 			connection = ConnectionUtil.getDbConnect();
-			query = "select pet_id,pet_type,pet_name,pet_gender,pet_dob,"
-					+ "pet_qty,pet_description,pet_color,pet_price,pet_image,"
-					+ "status,customer_id,admin_id,pet_registerdate,"
-					+ "available_qty from pet_details where customer_id=?";
+			query = "select pet_id,pet_name,pet_color,pet_price,pet_qty,pet_image,available_qty,status "
+					+ "from pet_details where customer_id=?";
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1, cusId);
 			resultSet = preparedStatement.executeQuery();
-		} catch (ClassNotFoundException | SQLException e) {
-			System.out.println(e.getMessage());	
+			while (resultSet.next()) {
+				pet = new PetDetails();
+				pet.setPetId(resultSet.getInt("pet_id"));
+				pet.setPetName(resultSet.getString("pet_name"));
+				pet.setPetColor(resultSet.getString("pet_color"));
+				pet.setPetprice(resultSet.getDouble("pet_price"));
+				pet.setPetImage(resultSet.getString("pet_image"));
+				pet.setPetQty(resultSet.getInt("pet_qty"));
+				pet.setAvilableQty(resultSet.getInt("available_qty"));
+				pet.setStatus(resultSet.getString("status"));
+				petList.add(pet);
+			}
+		} catch (SQLException e) {
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
+		} finally {
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				Logger.printStackTrace(e);
+				Logger.runTimeException(e.getMessage());
+			}
 		}
-		return getPetList();
+		return petList;
 	}
 
-	// search pet
+	/**
+	 * this method is used to search pets in data base were available quantity
+	 * higher then 0 and status equals to approved and pet should not posted by
+	 * current login customer.
+	 */
 	public List<PetDetails> searchPetDetails(String search, int customerId) {
 		try {
 			connection = ConnectionUtil.getDbConnect();
-			query = "select pet_id,pet_type,pet_name,pet_gender,"
-					+ "pet_dob,pet_qty,pet_description,pet_color,pet_price,"
-					+ "pet_image,status,customer_id,admin_id,pet_registerdate,"
-					+ "available_qty from pet_details where (pet_type like '%"+search+"%' or pet_name like '%"+search+"%') "
-					+ "and status='approved' and available_qty > 0 and customer_id not in("+customerId+")";
+			query = "select pet_id,pet_type,pet_name,pet_color,pet_price,pet_image,available_qty from pet_details where (pet_type like '%"
+					+ search + "%' or pet_name like '%" + search + "%') "
+					+ "and status='approved' and available_qty > 0 and customer_id not in(" + customerId + ")";
 			preparedStatement = connection.prepareStatement(query);
-		//	preparedStatement.setString(1, search);
-		//	preparedStatement.setString(2, search);
-		//	preparedStatement.setInt(3, customerId);
+			// preparedStatement.setString(1, search);
+			// preparedStatement.setString(2, search);
+			// preparedStatement.setInt(3, customerId);
 			resultSet = preparedStatement.executeQuery();
-		} catch (ClassNotFoundException | SQLException e) {
-			System.out.println(e.getMessage());	
+			while (resultSet.next()) {
+				pet = new PetDetails();
+				pet.setPetId(resultSet.getInt("pet_id"));
+				pet.setPetType(resultSet.getString("pet_type"));
+				pet.setPetName(resultSet.getString("pet_name"));
+				pet.setPetColor(resultSet.getString("pet_color"));
+				pet.setPetprice(resultSet.getDouble("pet_price"));
+				pet.setPetImage(resultSet.getString("pet_image"));
+				pet.setAvilableQty(resultSet.getInt("available_qty"));
+				petList.add(pet);
+			}
+		} catch (SQLException e) {
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
+		} finally {
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				Logger.printStackTrace(e);
+				Logger.runTimeException(e.getMessage());
+			}
 		}
-		return getPetList();
+		return petList;
 	}
 
-	// delete status to update
+	/**
+	 * this method is used to update pet status to deleted
+	 */
 	public void delete(PetDetails pet) {
 		try {
 			connection = ConnectionUtil.getDbConnect();
@@ -232,12 +401,27 @@ public class PetDAO {
 			preparedStatement.setInt(1, pet.getPetId());
 			preparedStatement.executeUpdate();
 			commit();
-		} catch (ClassNotFoundException | SQLException e) {
-			System.out.println(e.getMessage());	
+		} catch (SQLException e) {
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
+		} finally {
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				Logger.printStackTrace(e);
+				Logger.runTimeException(e.getMessage());
+			}
 		}
 	}
 
-	// update available qty
+	/**
+	 * this method is used to update pet available quantity
+	 */
 	public void updatePetAvailableQuantity(PetDetails pet) {
 		try {
 			connection = ConnectionUtil.getDbConnect();
@@ -247,13 +431,29 @@ public class PetDAO {
 			preparedStatement.setInt(2, pet.getPetId());
 			preparedStatement.executeUpdate();
 			commit();
-		} catch (ClassNotFoundException | SQLException e) {
-			System.out.println(e.getMessage());	
+		} catch (SQLException e) {
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
+		} finally {
+
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				Logger.printStackTrace(e);
+				Logger.runTimeException(e.getMessage());
+			}
 		}
 	}
 
-	// get status
-	public String getPetStatus(PetDetails pet) throws SQLException {
+	/**
+	 * this method is used to get particular pet status
+	 */
+	public String getPetStatus(PetDetails pet) {
 		String status = "";
 		try {
 			connection = ConnectionUtil.getDbConnect();
@@ -262,12 +462,27 @@ public class PetDAO {
 			preparedStatement.setInt(1, pet.getPetId());
 			resultSet = preparedStatement.executeQuery();
 			resultSet.next();
-			status = resultSet.getString(1);
-		} catch (ClassNotFoundException | SQLException e) {
-			System.out.println(e.getMessage());	
-		}
-		
-		return status;
+			status = resultSet.getString("status");
+		} catch (SQLException e) {
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
+		} finally {
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
 
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				Logger.printStackTrace(e);
+				Logger.runTimeException(e.getMessage());
+			}
+		}
+		return status;
 	}
 }

@@ -93,3 +93,69 @@
   21. Recharge wallet.
   
   22. Logout.
+
+## Module:User	
+
+	1. Register user.
+
+	2. Login user.
+
+	3. Login Admin.
+
+## Module: Profile	
+
+	1. View Profile.
+
+	2. Update profile.
+
+	3. Update Address.
+
+	4. update Wallet.
+
+	5. Logout.
+
+##  Module: Pets
+
+	1. View All Pets.
+
+	2. Search Pets.
+
+	3. View pet description.
+
+  4. Add new pet.
+
+  5. Add a pet to cart
+
+##  Module: My Pets
+
+	1. Update pet Details.
+
+	2. Delete pet Details.
+
+##  Module: Orders 
+
+	1.Order pet.
+
+  2.View my orders.
+
+	3. Cancel order.
+
+##  Module: Cart
+
+	1. Buy cart item.
+
+	2. Buy all cart items.
+
+	3. Remove cart item.
+
+	4. Remove all cart items.
+
+
+
+  
+
+##  Module: Admin process
+	1. Approval of pet items
+	2. List of all user
+	3. Admin profile
+	4. Logout 

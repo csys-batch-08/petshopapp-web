@@ -31,19 +31,19 @@ public class AnimalUpdateForm extends HttpServlet {
 		// Session for to get customer details and pet details
 		HttpSession session = request.getSession();
 		Customers customerDetails = (Customers) session.getAttribute("customer");
-        
-	    // Pet DAO object for update the pet values
+
+		// Pet DAO object for update the pet values
 		PetDAO petDao = new PetDAO();
-		
-		//PetDetails object for to store the values
+
+		// PetDetails object for to store the values
 		PetDetails petDetails = new PetDetails();
-		
-		//User given quantity
+
+		// User given quantity
 		petDetails.setPetQty(Integer.parseInt(request.getParameter("quantity")));
-		
-	    // Ensure user Given quantity greater then 0
+
+		// Ensure user Given quantity greater then 0
 		if (petDetails.getPetQty() > 0) {
-			
+
 			// Update the pet values
 			petDetails.setPetId(Integer.parseInt(request.getParameter("petid")));
 			petDetails.setPetType(request.getParameter("animaltype").toLowerCase());
@@ -66,15 +66,15 @@ public class AnimalUpdateForm extends HttpServlet {
 			petDetails.setAvilableQty(Integer.parseInt(request.getParameter("quantity")));
 			petDetails.getCustomer().setCustomerId(customerDetails.getCustomerId());
 			petDao.updatePetDetails(petDetails);
-			request.setAttribute("message","Pet Details updated");
+			request.setAttribute("message", "Pet details updated");
 		}
-		// Invalid Quantity message 
+		// Invalid Quantity message
 		else {
-			request.setAttribute("message","Invalid pet quantity");
+			request.setAttribute("message", "Invalid pet quantity");
 		}
-		
-		//Redirect to message page
-		RequestDispatcher requestDispatcher=request.getRequestDispatcher("redirect.jsp");
+
+		// Redirect to message page
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("redirect.jsp");
 		try {
 			requestDispatcher.forward(request, response);
 		} catch (ServletException | IOException e) {

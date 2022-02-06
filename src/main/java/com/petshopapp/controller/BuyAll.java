@@ -3,6 +3,7 @@ package com.petshopapp.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -75,7 +76,7 @@ public class BuyAll extends HttpServlet {
 
 					// message for if cart quantity not available using ajax
 					write.print("\n Sorry we can't process this request now " + "\n Quantity not Avialble Pet Id "
-							+ cartItems.getPet().getPetId() + "\n remove that item and try again");
+							+ cartItems.getPet().getPetId());
 				}
 			}
 
@@ -119,8 +120,8 @@ public class BuyAll extends HttpServlet {
 				customerDao.updateCustomerWallet(customerDetails);
 
 				// message for ajax response
-				write.print("order placed successfully \n deducted amount : " + totalPrice + "\n Wallet Amount : "
-						+ customerDetails.getWallet());
+				write.print("Order placed successfully \n Deducted amount : RS." + totalPrice
+						+ "0 \n Wallet Amount : Rs." + customerDetails.getWallet() + "0");
 			}
 		}
 
@@ -129,8 +130,8 @@ public class BuyAll extends HttpServlet {
 			try {
 				throw new LowWalletBalance();
 			} catch (LowWalletBalance e) {
-				write.print(e + "\n Your Wallet Balance" + customerDetails.getWallet() + "\n Total Cart Amount"
-						+ totalPrice);
+				write.print(e + "\n Your wallet balance : Rs. " + customerDetails.getWallet()
+						+ "0 \n Total cart amount : Rs. " + totalPrice);
 			}
 
 		}

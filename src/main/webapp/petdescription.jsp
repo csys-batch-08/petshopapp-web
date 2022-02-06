@@ -7,15 +7,21 @@
 <html lang="en">
 <head>
 <meta charset="ISO-8859-1">
+ <meta name="keywords" content="Petshop,pets,animals">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pet Details</title>
 <link rel="stylesheet" href="./assets/css/petdescription.css"></link>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://kit.fontawesome.com/aeca6704b2.js"
 	crossorigin="anonymous"></script>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-
 	<h2>Pet Details</h2>
 	<div id="data">
 		<div id="image">
@@ -52,11 +58,13 @@
 			<p style="font-weight: bold;">Description:</p>
 			<p>${petDescription.description}</p>
 			<p id="icon">
-				<label>Quantity : </label><i class="fas fa-minus-square"
+				<label> Quantity : </label> <i class="fas fa-minus-square"
 					onclick="decrease()"></i><input type="number" id="quantity"
 					max="${petDescription.avilableQty}" min="0" value="0"
 					name="quantity"> <i class="fas fa-plus-square"
-					onclick="increase(${petDescription.avilableQty})"></i><br>
+					onclick="increase(${petDescription.avilableQty})"></i></p>
+					
+				<p>
 				<button type="button" onclick="addToCart('${petDescription.getPetId()}')">
 					<i class="fas fa-cart-plus"></i> Cart
 				</button>

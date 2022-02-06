@@ -16,7 +16,6 @@ body {
 	text-transform: capitalize;
 }
 
-
 /* Edit pet  style */
 .animalform {
 	position: absolute;
@@ -31,7 +30,7 @@ table {
 	border-radius: 5px;
 	padding-left: 20px;
 	background-color: rgba(194, 204, 198, 0.959);
-	font-size:20px;
+	font-size: 20px;
 	width: 850px;
 	height: 450px;
 }

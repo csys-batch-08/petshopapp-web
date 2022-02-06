@@ -1,19 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@include file="header.jsp" %>
+<%@include file="header.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="ISO-8859-1">
+ <meta name="keywords" content="Petshop,pets,animals">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>My Pets</title>
 <link rel="stylesheet" href="./assets/css/mypets.css"></link>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://kit.fontawesome.com/aeca6704b2.js"></script>
 </head>
 <body>
-
 	<!-- My pet list -->
 	<h2>My Pet List</h2>
 	<c:forEach items="${myPetList}" var="pet">
@@ -25,9 +31,8 @@
 				<p>Name</p>
 				<p>Color</p>
 				<p>price</p>
-				<p>Total Qty</p>
-				<p>Sold Qty</p>
-				<p>Aavilable Qty</p>
+				<p>Total </p>
+				<p>Sold </p>
 				<p>Status</p>
 				<c:if test="${pet.status == 'Not approved'}">
 					<p style="padding: 0;">
@@ -38,10 +43,9 @@
 			<div id="divdata">
 				<p>: ${pet.petName}</p>
 				<p>: ${pet.petColor}</p>
-				<p>: Rs. ${pet.petprice}</p>
-				<p>: ${pet.petQty}</p>
-				<p>: ${pet.petQty-pet.avilableQty}</p>
-				<p>: ${pet.avilableQty}</p>
+				<p>: Rs. ${pet.petprice}0</p>
+				<p>: ${pet.petQty} Quantity</p>
+				<p>: ${pet.petQty-pet.avilableQty} Quantity</p>
 				<p>: ${pet.status}</p>
 				<c:if test="${pet.status == 'Not approved'}">
 					<p>

@@ -10,20 +10,19 @@
 body {
 	background-image: linear-gradient(rgba(0, 0, 0, .4) 50%,
 		rgb(0, 0, 0, .4) 50%), url("../images/background/background6.jpg");
-    background-repeat: no-repeat;
-	background-position:center;
+	background-repeat: no-repeat;
+	background-position: center;
 	background-size: cover;
 	background-attachment: fixed;
 	text-transform: capitalize;
-	font-weight:bold;
+	font-weight: bold;
 	color: white;
 }
 
-
-h2{
-margin-top: 20px;
-margin-left: 20px;
-font-size: 30px;
+h2 {
+	margin-top: 20px;
+	margin-left: 20px;
+	font-size: 30px;
 }
 
 #data {
@@ -32,15 +31,14 @@ font-size: 30px;
 	padding-left: 20px;
 	padding-top: 20px;
 	font-size: 20px;
-	font-weight: bold;
 	display: inline;
 	height: 320px;
 	float: left;
 }
 
 #data p {
-	line-height: 1.5;
-	padding-left: 20px;
+	line-height: 1;
+	padding-left: 10px;
 }
 
 #data div {
@@ -60,20 +58,21 @@ font-size: 30px;
 }
 
 #divcontent {
-	width: 140px;
+	width: 130px;
+	font-weight: bold;
 }
 
 #divdata {
-	width: 180px;
+	width: 170px;
 	white-space: nowrap;
-	overflow:hidden;
+	overflow: hidden;
 	text-overflow: ellipsis;
 }
 
 #data button {
 	margin-left: 10px;
 	margin-top: 5px;
-	width: 120px;
+	width: 100px;
 	height: 30px;
 	background-color: rgb(16, 177, 16);
 	border-radius: 10px;

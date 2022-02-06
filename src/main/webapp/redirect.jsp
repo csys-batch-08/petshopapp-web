@@ -12,13 +12,13 @@
 		alert(message);
 		
 		switch (message	) {
-		case "Please Add address brefore add pet":
+		case "Please add address brefore add pet":
 			document.location.href = 'MyProfile';
 			break;
 		case "Invalid added item quantity":
 			document.location.href = 'AddItem';
 			break;
-		case "Pet Details updated":
+		case "Pet details updated":
 			document.location.href = 'MyPets';
 			break;
 		case "Invalid pet quantity":
@@ -30,7 +30,7 @@
 		case "Address or city can't be none":
 			document.location.href = 'MyProfile';
 			break;
-		case "invalid username or password":
+		case "Invalid username or password":
 			document.location.href = 'index.jsp';
 			break;
 		case "registration completed successfully login now":
@@ -41,7 +41,11 @@
 			break;
 		case "Profile updated successfully":
 			document.location.href = 'MyProfile';
+			break;	
+		case "Pet items add successfully":
+			document.location.href = 'MyPets';
 			break;
+
 					}
 	</script>
 </body>

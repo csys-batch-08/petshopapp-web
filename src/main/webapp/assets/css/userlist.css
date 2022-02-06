@@ -1,8 +1,11 @@
 @charset "ISO-8859-1";
-*{
+
+* {
 	margin: 0;
 	padding: 0;
+	color: white;
 }
+
 body {
 	background-image: linear-gradient(rgba(0, 0, 0, .5) 50%,
 		rgb(0, 0, 0, .5) 50%), url("../images/background/background1.jpg");
@@ -13,7 +16,7 @@ body {
 	color: white;
 }
 
-header h1{
+header h1 {
 	font-size: 25px;
 	margin-left: 10px;
 	margin-top: 15px;
@@ -28,11 +31,11 @@ nav a {
 	float: right;
 	padding-right: 20px;
 	font-size: 20px;
-	font-weight: bold;	
+	font-weight: bold;
 	transition: 0.5s;
 	color: white;
 	position: relative;
-	top:-45px;
+	top: -45px;
 }
 
 nav a:hover {
@@ -45,11 +48,13 @@ h2 {
 }
 
 table {
+	width:80%;
 	top: 90px;
 	margin: 40px;
 	font-size: 20px;
-	text-align: left;
+	text-align: left;	
 }
+
 table tr,th{
-padding: 20px;
+	padding: 0px;
 }

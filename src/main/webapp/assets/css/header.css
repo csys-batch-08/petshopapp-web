@@ -1,14 +1,14 @@
 @charset "ISO-8859-1";
 
-header{
-padding-top: 15px;
+header {
+	padding-top: 15px;
 }
 
 header input {
 	padding-left: 10px;
 	font-size: 17px;
-	position:absolute;
-	top:20px;
+	position: absolute;
+	top: 20px;
 	left: 230px;
 	width: 300px;
 	height: 30px;
@@ -31,9 +31,9 @@ header input::placeholder {
 header button {
 	position: absolute;
 	top: 20px;
-	left:530px;
+	left: 530px;
 	height: 30px;
-	width:100px;
+	width: 100px;
 	border: 1px solid;
 	border-color: tomato;
 	font-size: 17px;
@@ -51,7 +51,7 @@ header button:hover {
 
 nav {
 	position: relative;
-	top: -28px;
+	top: -50px;
 }
 
 nav li {
@@ -71,5 +71,3 @@ nav a {
 nav a:hover {
 	color: black;
 }
-
-

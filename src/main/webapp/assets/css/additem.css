@@ -16,7 +16,6 @@ body {
 	text-transform: capitalize;
 }
 
-
 /* Pet register form styles */
 .animalform {
 	position: absolute;
@@ -26,6 +25,9 @@ body {
 	font-size: 22px;
 }
 
+#register{
+	text-align: center;
+}
 table {
 	margin-top: -30px;
 	border-radius: 5px;
@@ -37,7 +39,7 @@ table {
 }
 
 table th, td {
-	padding-left: 10px;
+	padding-left: 20px;
 	line-height: 2;
 	margin-top: 10px;
 	color: black;
@@ -58,8 +60,14 @@ table input {
 	border: none;
 	color: black;
 	padding-left: 10px;
+	font-size: 15px;
 }
 
+table input[type=file] {
+	height: 40px;
+	width: 200px;
+
+	}
 table select {
 	width: 210px;
 	height: 30px;
@@ -91,7 +99,7 @@ table button:hover {
 	background-color: white;
 }
 
-textarea {
+table textarea {
 	width: 200px;
 	height: 50px;
 	border-radius: 5px;
@@ -100,4 +108,5 @@ textarea {
 	padding-left: 20px;
 	padding-top: 20px;
 	color: black;
+	font-size: 15px;
 }

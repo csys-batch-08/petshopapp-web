@@ -39,48 +39,49 @@ public class AddToCart extends HttpServlet {
 
 			e.printStackTrace();
 		}
- 
+
 		// Session for to get customer details and pet details
 		HttpSession session = request.getSession();
 		Customers customerDetails = (Customers) session.getAttribute("customer");
-		
+
 		// CartItemsDAo for add pet into cart items
 		CartItemsDAO cartItemDao = new CartItemsDAO();
-		
-		//Getting pet details for add in cart items 
-		PetDAO petDao=new PetDAO();		
+
+		// Getting pet details for add in cart items
+		PetDAO petDao = new PetDAO();
 		PetDetails pet = petDao.showCurrentPet(Integer.parseInt(request.getParameter("petid")));
-		
-		// Cart List for check pet Item all ready in cart or not 
+
+		// Cart List for check pet Item all ready in cart or not
 		List<CartItems> cartList = new ArrayList<CartItems>();
 		cartList = cartItemDao.showAllCartItems(customerDetails);
-		
-		// Get customer required quantity 
+
+		// Get customer required quantity
 		int quantity = Integer.parseInt(request.getParameter("quantity"));
-       
+
 		boolean available = true;
-		
+
 		// Ensure Customer required quantity available or not
 		if (quantity <= pet.getAvilableQty()) {
 			for (CartItems cartitems : cartList) {
-				
-				// Ensure pet item all ready in cart or not 
+
+				// Ensure pet item all ready in cart or not
 				if (cartitems.getPet().getPetId() == pet.getPetId()) {
-					
-					//if pet item already in cart its throws user defined exception
+
+					// if pet item already in cart its throws user defined exception
 					try {
 						throw new ItemAlreadyInCart();
 					} catch (ItemAlreadyInCart e) {
-						
-                    // print message in ajax response
+
+						// print message in ajax response
 						write.print(e);
-					}				  
+					}
 					available = false;
 					break;
 				}
 			}
 
-			// User required quantity available and pet item not in cart insert values in cart items
+			// User required quantity available and pet item not in cart insert values in
+			// cart items
 			if (available) {
 				CartItems cart = new CartItems();
 				cart.getPet().setPetId(pet.getPetId());
@@ -90,14 +91,15 @@ public class AddToCart extends HttpServlet {
 				cart.setTotalPrice(quantity * pet.getPetprice());
 				CartItemsDAO cartItemsDao = new CartItemsDAO();
 				cartItemsDao.insertCartItem(cart);
-				
-				// Ajax response message for successful message 
-				write.print("item add to cart");
+
+				// Ajax response message for successful message
+				write.print("Pet item add to cart");
 			}
-			
-		} 
-		
-		// user required quantity is not available send message of not available Quantity
+
+		}
+
+		// user required quantity is not available send message of not available
+		// Quantity
 		else {
 			try {
 				throw new QuantityNotAvalilable();
