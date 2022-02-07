@@ -219,7 +219,8 @@ public class PetDAO {
 						resultSet.getDate("pet_dob"), resultSet.getInt("pet_qty"),
 						resultSet.getString("pet_description"), resultSet.getString("pet_color"),
 						resultSet.getDouble("pet_price"), resultSet.getString("pet_image"),
-						resultSet.getInt("available_qty"));
+						resultSet.getInt("available_qty"),resultSet.getInt("customer_id"));
+				
 
 				query = "select customer_firstname from customers where customer_id=?";
 				preparedStatement = connection.prepareStatement(query);
@@ -348,13 +349,12 @@ public class PetDAO {
 	public List<PetDetails> searchPetDetails(String search, int customerId) {
 		try {
 			connection = ConnectionUtil.getDbConnect();
-			query = "select pet_id,pet_type,pet_name,pet_color,pet_price,pet_image,available_qty from pet_details where (pet_type like '%"
-					+ search + "%' or pet_name like '%" + search + "%') "
-					+ "and status='approved' and available_qty > 0 and customer_id not in(" + customerId + ")";
+			query = "select pet_id,pet_type,pet_name,pet_color,pet_price,pet_image,available_qty from pet_details where (pet_type like ? or pet_name like ?) "
+					+ "and status='approved' and available_qty > 0 and customer_id not in(?)";
 			preparedStatement = connection.prepareStatement(query);
-			// preparedStatement.setString(1, search);
-			// preparedStatement.setString(2, search);
-			// preparedStatement.setInt(3, customerId);
+			preparedStatement.setString(1,"%"+ search+"%");
+			preparedStatement.setString(2, "%"+ search+"%");
+			preparedStatement.setInt(3, customerId);
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				pet = new PetDetails();

@@ -22,13 +22,15 @@ import com.petshopapp.model.PetDetails;
 public class AddPet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+		doGet(request, response);
+	}
 	/**
 	 * This method is used to get the pet details from customer add insert into pet
 	 * details table in the database
 	 */
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 
 		// Session for customer details
 		HttpSession session = request.getSession();

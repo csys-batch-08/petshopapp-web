@@ -3,7 +3,9 @@ package com.petshopapp.model;
 import java.sql.Date;
 
 
-public class Customers {
+public class Customers implements java.io.Serializable{
+
+	private static final long serialVersionUID = 1L;
 	private int customerId;
 	private String firstName;
 	private String lastName;

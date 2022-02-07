@@ -11,11 +11,10 @@
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>My Cart</title>
 <link rel="stylesheet" href="./assets/css/mycart.css"></link>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" 
+integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" 
+integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://kit.fontawesome.com/aeca6704b2.js"
@@ -55,15 +54,12 @@
 							data-bs-target="#myModal" id="remove">
 							<i class="fas fa-trash-alt"></i> Remove
 						</button>
-						<!-- The Modal -->
 					<div class="modal" id="myModal">
 						<div class="modal-dialog">
 							<div class="modal-content">
-								<!-- Modal Header -->
 								<div class="modal-header">
 									<h4 class="modal-title">Do you want remove this cart item</h4>
 								</div>
-								<!-- Modal footer -->
 								<div class="modal-footer">
 									<button type="button" class="btn btn-success"
 										data-bs-dismiss="modal"
@@ -92,22 +88,18 @@
 		<c:if test="${count > 1 }">
 			<tr>
 				<td colspan="3">
-					<!-- onclick="removeAll()" -->
 					<button id="buyall" onclick="buyAll('${customer.getAddress()}')">Buyall</button>
 					<button id="removeall" data-bs-toggle="modal"
 						data-bs-target="#myModalRemove">
 						<i class="fas fa-trash-alt"></i> Remove All
 					</button> 
-					<!-- The Modal -->
 					<div class="modal" id="myModalRemove">
 						<div class="modal-dialog">
 							<div class="modal-content">
-								<!-- Modal Header -->
 								<div class="modal-header">
 									<h4 class="modal-title">Do you want remove
 										all this cart item</h4>
 								</div>
-								<!-- Modal footer -->
 								<div class="modal-footer">
 									<button type="button" class="btn btn-success"
 										data-bs-dismiss="modal" id="removeAllCart">Ok</button>

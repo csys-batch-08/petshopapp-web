@@ -1,6 +1,8 @@
 package com.petshopapp.controller;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,12 +22,15 @@ import com.petshopapp.model.Customers;
 public class Login extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
+
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) {
 		doGet(request, response);
 	}
+
 	/**
-	 * This method is used for login validation and and redirection based on validation
+	 * This method is used for login validation and and redirection based on
+	 * validation
 	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
@@ -35,6 +40,8 @@ public class Login extends HttpServlet {
 		HttpSession session = request.getSession();
 		Customers customerDetails = new Customers();
 		CustomerDAO customerDao = new CustomerDAO();
+		String filename = "userdata.ser";
+
 		customerDetails.setUserName(userName);
 		customerDetails.setPassword(passwowrd);
 		String firstName = customerDao.customerLoginValidation(customerDetails);
@@ -43,9 +50,15 @@ public class Login extends HttpServlet {
 			// customer login
 			if (firstName.charAt(0) == 'C') {
 				customerDetails = customerDao.customerDetails(userName);
-				session.setAttribute("customer", customerDetails);
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("Home");
 				try {
+					FileOutputStream file = new FileOutputStream(filename);
+					ObjectOutputStream out = new ObjectOutputStream(file);
+					// Method for serialization of object
+					out.writeObject(customerDetails);
+					out.close();
+					file.close();
+					session.setAttribute("customer", customerDetails);
 					requestDispatcher.forward(request, response);
 				} catch (ServletException | IOException e) {
 					Logger.printStackTrace(e);
@@ -57,9 +70,15 @@ public class Login extends HttpServlet {
 				Admin admin;
 				AdminDAO adminDao = new AdminDAO();
 				admin = adminDao.show(userName);
-				session.setAttribute("Admin", admin);
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("AdminHome");
 				try {
+					FileOutputStream file = new FileOutputStream(filename);
+					ObjectOutputStream out = new ObjectOutputStream(file);
+					// Method for serialization of object
+					out.writeObject(admin);
+					out.close();
+					file.close();
+					session.setAttribute("Admin", admin);
 					requestDispatcher.forward(request, response);
 				} catch (ServletException | IOException e) {
 					Logger.printStackTrace(e);

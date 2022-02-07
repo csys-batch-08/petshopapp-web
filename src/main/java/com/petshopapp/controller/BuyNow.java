@@ -1,6 +1,8 @@
 package com.petshopapp.controller;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.PrintWriter;
 
 import javax.servlet.annotation.WebServlet;
@@ -36,12 +38,16 @@ public class BuyNow extends HttpServlet {
 		// session to get customer details
 		HttpSession session = request.getSession();
 		Customers customerDetails = (Customers) session.getAttribute("customer");
-
+	    String filename = "userdata.ser";
 		
 		try {
 		// print writer for ajax response
 		PrintWriter write =response.getWriter();
-
+		
+		 FileInputStream file = new FileInputStream(filename);
+         ObjectInputStream in = new ObjectInputStream(file);
+         customerDetails = (Customers)in.readObject();
+         in.close();
 		// customer required quantity
 		int quantity = Integer.parseInt(request.getParameter("quantity"));
 		int petid = Integer.parseInt(request.getParameter("petid"));
@@ -58,10 +64,12 @@ public class BuyNow extends HttpServlet {
 		// petdao object used to get pet details
 		PetDAO petDao = new PetDAO();
 		PetDetails pet = petDao.showCurrentPet(petid);
-
+         
 		// customerdao used to update wallet of customer and get seller customer details
 		CustomerDAO customerDao = new CustomerDAO();
 		Customers petCustomerDetails = customerDao.customerDetails(pet.getCustomer().getCustomerId());
+		System.out.println(petid);
+		System.out.println(petCustomerDetails);
 
 		// check customer wallet higher then or equal to pet price
 		if (customerDetails.getWallet() >= (quantity * pet.getPetprice())) {
@@ -102,7 +110,7 @@ public class BuyNow extends HttpServlet {
 						+ "\n Product Amount : Rs. " + (quantity * pet.getPetprice()));
 			}
 		}
-		}catch (NullPointerException |NumberFormatException |IOException e) {
+		}catch (NullPointerException |NumberFormatException |IOException | ClassNotFoundException e) {
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
 		}

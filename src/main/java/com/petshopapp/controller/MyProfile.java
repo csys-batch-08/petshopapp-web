@@ -1,6 +1,8 @@
 package com.petshopapp.controller;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,26 +22,36 @@ public class MyProfile extends HttpServlet {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) {
 		doGet(request, response);
 
 	}
+
 	/**
-	 * This method is used for get customer details pet list and redirect to myprofile.jsp
+	 * This method is used for get customer details pet list and redirect to
+	 * myprofile.jsp
 	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
-        // Get customer details
+		// Get customer details
 		HttpSession session = request.getSession();
 		Customers customerDetails = (Customers) session.getAttribute("customer");
-		//Update customer details 
+		// Update customer details
 		CustomerDAO customerDao = new CustomerDAO();
 		customerDetails = customerDao.customerDetails(customerDetails.getCustomerId());
-		session.setAttribute("customer", customerDetails);
-		// redirect to my profile
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("myprofile.jsp");
+		String filename = "userdata.ser";
 		try {
+			FileOutputStream file = new FileOutputStream(filename);
+			ObjectOutputStream out = new ObjectOutputStream(file);
+			// Method for serialization of object
+			out.writeObject(customerDetails);
+			out.close();
+			file.close();
+			session.setAttribute("customer", customerDetails);
+			// redirect to my profile
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("myprofile.jsp");
 			requestDispatcher.forward(request, response);
 		} catch (ServletException | IOException e) {
 			Logger.printStackTrace(e);

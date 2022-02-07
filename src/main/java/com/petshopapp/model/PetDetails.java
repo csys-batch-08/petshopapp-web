@@ -153,7 +153,7 @@ public class PetDetails {
 	}
 
 	public PetDetails(int petId, String petType, String petName, String petGender, Date petDob, int petQty,
-			String description, String petColor, double petprice, String petImage, int avilableQty) {
+			String description, String petColor, double petprice, String petImage, int avilableQty,int customerId) {
 		super();
 		this.petId = petId;
 		this.petType = petType;
@@ -166,6 +166,7 @@ public class PetDetails {
 		this.petprice = petprice;
 		this.petImage = petImage;
 		this.avilableQty = avilableQty;
+		this.customer.setCustomerId(customerId);
 	}
 
 }

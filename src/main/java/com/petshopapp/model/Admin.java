@@ -2,9 +2,10 @@ package com.petshopapp.model;
 
 import java.sql.Date;
 
-
-public class Admin {
-    private int adminId;
+public class Admin implements java.io.Serializable{
+ 
+	private static final long serialVersionUID = 1L;
+	private int adminId;
     private String firstName;
     private String lastName;
     private String userName;
