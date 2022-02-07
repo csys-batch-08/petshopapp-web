@@ -5,18 +5,20 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.petshopapp.logger.Logger;
 import com.petshopapp.model.Orders;
 import com.petshopapp.util.ConnectionUtil;
 
 public class OrdersDAO {
-
-	// To get connection from connection util
+	// Instance object and variables for operation
 	String query = "";
 	ResultSet resultSet = null;
 	Connection connection = null;
 	PreparedStatement preparedStatement = null;
 
-	// commit every DML operation
+	/**
+	 * this method is used to commit during DML operation
+	 */
 	public void commit() {
 		try {
 			connection = ConnectionUtil.getDbConnect();
@@ -24,27 +26,57 @@ public class OrdersDAO {
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
+		} finally {
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				Logger.printStackTrace(e);
+				Logger.runTimeException(e.getMessage());
+			}
 		}
 	}
 
 	// insert order
-	public void insertOrder(Orders ord) {
+	/**
+	 * this method is used to insert order data into order table
+	 */
+	public void insertOrder(Orders order) {
 		try {
 			connection = ConnectionUtil.getDbConnect();
-			query = "insert into orders(Customer_id,total_price) \r\n" + "values(?,?)";
+			query = "insert into orders(Customer_id,total_price) values(?,?)";
 			preparedStatement = connection.prepareStatement(query);
-			preparedStatement.setInt(1, ord.getCustomer().getCustomerId());
-			preparedStatement.setDouble(2, ord.getTotalprice());
+			preparedStatement.setInt(1, order.getCustomer().getCustomerId());
+			preparedStatement.setDouble(2, order.getTotalprice());
 			preparedStatement.executeUpdate();
 			commit();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
+		} finally {
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				Logger.printStackTrace(e);
+				Logger.runTimeException(e.getMessage());
+			}
 		}
-
 	}
 
-	// Cancel order
+	/**
+	 * this method is used to update order status
+	 */
 	public void updateOrderStatus(Orders order) {
 		try {
 			connection = ConnectionUtil.getDbConnect();
@@ -54,12 +86,26 @@ public class OrdersDAO {
 			preparedStatement.executeUpdate();
 			commit();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
+		} finally {
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				Logger.printStackTrace(e);
+				Logger.runTimeException(e.getMessage());
+			}
 		}
-
 	}
 
-	// To get last orderId value to insert
+	/**
+	 * this method is used to fetch last order id
+	 */
 	public int getCurrentOrderId() {
 		int orderid = 0;
 		try {
@@ -71,9 +117,24 @@ public class OrdersDAO {
 				orderid = resultSet.getInt(1);
 			}
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
+		} finally {
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				Logger.printStackTrace(e);
+				Logger.runTimeException(e.getMessage());
+			}
 		}
-
 		return orderid;
 	}
 }

@@ -7,12 +7,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.petshopapp.logger.Logger;
 import com.petshopapp.model.Customers;
 import com.petshopapp.model.OrderItems;
 import com.petshopapp.util.ConnectionUtil;
 
 public class OrderItemsDAO {
-
+	// Instance object and variables for operation
 	String query = "";
 	ResultSet resultSet = null;
 	Connection connection = null;
@@ -20,7 +21,9 @@ public class OrderItemsDAO {
 	OrderItems orderitems = new OrderItems();
 	List<OrderItems> orderItemList = new ArrayList<OrderItems>();
 
-	// Commit for every DML operation
+	/**
+	 * this method is used to commit during DML operation
+	 */
 	public void commit() {
 		try {
 			connection = ConnectionUtil.getDbConnect();
@@ -28,11 +31,26 @@ public class OrderItemsDAO {
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
+		} finally {
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				Logger.printStackTrace(e);
+				Logger.runTimeException(e.getMessage());
+			}
 		}
 	}
 
-	// insert order item
+	/**
+	 * this method is used to insert values in order items
+	 */
 	public void insertOrderItems(OrderItems orditm) {
 		try {
 			connection = ConnectionUtil.getDbConnect();
@@ -46,12 +64,27 @@ public class OrderItemsDAO {
 			preparedStatement.executeUpdate();
 			commit();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
+		} finally {
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				Logger.printStackTrace(e);
+				Logger.runTimeException(e.getMessage());
+			}
 		}
 
 	}
 
-	// Cancel Order item
+	/**
+	 * this method is used to update status to cancel
+	 */
 	public void cancelOrderitem(OrderItems ord) {
 		try {
 			connection = ConnectionUtil.getDbConnect();
@@ -61,17 +94,32 @@ public class OrderItemsDAO {
 			preparedStatement.executeUpdate();
 			commit();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
+		} finally {
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				Logger.printStackTrace(e);
+				Logger.runTimeException(e.getMessage());
+			}
 		}
-
 	}
 
-	// Show My order items List
+	/**
+	 * this method is used to get order item list
+	 */
 	public List<OrderItems> showMyOrdersItemsList(Customers cus) {
 		try {
 			connection = ConnectionUtil.getDbConnect();
-			query = "select oi.order_id,oi.pet_id,p.pet_name,oi.quantity,oi.unit_price,oi.total_price,o.order_status,o.order_date,p.pet_image "
-					+ "from order_items oi inner join orders o on oi.order_id=o.order_id inner join pet_details p on oi.pet_id=p.pet_id "
+			query = "select oi.order_id,oi.pet_id,p.pet_name,oi.quantity,oi.unit_price,oi.total_price,"
+					+ "o.order_status,o.order_date,p.pet_image from order_items oi inner join orders o "
+					+ "on oi.order_id=o.order_id inner join pet_details p on oi.pet_id=p.pet_id "
 					+ "where o.customer_id=? order by o.order_id desc";
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1, cus.getCustomerId());
@@ -89,33 +137,64 @@ public class OrderItemsDAO {
 				orderitems.getPet().setPetImage(resultSet.getString(9));
 				orderItemList.add(orderitems);
 			}
-
+		} catch (SQLException e) {
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
+		} finally {
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				Logger.printStackTrace(e);
+				Logger.runTimeException(e.getMessage());
+			}
 		}
-
-		catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-
 		return orderItemList;
 	}
 
-	// Get Current Order Item details
+	/**
+	 * this method is used to get particular order item details
+	 */
 	public List<OrderItems> getCurrentOrderItemDetails(int orderId) {
 		try {
 			connection = ConnectionUtil.getDbConnect();
-			String query = "select item_id,order_id,pet_id,quantity,unit_price,total_price from order_items where order_id=?";
+			String query = "select item_id,order_id,pet_id,quantity,unit_price,"
+					+ "total_price from order_items where order_id=?";
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1, orderId);
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
-				orderitems = new OrderItems(resultSet.getInt(1), resultSet.getInt(2), resultSet.getInt(3),
-						resultSet.getInt(4), resultSet.getDouble(5), resultSet.getDouble(6));
+				orderitems = new OrderItems(resultSet.getInt("item_id"), resultSet.getInt("order_id"),
+						resultSet.getInt("pet_id"), resultSet.getInt("quantity"), resultSet.getDouble("unit_price"),
+						resultSet.getDouble("total_price"));
 				orderItemList.add(orderitems);
 			}
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
+		} finally {
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				Logger.printStackTrace(e);
+				Logger.runTimeException(e.getMessage());
+			}
 		}
-
 		return orderItemList;
 	}
 }

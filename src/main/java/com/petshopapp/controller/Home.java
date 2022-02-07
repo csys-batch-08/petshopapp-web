@@ -1,7 +1,6 @@
 package com.petshopapp.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,36 +10,37 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import com.petshopapp.daoimpl.PetDAO;
+import com.petshopapp.logger.Logger;
 import com.petshopapp.model.Customers;
 import com.petshopapp.model.PetDetails;
 
 @WebServlet("/Home")
 public class Home extends HttpServlet {
 
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) {
 		doGet(request, response);
-
 	}
 
+	/**
+	 * This method is used to get pet details and send to edit.jsp
+	 */
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
-		
-		// session for get customer details
-		HttpSession session = request.getSession();
-		Customers customerDetails = (Customers) session.getAttribute("customer");
-		
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) {	
+		HttpSession session = request.getSession();// session for get customer details
+		Customers customerDetails = (Customers) session.getAttribute("customer");	
 		// Petdao used for get petlist
 		PetDAO petdao = new PetDAO();
 		List<PetDetails> petList = petdao.showAllpetsDetails(customerDetails);	
-		
-		//send pet list through request object
-		request.setAttribute("PetList", petList);
+		request.setAttribute("PetList", petList);//send pet list through request object
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("home.jsp");
 		try {
 			requestDispatcher.forward(request, response);
 		} catch (ServletException | IOException e) {
-			e.printStackTrace();
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
 		}
 
 	}

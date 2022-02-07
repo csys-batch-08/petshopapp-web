@@ -14,6 +14,7 @@ import com.petshopapp.daoimpl.OrderItemsDAO;
 import com.petshopapp.daoimpl.OrdersDAO;
 import com.petshopapp.daoimpl.PetDAO;
 import com.petshopapp.exception.LowWalletBalance;
+import com.petshopapp.logger.Logger;
 import com.petshopapp.model.Customers;
 import com.petshopapp.model.OrderItems;
 import com.petshopapp.model.Orders;
@@ -21,27 +22,25 @@ import com.petshopapp.model.PetDetails;
 
 @WebServlet("/BuyNow")
 public class BuyNow extends HttpServlet {
+	private static final long serialVersionUID = 1L;
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) {
 		doGet(request, response);
-
 	}
-
+	/**
+	 * This method is used to buy pet item and update customer wallet and pet available quantity
+	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
-
 		// session to get customer details
 		HttpSession session = request.getSession();
 		Customers customerDetails = (Customers) session.getAttribute("customer");
 
-		// print writer for ajax response
-		PrintWriter write = null;
+		
 		try {
-			write = response.getWriter();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		// print writer for ajax response
+		PrintWriter write =response.getWriter();
 
 		// customer required quantity
 		int quantity = Integer.parseInt(request.getParameter("quantity"));
@@ -69,28 +68,22 @@ public class BuyNow extends HttpServlet {
 			if (pet.getAvilableQty() >= quantity) {
 				orders.getCustomer().setCustomerId(customerDetails.getCustomerId());
 				orders.setTotalprice((quantity * pet.getPetprice()));
-
 				// insert values in orders
 				ordersDao.insertOrder(orders);
-
 				int orderId = ordersDao.getCurrentOrderId();
 				orderItems.getOrders().setOrderId(orderId);
 				orderItems.getPet().setPetId(pet.getPetId());
 				orderItems.setQuantity(quantity);
 				orderItems.setUnitPrice(pet.getPetprice());
 				orderItems.setTotalPrice((quantity * pet.getPetprice()));
-
 				// insert the values in order items
 				orderItemsDao.insertOrderItems(orderItems);
-
 				// update pet available quantity
 				pet.setAvilableQty((pet.getAvilableQty() - quantity));
 				petDao.updatePetAvailableQuantity(pet);
-
 				// update buyer wallet
 				customerDetails.setWallet(customerDetails.getWallet() - (quantity * pet.getPetprice()));
 				customerDao.updateCustomerWallet(customerDetails);
-
 				// update seller wallet
 				petCustomerDetails.setWallet(petCustomerDetails.getWallet() + (quantity * pet.getPetprice()));
 				customerDao.updateCustomerWallet(petCustomerDetails);
@@ -101,18 +94,18 @@ public class BuyNow extends HttpServlet {
 				write.print("Quantity not avilable");
 			}
 		}
-
 		else {
-
 			try {
 				throw new LowWalletBalance();
 			} catch (LowWalletBalance e) {
 				write.print(e + "\n Current wallet balance : Rs. " + customerDetails.getWallet()
 						+ "\n Product Amount : Rs. " + (quantity * pet.getPetprice()));
 			}
-
 		}
-
+		}catch (NullPointerException |NumberFormatException |IOException e) {
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
+		}
 	}
 
 }

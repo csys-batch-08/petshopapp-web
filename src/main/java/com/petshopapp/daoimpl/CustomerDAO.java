@@ -7,11 +7,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.petshopapp.logger.Logger;
 import com.petshopapp.model.Customers;
 import com.petshopapp.util.ConnectionUtil;
 
 public class CustomerDAO {
 
+	// Instance object and variables for operation
 	String query = "";
 	Connection connection;
 	ResultSet resultSet = null;
@@ -19,7 +21,9 @@ public class CustomerDAO {
 	PreparedStatement preparedStatement = null;
 	List<Customers> customerList = new ArrayList<Customers>();
 
-	// Commit for every DML operation
+	/**
+	 * this method is used to commit every DML operation
+	 */
 	public void commit() {
 		try {
 			connection = ConnectionUtil.getDbConnect();
@@ -27,12 +31,26 @@ public class CustomerDAO {
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
+		} finally {
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				Logger.printStackTrace(e);
+				Logger.runTimeException(e.getMessage());
+			}
 		}
-
 	}
 
-	// Register new Customer
+	/**
+	 * this method is used to register new customer
+	 */
 	public boolean insertNewCustomer(Customers cus) {
 		Connection con;
 		boolean register = true;
@@ -40,7 +58,7 @@ public class CustomerDAO {
 			con = ConnectionUtil.getDbConnect();
 			query = "insert into customers(customer_firstname,customer_lastname,"
 					+ "customer_username,customer_password,customer_email,customer_mobilenumber,"
-					+ "customer_gender)\r\n" + "values (?,?,?,?,?,?,?)";
+					+ "customer_gender) values (?,?,?,?,?,?,?)";
 			preparedStatement = con.prepareStatement(query);
 			preparedStatement.setString(1, cus.getFirstName());
 			preparedStatement.setString(2, cus.getLastName());
@@ -57,13 +75,27 @@ public class CustomerDAO {
 				register = false;
 			}
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
+		} finally {
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				Logger.printStackTrace(e);
+				Logger.runTimeException(e.getMessage());
+			}
 		}
-
 		return register;
 	}
 
-	// update Customer profile
+	/**
+	 * this method is used to update customer profile
+	 */
 	public void updateCustomerDetails(Customers customer) {
 		try {
 			connection = ConnectionUtil.getDbConnect();
@@ -82,11 +114,26 @@ public class CustomerDAO {
 			preparedStatement.executeUpdate();
 			commit();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
+		} finally {
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				Logger.printStackTrace(e);
+				Logger.runTimeException(e.getMessage());
+			}
 		}
 	}
 
-	// Update Customer Address Details
+	/**
+	 * this method is used to update customer address
+	 */
 	public void updateAddressDetails(Customers customer) {
 		try {
 			connection = ConnectionUtil.getDbConnect();
@@ -100,11 +147,26 @@ public class CustomerDAO {
 			preparedStatement.executeUpdate();
 			commit();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
+		} finally {
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				Logger.printStackTrace(e);
+				Logger.runTimeException(e.getMessage());
+			}
 		}
 	}
 
-	// Update customer status
+	/**
+	 * this method is used to update customer status
+	 */
 	public void updateCustomerStatus(Customers customer, String status) {
 		try {
 			connection = ConnectionUtil.getDbConnect();
@@ -115,11 +177,26 @@ public class CustomerDAO {
 			preparedStatement.executeUpdate();
 			commit();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
+		} finally {
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				Logger.printStackTrace(e);
+				Logger.runTimeException(e.getMessage());
+			}
 		}
 	}
 
-	// Customer login validation
+	/**
+	 * this method is used to validation during login
+	 */
 	public String customerLoginValidation(Customers customer) {
 		try {
 			connection = ConnectionUtil.getDbConnect();
@@ -129,8 +206,7 @@ public class CustomerDAO {
 			preparedStatement.setString(2, customer.getPassword());
 			resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
-				customer.setFirstName(resultSet.getString(1));
-				return "C" + resultSet.getString(1);
+				return "C" + resultSet.getString("customer_firstname");
 			} else if (true) {
 				query = "select Admin_firstname from admin_details where admin_username=? and admin_password=?";
 				preparedStatement = connection.prepareStatement(query);
@@ -138,17 +214,34 @@ public class CustomerDAO {
 				preparedStatement.setString(2, customer.getPassword());
 				resultSet = preparedStatement.executeQuery();
 				if (resultSet.next()) {
-					customer.setFirstName(resultSet.getString(1));
-					return "A" + resultSet.getString(1);
+					return "A" + resultSet.getString("Admin_firstname");
 				}
 			}
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
+		} finally {
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				Logger.printStackTrace(e);
+				Logger.runTimeException(e.getMessage());
+			}
 		}
 		return null;
 	}
 
-	// User name validation during register and update
+	/**
+	 * this method is used to ensure user name available or not
+	 */
 	public boolean validateUsername(Customers customer) {
 		boolean flag = true;
 		try {
@@ -170,13 +263,30 @@ public class CustomerDAO {
 				}
 			}
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
+		} finally {
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				Logger.printStackTrace(e);
+				Logger.runTimeException(e.getMessage());
+			}
 		}
-
 		return flag;
 	}
 
-	// Email validation during register and update
+	/**
+	 * this method is used to ensure email is available or not during registration
+	 */
 	public boolean validateEmail(Customers customer) {
 		boolean flag = true;
 		try {
@@ -197,12 +307,30 @@ public class CustomerDAO {
 				}
 			}
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
+		} finally {
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				Logger.printStackTrace(e);
+				Logger.runTimeException(e.getMessage());
+			}
 		}
 		return flag;
 	}
 
-	// Show all customers
+	/**
+	 * this method is used to get customer list
+	 */
 	public List<Customers> customersList() {
 		try {
 			connection = ConnectionUtil.getDbConnect();
@@ -214,21 +342,42 @@ public class CustomerDAO {
 			preparedStatement = connection.prepareStatement(query);
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
-				customer = new Customers(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3),
-						resultSet.getString(4), resultSet.getString(5), resultSet.getString(6), resultSet.getString(7),
-						resultSet.getLong(8), resultSet.getDouble(9), resultSet.getDate(10), resultSet.getString(11),
-						resultSet.getInt(12), resultSet.getString(13), resultSet.getString(14),
-						resultSet.getString(15));
+				customer = new Customers(resultSet.getInt("customer_id"), resultSet.getString("customer_firstname"),
+						resultSet.getString("customer_lastname"), resultSet.getString("customer_gender"),
+						resultSet.getString("customer_username"), resultSet.getString("customer_password"),
+						resultSet.getString("customer_email"), resultSet.getLong("customer_mobilenumber"),
+						resultSet.getDouble("customer_wallet"), resultSet.getDate("customer_reg_date"),
+						resultSet.getString("customer_address"), resultSet.getInt("customer_pincode"),
+						resultSet.getString("customer_image"), resultSet.getString("customer_city"),
+						resultSet.getString("status"));
 				customerList.add(customer);
 			}
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
+		} finally {
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				Logger.printStackTrace(e);
+				Logger.runTimeException(e.getMessage());
+			}
 		}
 		return customerList;
 
 	}
 
-	// Customer details using user name
+	/**
+	 * this method is used to get customer details based on user name
+	 */
 	public Customers customerDetails(String userName) {
 		try {
 			connection = ConnectionUtil.getDbConnect();
@@ -241,20 +390,40 @@ public class CustomerDAO {
 			preparedStatement.setString(1, userName);
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
-				customer = new Customers(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3),
-						resultSet.getString(4), resultSet.getString(5), resultSet.getString(6), resultSet.getString(7),
-						resultSet.getLong(8), resultSet.getDouble(9), resultSet.getDate(10), resultSet.getString(11),
-						resultSet.getInt(12), resultSet.getString(13), resultSet.getString(14),
-						resultSet.getString(15));
+				customer = new Customers(resultSet.getInt("customer_id"), resultSet.getString("customer_firstname"),
+						resultSet.getString("customer_lastname"), resultSet.getString("customer_gender"),
+						resultSet.getString("customer_username"), resultSet.getString("customer_password"),
+						resultSet.getString("customer_email"), resultSet.getLong("customer_mobilenumber"),
+						resultSet.getDouble("customer_wallet"), resultSet.getDate("customer_reg_date"),
+						resultSet.getString("customer_address"), resultSet.getInt("customer_pincode"),
+						resultSet.getString("customer_image"), resultSet.getString("customer_city"),
+						resultSet.getString("status"));
 			}
-
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
+		} finally {
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				Logger.printStackTrace(e);
+				Logger.runTimeException(e.getMessage());
+			}
 		}
 		return customer;
 	}
 
-	// Customers details using id
+	/**
+	 * this method is used to get customer details using customer id
+	 */
 	public Customers customerDetails(int customerId) {
 		try {
 			connection = ConnectionUtil.getDbConnect();
@@ -267,20 +436,40 @@ public class CustomerDAO {
 			preparedStatement.setInt(1, customerId);
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
-				customer = new Customers(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3),
-						resultSet.getString(4), resultSet.getString(5), resultSet.getString(6), resultSet.getString(7),
-						resultSet.getLong(8), resultSet.getDouble(9), resultSet.getDate(10), resultSet.getString(11),
-						resultSet.getInt(12), resultSet.getString(13), resultSet.getString(14),
-						resultSet.getString(15));
+				customer = new Customers(resultSet.getInt("customer_id"), resultSet.getString("customer_firstname"),
+						resultSet.getString("customer_lastname"), resultSet.getString("customer_gender"),
+						resultSet.getString("customer_username"), resultSet.getString("customer_password"),
+						resultSet.getString("customer_email"), resultSet.getLong("customer_mobilenumber"),
+						resultSet.getDouble("customer_wallet"), resultSet.getDate("customer_reg_date"),
+						resultSet.getString("customer_address"), resultSet.getInt("customer_pincode"),
+						resultSet.getString("customer_image"), resultSet.getString("customer_city"),
+						resultSet.getString("status"));
 			}
-
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
+		} finally {
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				Logger.printStackTrace(e);
+				Logger.runTimeException(e.getMessage());
+			}
 		}
 		return customer;
 	}
 
-	// Update Customer Image
+	/**
+	 * this method is used to update customer image
+	 */
 	public void updateCustomerProfileImage(Customers cus) {
 		try {
 			connection = ConnectionUtil.getDbConnect();
@@ -291,11 +480,14 @@ public class CustomerDAO {
 			preparedStatement.executeUpdate();
 			commit();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
 		}
 	}
 
-	// Update Wallet
+	/**
+	 * this method is used to update customer wallet
+	 */
 	public void updateCustomerWallet(Customers cus) {
 		try {
 			connection = ConnectionUtil.getDbConnect();
@@ -306,7 +498,8 @@ public class CustomerDAO {
 			preparedStatement.executeUpdate();
 			commit();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
 		}
 	}
 

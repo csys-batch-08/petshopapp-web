@@ -5,21 +5,21 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.petshopapp.logger.Logger;
 import com.petshopapp.model.Admin;
 import com.petshopapp.util.ConnectionUtil;
 
 public class AdminDAO {
-
-	// Admin profile Details
+	/**
+	 * this method is used to get Admin details
+	 */
 	public Admin show(String userName) {
-		Connection connection;
+		Connection connection = null;
 		Admin admin = null;
 		ResultSet resultSet = null;
 		PreparedStatement preparedStatement = null;
-
 		try {
 			connection = ConnectionUtil.getDbConnect();
-
 			String query = "select admin_id,admin_firstname,admin_lastname,admin_username,"
 					+ "admin_password,admin_email,admin_number,admin_registerdate "
 					+ "from admin_details where admin_username=?";
@@ -32,18 +32,24 @@ public class AdminDAO {
 						resultSet.getDate(8));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
 		} finally {
-
 			try {
-				resultSet.close();
-				preparedStatement.close();
+				if (resultSet != null) {
+					resultSet.close();
+				}
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
 			} catch (SQLException e) {
-				e.printStackTrace();
+				Logger.printStackTrace(e);
+				Logger.runTimeException(e.getMessage());
 			}
-
 		}
 		return admin;
 	}
-
 }

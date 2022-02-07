@@ -7,37 +7,34 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.petshopapp.daoimpl.PetDAO;
+import com.petshopapp.logger.Logger;
 import com.petshopapp.model.PetDetails;
 
 @WebServlet("/DeletePet")
-public class DeletePet extends HttpServlet{
-	
+public class DeletePet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
 
-      @Override
-      protected void doPost(HttpServletRequest request, HttpServletResponse response) {
-      		doGet(request, response);
-      		
-      }
-       @Override
-       protected void doGet(HttpServletRequest request, HttpServletResponse response) {
-    	   
-    	// print writer for ajax response
-    	   PrintWriter write=null;
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+		doGet(request, response);
+	}
+	
+	/**
+	 * This method is used to update particular pet status to delete
+	 */
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 		try {
-			write = response.getWriter();
-		} catch (IOException e) {
-			e.printStackTrace();
+			PrintWriter write = response.getWriter(); // print writer for AJAX response
+			int petId = Integer.parseInt(request.getParameter("petId"));// pet id for update status
+			PetDetails pet = new PetDetails();
+			PetDAO petdao = new PetDAO();
+			pet.setPetId(petId);
+			petdao.delete(pet);	
+			write.print("Pet item deleted successfully");// AJAX response message
+		} catch (IOException|NullPointerException|NumberFormatException e) {
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
 		}
-		
-		 // pet id for update status
-      	 int petId=Integer.parseInt(request.getParameter("petId"));
-      	 PetDetails pet=new PetDetails();
-      	 PetDAO petdao=new PetDAO(); 
-      	 pet.setPetId(petId);
-      	 petdao.delete(pet);
-      	 
-      	 //ajax response message
-      	 write.print("Pet item deleted successfully");
-       		
-       }
+	}
 }

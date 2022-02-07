@@ -7,12 +7,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.petshopapp.logger.Logger;
 import com.petshopapp.model.CartItems;
 import com.petshopapp.model.Customers;
 import com.petshopapp.util.ConnectionUtil;
 
 public class CartItemsDAO {
 
+	// Instance fields for methods
 	String query = "";
 	Connection connection;
 	ResultSet resultSet = null;
@@ -20,7 +22,9 @@ public class CartItemsDAO {
 	CartItems cartItem = new CartItems();
 	List<CartItems> cartList = new ArrayList<CartItems>();
 
-	// Commit during DML operation
+	/**
+	 * this method is used to commit during DML operation
+	 */
 	public void commit() {
 		try {
 			connection = ConnectionUtil.getDbConnect();
@@ -28,11 +32,26 @@ public class CartItemsDAO {
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
+		} finally {
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				Logger.printStackTrace(e);
+				Logger.runTimeException(e.getMessage());
+			}
 		}
 	}
 
-	// Insert Cart Items
+	/**
+	 * this method is used to insert data into cart items table
+	 */
 	public void insertCartItem(CartItems cartit) {
 		Connection con;
 		try {
@@ -47,11 +66,26 @@ public class CartItemsDAO {
 			preparedStatement.executeUpdate();
 			commit();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
+		} finally {
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				Logger.printStackTrace(e);
+				Logger.runTimeException(e.getMessage());
+			}
 		}
 	}
 
-	// To update cartItems Quantity
+	/**
+	 * this method is used to update cart item quantity
+	 */
 	public void updateCartItemQuantity(int itemId, int qty) {
 		query = "update cart_items set quantity=? where item_id=?";
 		try {
@@ -62,31 +96,64 @@ public class CartItemsDAO {
 			preparedStatement.executeUpdate();
 			commit();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
+		} finally {
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				Logger.printStackTrace(e);
+				Logger.runTimeException(e.getMessage());
+			}
 		}
 
 	}
 
-	// Delete Cart item
+	/**
+	 * this method is used to delete data in the cart items table
+	 */
 	public void deleteCartItem(int itemId) {
 		try {
 			connection = ConnectionUtil.getDbConnect();
-			query = "delete from cart_items where item_id=" + itemId + "";
+			query = "delete from cart_items where item_id=?";
 			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, itemId);
 			preparedStatement.executeUpdate();
 			commit();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
+		} finally {
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				Logger.printStackTrace(e);
+				Logger.runTimeException(e.getMessage());
+			}
 		}
 	}
 
-	// Show My Cart Items
+	/**
+	 * this method is used to get cart items for login customer.
+	 */
 	public List<CartItems> showAllCartItems(Customers customer) {
-
 		try {
 			connection = ConnectionUtil.getDbConnect();
-			query = "select ci.item_id,ci.pet_id,ci.customer_id,ci.quantity,ci.unit_price,ci.total_price,p.pet_type,p.pet_name,pet_image,p.available_qty from cart_items ci "
-					+ "inner join pet_details p on p.pet_id=ci.pet_id where ci.customer_id=? order by ci.item_id";
+			query = "select cart_items.item_id,cart_items.pet_id,cart_items.customer_id,cart_items.quantity,"
+					+ "cart_items.unit_price,cart_items.total_price,pet_details.pet_type,"
+					+ "pet_details.pet_name,pet_details.pet_image,pet_details.available_qty from cart_items inner join pet_details "
+					+ "on pet_details.pet_id=cart_items.pet_id where cart_items.customer_id=? order by "
+					+ "cart_items.item_id";
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1, customer.getCustomerId());
 			resultSet = preparedStatement.executeQuery();
@@ -100,12 +167,30 @@ public class CartItemsDAO {
 				cartList.add(cartItem);
 			}
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
+		} finally {
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				Logger.printStackTrace(e);
+				Logger.runTimeException(e.getMessage());
+			}
 		}
 		return cartList;
 	}
 
-	// Show Particular Cart Item
+	/**
+	 * this method is used to get particular cart item details
+	 */
 	public CartItems showCartItem(int itemId) {
 		try {
 			connection = ConnectionUtil.getDbConnect();
@@ -114,11 +199,28 @@ public class CartItemsDAO {
 			preparedStatement.setInt(1, itemId);
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
-				cartItem = new CartItems(resultSet.getInt(1), resultSet.getInt(2), resultSet.getInt(3),
-						resultSet.getInt(4), resultSet.getDouble(5), resultSet.getDouble(6));
+				cartItem = new CartItems(resultSet.getInt("item_id"), resultSet.getInt("pet_id"),
+						resultSet.getInt("customer_id"), resultSet.getInt("quantity"),
+						resultSet.getDouble("unit_price"), resultSet.getDouble("total_price"));
 			}
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
+		} finally {
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				Logger.printStackTrace(e);
+				Logger.runTimeException(e.getMessage());
+			}
 		}
 		return cartItem;
 	}
