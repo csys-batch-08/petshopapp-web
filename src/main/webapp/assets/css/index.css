@@ -34,8 +34,6 @@ h1 {
 	padding: 16px;
 	position: fixed;
 	font-size: 17px;
-	top: 18%;
-	width: 340px;
 }
 
 #snackbar.show {

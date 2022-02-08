@@ -45,6 +45,9 @@ public class Login extends HttpServlet {
 		customerDetails.setUserName(userName);
 		customerDetails.setPassword(passwowrd);
 		String firstName = customerDao.customerLoginValidation(customerDetails);
+
+		FileOutputStream file = null;
+		ObjectOutputStream out = null;
 		// login validation
 		if (firstName != null) {
 			// customer login
@@ -52,17 +55,28 @@ public class Login extends HttpServlet {
 				customerDetails = customerDao.customerDetails(userName);
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("Home");
 				try {
-					FileOutputStream file = new FileOutputStream(filename);
-					ObjectOutputStream out = new ObjectOutputStream(file);
+					file = new FileOutputStream(filename);
+					out = new ObjectOutputStream(file);
 					// Method for serialization of object
 					out.writeObject(customerDetails);
-					out.close();
-					file.close();
+
 					session.setAttribute("customer", customerDetails);
 					requestDispatcher.forward(request, response);
-				} catch (ServletException | IOException e) {
+				} catch (ServletException | IOException | NullPointerException e) {
 					Logger.printStackTrace(e);
 					Logger.runTimeException(e.getMessage());
+				} finally {
+					try {
+						if (out != null) {
+							out.close();
+						}
+						if (file != null) {
+							file.close();
+						}
+					} catch (IOException e) {
+						Logger.printStackTrace(e);
+						Logger.runTimeException(e.getMessage());
+					}
 				}
 			}
 			// Admin login
@@ -72,17 +86,27 @@ public class Login extends HttpServlet {
 				admin = adminDao.show(userName);
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("AdminHome");
 				try {
-					FileOutputStream file = new FileOutputStream(filename);
-					ObjectOutputStream out = new ObjectOutputStream(file);
+					file = new FileOutputStream(filename);
+					out = new ObjectOutputStream(file);
 					// Method for serialization of object
 					out.writeObject(admin);
-					out.close();
-					file.close();
 					session.setAttribute("Admin", admin);
 					requestDispatcher.forward(request, response);
-				} catch (ServletException | IOException e) {
+				} catch (ServletException | IOException |NullPointerException e) {
 					Logger.printStackTrace(e);
 					Logger.runTimeException(e.getMessage());
+				} finally {
+					try {
+						if (out != null) {
+							out.close();
+						}
+						if (file != null) {
+							file.close();
+						}
+					} catch (IOException e) {
+						Logger.printStackTrace(e);
+						Logger.runTimeException(e.getMessage());
+					}
 				}
 			}
 		}

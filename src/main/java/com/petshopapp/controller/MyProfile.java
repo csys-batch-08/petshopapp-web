@@ -42,9 +42,11 @@ public class MyProfile extends HttpServlet {
 		CustomerDAO customerDao = new CustomerDAO();
 		customerDetails = customerDao.customerDetails(customerDetails.getCustomerId());
 		String filename = "userdata.ser";
+		FileOutputStream file=null;
+		ObjectOutputStream out=null;
 		try {
-			FileOutputStream file = new FileOutputStream(filename);
-			ObjectOutputStream out = new ObjectOutputStream(file);
+			file = new FileOutputStream(filename);
+			out = new ObjectOutputStream(file);
 			// Method for serialization of object
 			out.writeObject(customerDetails);
 			out.close();
@@ -53,10 +55,22 @@ public class MyProfile extends HttpServlet {
 			// redirect to my profile
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("myprofile.jsp");
 			requestDispatcher.forward(request, response);
-		} catch (ServletException | IOException e) {
+		} catch (ServletException | IOException|NullPointerException e) {
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
+		}finally {
+			try {
+				if(out!=null) {
+					out.close();
+				}
+				if(file!=null) {
+					file.close();
+				}
+			}catch (Exception e) {
+				Logger.printStackTrace(e);
+				Logger.runTimeException(e.getMessage());
+			}
+			
 		}
-
 	}
 }

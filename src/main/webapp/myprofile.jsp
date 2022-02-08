@@ -9,14 +9,13 @@
  <meta name="keywords" content="Petshop,pets,animals">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>My profile</title>
+<link rel="stylesheet" href="./assets/css/header.css"></link>
 <link rel="stylesheet" href="./assets/css/myprofile.css"></link>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" 
 integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" 
 integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="https://kit.fontawesome.com/aeca6704b2.js"></script>
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
 	<h2>My profile</h2>
@@ -48,7 +47,8 @@ integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+
 				${customer.getPincode()}</p>
 			<p>: Rs.${customer.getWallet()}0</p>
 		</div>
-		<div>Update Image : <input type="file" id="imagepath" name="image">
+		<div><label for="image">Update Image :</label>
+		<input type="file" id="imagepath" name="image">
 				<button type="button" id="ok" onclick="UpdateImage()">Update Image</button></div>
 	</div>
 	<table>	
@@ -61,16 +61,16 @@ integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+
 			<tr>
 				<form action="UpdateProfile">
 					<td><label for="firstname">Firstname</label></td>
-					<td><input type="text" name="firstname"
+					<td><input type="text" name="firstname" id="firstname"
 						value="${customer.getFirstName()}" pattern="[a-zA-Z]{3,20}"
 						required></td>
-					<td><label for="lastname">Lastname</label></td>
-					<td><input type="text" name="lastname"
+					<td><label for="lastname" id="lastname">Lastname</label></td>
+					<td><input type="text" name="lastname" 
 						value="${customer.getLastName()}" pattern="[a-zA-Z]{3,20}"
 						required></td>
 			</tr>
 			<tr>
-				<td><label for="username" UserName>Username</label></td>
+				<td><label for="username">Username</label></td>
 				<td><input type="text" name="username" id="username" onchange="validateUsername()"
 					value="${customer.getUserName()}" pattern="[a-zA-Z0-9]{8,20}"
 					required></td>
@@ -87,7 +87,7 @@ integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+
 					value="${customer.getEmail()}"
 					pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required></td>
 				<td><label for="number">Mobile</label></td>
-				<td><input type="text" name="number"
+				<td><input type="text" name="number" id="number"
 					value="${customer.getNumber()}" pattern="[6-9]{1}[0-9]{9}" required></td>
 			</tr>
 			<tr>
@@ -95,7 +95,7 @@ integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+
 				<td><input type="password" name="password" id="password"
 					value="${customer.getPassword()}"
 					pattern="[a-zA-Z0-9!@#$%^&*()_+]{8,20}" required></td>
-				<td><input type="checkbox" onclick="showPassword()"
+				<td><input type="checkbox" onclick="showPassword()" id="showpassword"
 					style="position: relative; left: -190px; top: 10px;"></td>
 				<td style="position: relative; left: -390px; top: 7px;">Show
 					Password</td>

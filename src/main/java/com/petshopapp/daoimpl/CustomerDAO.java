@@ -435,7 +435,6 @@ public class CustomerDAO {
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1, customerId);
 			resultSet = preparedStatement.executeQuery();
-			System.out.println(customerId);
 			while (resultSet.next()) {
 				customer = new Customers(resultSet.getInt("customer_id"), resultSet.getString("customer_firstname"),
 						resultSet.getString("customer_lastname"), resultSet.getString("customer_gender"),
@@ -445,7 +444,6 @@ public class CustomerDAO {
 						resultSet.getString("customer_address"), resultSet.getInt("customer_pincode"),
 						resultSet.getString("customer_image"), resultSet.getString("customer_city"),
 						resultSet.getString("status"));
-				System.out.println(customer);
 			}
 		} catch (SQLException e) {
 			Logger.printStackTrace(e);

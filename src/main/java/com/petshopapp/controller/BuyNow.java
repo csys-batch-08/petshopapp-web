@@ -30,87 +30,97 @@ public class BuyNow extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) {
 		doGet(request, response);
 	}
+
 	/**
-	 * This method is used to buy pet item and update customer wallet and pet available quantity
+	 * This method is used to buy pet item and update customer wallet and pet
+	 * available quantity
 	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 		// session to get customer details
 		HttpSession session = request.getSession();
 		Customers customerDetails = (Customers) session.getAttribute("customer");
-	    String filename = "userdata.ser";
-		
+		String filename = "userdata.ser";
+
 		try {
-		// print writer for ajax response
-		PrintWriter write =response.getWriter();
-		
-		 FileInputStream file = new FileInputStream(filename);
-         ObjectInputStream in = new ObjectInputStream(file);
-         customerDetails = (Customers)in.readObject();
-         in.close();
-		// customer required quantity
-		int quantity = Integer.parseInt(request.getParameter("quantity"));
-		int petid = Integer.parseInt(request.getParameter("petid"));
-
-		// order and orderdao objects used to store and update order details
-		Orders orders = new Orders();
-		OrdersDAO ordersDao = new OrdersDAO();
-
-		// orderitems and orderitemsdao objects used to store and update order items
-		// details
-		OrderItems orderItems = new OrderItems();
-		OrderItemsDAO orderItemsDao = new OrderItemsDAO();
-
-		// petdao object used to get pet details
-		PetDAO petDao = new PetDAO();
-		PetDetails pet = petDao.showCurrentPet(petid);
-         
-		// customerdao used to update wallet of customer and get seller customer details
-		CustomerDAO customerDao = new CustomerDAO();
-		Customers petCustomerDetails = customerDao.customerDetails(pet.getCustomer().getCustomerId());
-		System.out.println(petid);
-		System.out.println(petCustomerDetails);
-
-		// check customer wallet higher then or equal to pet price
-		if (customerDetails.getWallet() >= (quantity * pet.getPetprice())) {
-			if (pet.getAvilableQty() >= quantity) {
-				orders.getCustomer().setCustomerId(customerDetails.getCustomerId());
-				orders.setTotalprice((quantity * pet.getPetprice()));
-				// insert values in orders
-				ordersDao.insertOrder(orders);
-				int orderId = ordersDao.getCurrentOrderId();
-				orderItems.getOrders().setOrderId(orderId);
-				orderItems.getPet().setPetId(pet.getPetId());
-				orderItems.setQuantity(quantity);
-				orderItems.setUnitPrice(pet.getPetprice());
-				orderItems.setTotalPrice((quantity * pet.getPetprice()));
-				// insert the values in order items
-				orderItemsDao.insertOrderItems(orderItems);
-				// update pet available quantity
-				pet.setAvilableQty((pet.getAvilableQty() - quantity));
-				petDao.updatePetAvailableQuantity(pet);
-				// update buyer wallet
-				customerDetails.setWallet(customerDetails.getWallet() - (quantity * pet.getPetprice()));
-				customerDao.updateCustomerWallet(customerDetails);
-				// update seller wallet
-				petCustomerDetails.setWallet(petCustomerDetails.getWallet() + (quantity * pet.getPetprice()));
-				customerDao.updateCustomerWallet(petCustomerDetails);
-
-				write.print("Order placed sucussfully " + "\n Order Amount : Rs. " + (quantity * pet.getPetprice())
-						+ "\n Current wallet Balance : Rs. " + customerDetails.getWallet());
-			} else {
-				write.print("Quantity not avilable");
-			}
-		}
-		else {
+			// print writer for ajax response
+			PrintWriter write = response.getWriter();
+			FileInputStream file = new FileInputStream(filename);
+			ObjectInputStream in = new ObjectInputStream(file);
 			try {
-				throw new LowWalletBalance();
-			} catch (LowWalletBalance e) {
-				write.print(e + "\n Current wallet balance : Rs. " + customerDetails.getWallet()
-						+ "\n Product Amount : Rs. " + (quantity * pet.getPetprice()));
+				customerDetails = (Customers) in.readObject();
+			} catch (ClassNotFoundException e) {
+				Logger.printStackTrace(e);
+				Logger.runTimeException(e.getMessage());
+			}finally {
+				if(in!=null) {
+					in.close();
+				}
+				if(file!=null) {
+					file.close();
+				}
 			}
-		}
-		}catch (NullPointerException |NumberFormatException |IOException | ClassNotFoundException e) {
+			
+			// customer required quantity
+			int quantity = Integer.parseInt(request.getParameter("quantity"));
+			int petid = Integer.parseInt(request.getParameter("petid"));
+
+			// order and orderdao objects used to store and update order details
+			Orders orders = new Orders();
+			OrdersDAO ordersDao = new OrdersDAO();
+
+			// orderitems and orderitemsdao objects used to store and update order items
+			// details
+			OrderItems orderItems = new OrderItems();
+			OrderItemsDAO orderItemsDao = new OrderItemsDAO();
+
+			// petdao object used to get pet details
+			PetDAO petDao = new PetDAO();
+			PetDetails pet = petDao.showCurrentPet(petid);
+
+			// customerdao used to update wallet of customer and get seller customer details
+			CustomerDAO customerDao = new CustomerDAO();
+			Customers petCustomerDetails = customerDao.customerDetails(pet.getCustomer().getCustomerId());
+
+			// check customer wallet higher then or equal to pet price
+			if (customerDetails.getWallet() >= (quantity * pet.getPetprice())) {
+				if (pet.getAvilableQty() >= quantity) {
+					orders.getCustomer().setCustomerId(customerDetails.getCustomerId());
+					orders.setTotalprice((quantity * pet.getPetprice()));
+					// insert values in orders
+					ordersDao.insertOrder(orders);
+					int orderId = ordersDao.getCurrentOrderId();
+					orderItems.getOrders().setOrderId(orderId);
+					orderItems.getPet().setPetId(pet.getPetId());
+					orderItems.setQuantity(quantity);
+					orderItems.setUnitPrice(pet.getPetprice());
+					orderItems.setTotalPrice((quantity * pet.getPetprice()));
+					// insert the values in order items
+					orderItemsDao.insertOrderItems(orderItems);
+					// update pet available quantity
+					pet.setAvilableQty((pet.getAvilableQty() - quantity));
+					petDao.updatePetAvailableQuantity(pet);
+					// update buyer wallet
+					customerDetails.setWallet(customerDetails.getWallet() - (quantity * pet.getPetprice()));
+					customerDao.updateCustomerWallet(customerDetails);
+					// update seller wallet
+					petCustomerDetails.setWallet(petCustomerDetails.getWallet() + (quantity * pet.getPetprice()));
+					customerDao.updateCustomerWallet(petCustomerDetails);
+
+					write.print("Order placed sucussfully " + "\n Order Amount : Rs. " + (quantity * pet.getPetprice())
+							+ "\n Current wallet Balance : Rs. " + customerDetails.getWallet());
+				} else {
+					write.print("Quantity not avilable");
+				}
+			} else {
+				try {
+					throw new LowWalletBalance();
+				} catch (LowWalletBalance e) {
+					write.print(e + "\n Current wallet balance : Rs. " + customerDetails.getWallet()
+							+ "\n Product Amount : Rs. " + (quantity * pet.getPetprice()));
+				}
+			}
+		} catch (NullPointerException | NumberFormatException | IOException e) {
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
 		}

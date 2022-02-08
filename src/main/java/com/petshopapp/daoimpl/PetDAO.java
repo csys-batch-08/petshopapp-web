@@ -220,8 +220,6 @@ public class PetDAO {
 						resultSet.getString("pet_description"), resultSet.getString("pet_color"),
 						resultSet.getDouble("pet_price"), resultSet.getString("pet_image"),
 						resultSet.getInt("available_qty"),resultSet.getInt("customer_id"));
-				
-
 				query = "select customer_firstname from customers where customer_id=?";
 				preparedStatement = connection.prepareStatement(query);
 				preparedStatement.setInt(1, resultSet.getInt("customer_id"));
