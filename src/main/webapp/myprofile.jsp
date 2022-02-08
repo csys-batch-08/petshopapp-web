@@ -55,8 +55,8 @@
 			<p>: Rs.${customer.getWallet()}0</p>
 		</div>
 		<div>
-			<label for="image">Update Image :</label> <input type="file"
-				id="imagepath" name="image">
+			<label for="image">Update Image :</label>
+			<input type="file" id="imagepath" name="image"/>
 			<button type="button" id="ok" onclick="UpdateImage()">Update
 				Image</button>
 		</div>
@@ -70,7 +70,8 @@
 		<tbody>
 			<tr>
 				<form action="UpdateProfile">
-					<td><label for="firstname">Firstname</label> <input
+					<td><label for="firstname">Firstname</label> 
+					<input
 						type="text" name="firstname" id="firstname"
 						value="${customer.getFirstName()}" pattern="[a-zA-Z]{3,20}"
 						required></td>
@@ -79,10 +80,11 @@
 						pattern="[a-zA-Z]{3,20}" required></td>
 			</tr>
 			<tr>
-				<td><label for="username">Username</label> <input type="text"
+				<td><label for="username">Username</label> 
+				<input type="text"
 					name="username" id="username" onchange="validateUsername()"
 					value="${customer.getUserName()}" pattern="[a-zA-Z0-9]{8,20}"
-					required></td>
+					required /></td>
 				<td><label for="gender">Gender</label> <select id="gender"
 					name="gender" required>
 						<option value="Male">male</option>
@@ -104,7 +106,7 @@
 					type="password" name="password" id="password"
 					value="${customer.getPassword()}"
 					pattern="[a-zA-Z0-9!@#$%^&*()_+]{8,20}" required></td>
-				<td><input type="checkbox" onclick="showPassword()"
+				<td><input type="checkbox" onclick="showPassword()" onkeypress=""
 					id="showpassword"><label for="showpassword">Show Password</label></td>
 				
 			</tr>
@@ -147,8 +149,9 @@
 					class="fas fa-wallet"></i></td>
 			</tr>
 			<tr>
-				<td><label for="wallet">Add Amount</label> <input type="number"
-					name="wallet" id="updatewallet1" min="1000" value="1000" required></td>
+				<td><label for="wallet">Add Amount</label> 
+				<input type="number"
+					name="wallet" id="updatewallet1" min="1000" value="1000" required /></td>
 				<td><button id="updatewallet" onclick="UpdateWallet()"
 						type="button">Add</button></td>
 			</tr>

@@ -6,29 +6,30 @@ import com.petshopapp.model.Customers;
 
 public interface CustomerInterface {
 
-	public void insert(Customers cus);
+	public void commit();
 	
-	public void update(Customers customer);
+	public boolean insertNewCustomer(Customers cus);
 	
-	public void delete(Customers customer,String status);
+	public void updateCustomerDetails(Customers customer);
 	
-	public String cusValidation(Customers cus);
+	public void updateAddressDetails(Customers customer);
 	
-	public boolean validatUsername(Customers customer);
+	public void updateCustomerStatus(Customers customer, String status);
+	
+	public String customerLoginValidation(Customers customer);
+	
+	public boolean validateUsername(Customers customer);
 	
 	public boolean validateEmail(Customers customer);
 	
-	public List<Customers> showCustomerList();
+	public List<Customers> customersList();
 	
 	public Customers customerDetails(String userName);
 	
 	public Customers customerDetails(int customerId);
 	
-	public void updateImage(Customers cus);
+	public void updateCustomerProfileImage(Customers cus);
 	
-	public void updateWallet(Customers cus);
-	
-	
-	
+	public void updateCustomerWallet(Customers cus);
 	
 }

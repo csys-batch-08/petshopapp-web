@@ -7,11 +7,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.petshopapp.dao.CustomerInterface;
 import com.petshopapp.logger.Logger;
 import com.petshopapp.model.Customers;
 import com.petshopapp.util.ConnectionUtil;
 
-public class CustomerDAO {
+public class CustomerDAO implements CustomerInterface{
 
 	// Instance object and variables for operation
 	String query = "";

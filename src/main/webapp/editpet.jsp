@@ -63,7 +63,7 @@ integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+
 						placeholder="Image file" value="${pet.getPetImage()}" required></td>
 					<td><label for="qty">Quantity</label>
 					    <input type="number" name="quantity" id="quantityt"
-						min="1" placeholder="Quantity" value="${pet.getPetQty()}" required></td>
+						min="1" placeholder="Quantity" value="${pet.getPetQty()}" required /></td>
 
 				</tr>
 				<tr>

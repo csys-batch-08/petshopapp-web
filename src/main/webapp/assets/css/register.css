@@ -152,7 +152,7 @@ table input {
 
 table select {
 	height: 25px;
-	width: 210px;
+	width: 200px;
 	border-left: none;
 	border-top: none;
 	border-right: none;
@@ -194,6 +194,9 @@ table span {
 	border-bottom-left-radius: 10px;
 }
 
+table label{
+	width: 130px;
+}
 form div {
 	display: inline;
 }

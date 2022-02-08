@@ -32,7 +32,7 @@ integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+
 			<p>
 				<input type="text" name="usernameinput" id="usernameinput"
 					placeholder="Enter the username" pattern="[a-zA-Z0-9]{8,20}"
-					title="username must be in 8 character" required>
+					title="username must be in 8 character" required />
 			</p>
 			<p>
 				<label for="password"><i class="fas fa-lock"
@@ -41,7 +41,7 @@ integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+
 					type="password" name="passwordinput" id="passwordinput"
 					placeholder="Enter the password"
 					pattern="[a-zA-Z0-9!@#$%^&*()]{8,20}"
-					title="password must be in 8 character" required>
+					title="password must be in 8 character" required />
 			</p>
 			<!--Login Button-->
 			<p><button type="submit" id="login">Login</button></p>

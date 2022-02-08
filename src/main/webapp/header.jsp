@@ -5,7 +5,7 @@
 	<form action="Search">
 	     <label for="search"></label>
 		<input type="search" name="search" id="searchinput"
-			placeholder="Enter pet category or name">
+			placeholder="Enter pet category or name" />
 		<button type="submit" id="search">search</button>
 	</form>
 	<nav>

@@ -5,11 +5,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.petshopapp.dao.AdminInterface;
 import com.petshopapp.logger.Logger;
 import com.petshopapp.model.Admin;
 import com.petshopapp.util.ConnectionUtil;
 
-public class AdminDAO {
+public class AdminDAO implements AdminInterface{
 	/**
 	 * this method is used to get Admin details
 	 */

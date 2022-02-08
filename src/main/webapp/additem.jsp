@@ -6,16 +6,23 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
- <meta name="keywords" content="Petshop,pets,animals">
+<meta name="keywords" content="Petshop,pets,animals">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pet register</title>
 <link rel="stylesheet" href="./assets/css/header.css"></link>
 <link rel="stylesheet" href="./assets/css/additem.css"></link>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" 
-integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" 
-integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+	crossorigin="anonymous"></script>
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+	rel="stylesheet">
 </head>
 <body>
 	<form class="animalform" action="AddPet" method="post">
@@ -27,46 +34,43 @@ integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+
 			</tr>
 			<tbody>
 				<tr>
-					<td><label for="animaltype">Pet type </label>
-					    <input type="text" name="animaltype" id="animaltype"
-						placeholder="Type" pattern="[a-zA-Z]{3,20}" list="typelist"
-						required></td>
-					<td><label for="animalname">Name</label>
-					    <input type="text" name="animalname" id="animalname"
-						placeholder="Name" pattern="[a-zA-Z ]{3,20}" list="namelist"
-						required></td>
+					<td><label for="animaltype">Pet type </label> <input
+						type="text" name="animaltype" id="animaltype" placeholder="Type"
+						pattern="[a-zA-Z]{3,20}" list="typelist" required></td>
+					<td><label for="animalname">Name</label> <input type="text"
+						name="animalname" id="animalname" placeholder="Name"
+						pattern="[a-zA-Z ]{3,20}" list="namelist" required></td>
 				</tr>
 				<tr>
-					<td><label for="animalgender">Gender</label>
-					    <select  name="animalgender" id="animalgender" required>
+					<td><label for="animalgender">Gender</label> <select
+						name="animalgender" id="animalgender" required>
 							<option value="Male" selected="selected">male</option>
 							<option value="Female">female</option>
 							<option value="others">others</option>
 					</select>
-					<td><label for="dob" >Date of birth</label>
-					    <input type="date" name="dob" id="dob" required></td>
+					<td><label for="dob">Date of birth</label> <input type="date"
+						name="dob" id="dob" required></td>
 				</tr>
 				<tr>
-					<td><label for="color">Color</label>
-					    <input type="text" name="color" id="color"
-						placeholder="Color" pattern="[a-zA-Z]{3,20}" list="colors"></td>
-					<td><label for="price">price</label>
-					    <input type="number"  name="price" id="price" min="0"
-						placeholder="Price" required></td>
+					<td><label for="color">Color</label> <input type="text"
+						name="color" id="color" placeholder="Color"
+						pattern="[a-zA-Z]{3,20}" list="colors"></td>
+					<td><label for="price">price</label> <input type="number"
+						name="price" id="price" min="0" placeholder="Price" required></td>
 				</tr>
 				<tr>
-					<td><label for="imagelink">Select Image</label>
-					    <input type="file"  name="imagelink" id="imagelink"
+					<td><label for="imagelink">Select Image</label> <input
+						type="file" name="imagelink" id="imagelink"
 						placeholder="Image file" required></td>
-					<td><label for="qty">Quantity</label>
-					    <input type="number" name="quantity" id="quantity"
-						min="0" placeholder="Quantity" required></td>
+					<td><label for="qty">Quantity</label> <input type="number"
+						name="quantity" id="quantity" min="0" placeholder="Quantity"
+						required /></td>
 				</tr>
 				<tr>
 					<td colspan="2"><label for="description" id="descriptionlabel">Description</label>
-					    <textarea name="description" id="description"
-							placeholder="Description about pet" ></textarea>
-							<button>Register</button></td>
+						<textarea name="description" id="description"
+							placeholder="Description about pet"></textarea>
+						<button>Register</button></td>
 				</tr>
 			</tbody>
 		</table>

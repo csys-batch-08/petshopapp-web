@@ -56,10 +56,11 @@ integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+
 			<p>${petDescription.description}</p>
 			<p id="icon">
 				<label> Quantity : </label> <i class="fas fa-minus-square"
-					onclick="decrease()"></i><input type="number" id="quantity"
-					max="${petDescription.avilableQty}" min="0" value="0"
-					name="quantity"> <i class="fas fa-plus-square"
-					onclick="increase(${petDescription.avilableQty})"></i></p>
+					onclick="decrease()" onkeydown=""></i>
+					<input type="number" id="quantity"
+					max="${petDescription.avilableQty}" min="0" value="0" 
+					name="quantity" /> <i class="fas fa-plus-square"
+					onclick="increase(${petDescription.avilableQty})" onkeydown=""></i></p>
 					
 				<p>
 				<button type="button" onclick="addToCart('${petDescription.getPetId()}')">

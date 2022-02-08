@@ -8,12 +8,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.petshopapp.dao.PetInterface;
 import com.petshopapp.logger.Logger;
 import com.petshopapp.model.Customers;
 import com.petshopapp.model.PetDetails;
 import com.petshopapp.util.ConnectionUtil;
 
-public class PetDAO {
+public class PetDAO implements PetInterface{
 	// Instance fields for methods
 	String query = "";
 	ResultSet resultSet = null;

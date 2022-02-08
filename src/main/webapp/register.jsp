@@ -39,62 +39,62 @@ integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+
 						<th></th>
 					</tr>
 					<tr>
-						<td><label for="firstname">First Name <span>*</span></label></td>
-						<td><input type="text" name="firstname" id="firstnameinput"
+						<td><label for="firstname">First Name <span>*</span></label>
+						<input type="text" name="firstname" id="firstnameinput"
 							pattern="[a-zA-Z]{3,20}"
 							title="minimum 3 characters and accept only alphabets"
-							placeholder="Firstname" required></td>
+							placeholder="Firstname" required /></td>
 					</tr>
 					<tr>
-						<td><label for="lastname">Last Name <span>*</span></label></td>
-						<td><input type="text" name="lastname" id="lastnameinput"
+						<td><label for="lastname">Last Name <span>*</span></label>
+						    <input type="text" name="lastname" id="lastnameinput"
 							pattern="[a-zA-Z]{3,20}"
 							title="Minimum 3 characters accept only alphabets"
-							placeholder="Lastname" required></td>
+							placeholder="Lastname" required /></td>
 					</tr>
 					<tr>
-						<td><label for="Gendr">Gender <span>*</span></label></td>
-						<td><select name="gender" id="genderlist" required="required">
+						<td><label for="Gendr">Gender <span>*</span></label>
+						    <select name="gender" id="genderlist" required="required">
 								<option value="Male">male</option>
 								<option value="Female">female</option>
 								<option value="others">others</option>
 						</select></td>
 					</tr>
 					<tr>
-						<td><label for="email">Email <span>*</span></label></td>
-						<td><input type="email" name="email" id="emailinput"
+						<td><label for="email">Email <span>*</span></label>
+						    <input type="email" name="email" id="emailinput"
 							onchange="validateEmail()"
 							pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-							placeholder="Email" required title="Examble abcd@gmail.com"></td>
+							placeholder="Email" required title="Examble abcd@gmail.com" /></td>
 					</tr>
 					<tr>
-						<td><label for="username">User Name <span>*</span></label></td>
-						<td><input type="text" name="username"
+						<td><label for="username">User Name <span>*</span></label>
+						   <input type="text" name="username"
 							onchange="validateUsername()" id="usernameinput"
 							placeholder="username" pattern="[a-zA-Z0-9]{8,20}"
 							title="minimum 8 character required and no special character"
-							required></td>
+							required /></td>
 					</tr>
 					<tr>
-						<td><label for="password">Password <span>*</span></label></td>
-						<td><input type="password" name="password" id="passwordinput"
+						<td><label for="password">Password <span>*</span></label>
+						   <input type="password" name="password" id="passwordinput"
 							placeholder="password" pattern="[a-zA-Z0-9!@#$%^&*()_+]{8,20}"
-							required></td>
+							required /></td>
 					</tr>
 					<tr>
-						<td><label for="repassword">Re-Password <span>*</span></label></td>
-						<td><input type="password" onchange="validatePassword()"
+						<td><label for="repassword">Re-Password <span>*</span></label>
+						    <input type="password" onchange="validatePassword()"
 							name="Re-password" id="repasswordinput"
 							placeholder="Re enter password"
-							pattern="[a-zA-Z0-9!@#$%^&*()_+]{8,20}" required>
+							pattern="[a-zA-Z0-9!@#$%^&*()_+]{8,20}" required/>
 							<p id="repasswordcomment"></p></td>
 
 					</tr>
 					<tr>
-						<td><label for="mobile">Phone <span>*</span></label></td>
-						<td><input type="number" name="mobile" id="mobileinput"
+						<td><label for="mobile">Phone <span>*</span></label>
+						   <input type="number" name="mobile" id="mobileinput"
 							pattern="[6-9]{1}[0-9]{9}" placeholder="MobileNumber"
-							title="Start with 6789 and 10 character" required></td>
+							title="Start with 6789 and 10 character" required /></td>
 					</tr>
 					<tr>
 						<td><button type="submit" id="register">Register</button></td>

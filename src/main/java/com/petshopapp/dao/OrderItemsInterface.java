@@ -7,13 +7,16 @@ import com.petshopapp.model.OrderItems;
 
 public interface OrderItemsInterface {
   
-	public void insert(OrderItems orditm);
+	public void commit();
 	
-	public void delete(OrderItems ord);
+	public void insertOrderItems(OrderItems orditm);
 	
-	public List<OrderItems> showMyOrders(Customers cus);
+	public void cancelOrderitem(OrderItems ord);
 	
-	public List<OrderItems> getCurrentOrder(int orderId);
+	public List<OrderItems> showMyOrdersItemsList(Customers cus);
+	
+	public List<OrderItems> getCurrentOrderItemDetails(int orderId);
+	
 	
 	
 }
