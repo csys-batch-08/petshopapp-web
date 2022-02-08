@@ -22,15 +22,16 @@ public class AdminDAO implements AdminInterface{
 		try {
 			connection = ConnectionUtil.getDbConnect();
 			String query = "select admin_id,admin_firstname,admin_lastname,admin_username,"
-					+ "admin_password,admin_email,admin_number,admin_registerdate "
+					+ "admin_email,admin_number,admin_registerdate "
 					+ "from admin_details where admin_username=?";
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setString(1, userName);
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
-				admin = new Admin(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3),
-						resultSet.getString(4), resultSet.getString(4), resultSet.getString(6), resultSet.getLong(7),
-						resultSet.getDate(8));
+				admin = new Admin(resultSet.getInt("admin_id"), resultSet.getString("admin_firstname"), 
+						resultSet.getString("admin_lastname"),resultSet.getString("admin_username"), 
+						resultSet.getString("admin_email"), resultSet.getLong("admin_number"),
+						resultSet.getDate("admin_registerdate"));
 			}
 		} catch (SQLException e) {
 			Logger.printStackTrace(e);

@@ -71,25 +71,13 @@ public class Admin implements java.io.Serializable{
 		super();
 	}
 	
-	public Admin(int adminId, String firstName, String lastName, String userName, String password, String email,
-			long number) {
-		super();
-		this.adminId = adminId;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.userName = userName;
-		this.password = password;
-		this.email = email;
-		this.number = number;
-	}
-	public Admin(int adminId, String firstName, String lastName, String userName, String password, String email,
+	public Admin(int adminId, String firstName, String lastName, String userName, String email,
 			long number, Date registerDate) {
 		super();
 		this.adminId = adminId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.userName = userName;
-		this.password = password;
 		this.email = email;
 		this.number = number;
 		this.registerDate = registerDate;

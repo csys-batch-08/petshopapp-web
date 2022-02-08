@@ -84,9 +84,9 @@ function removeCart(itemId) {
 	var url = "RemoveCartItem?itemId=" + itemId;
 
 	if (window.XMLHttpRequest) {
-		request = new XMLHttpRequest();
+	var request = new XMLHttpRequest();
 	} else if (window.ActiveXObject) {
-		request = new ActiveXObject("Microsoft.XMLHTTP");
+	var request = new ActiveXObject("Microsoft.XMLHTTP");
 	}
 	try {
 		request.onreadystatechange = getInfo;
