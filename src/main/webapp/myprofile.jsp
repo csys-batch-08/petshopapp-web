@@ -6,16 +6,23 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
- <meta name="keywords" content="Petshop,pets,animals">
+<meta name="keywords" content="Petshop,pets,animals">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>My profile</title>
 <link rel="stylesheet" href="./assets/css/header.css"></link>
 <link rel="stylesheet" href="./assets/css/myprofile.css"></link>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" 
-integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" 
-integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+	crossorigin="anonymous"></script>
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+	rel="stylesheet">
 </head>
 <body>
 	<h2>My profile</h2>
@@ -47,58 +54,59 @@ integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+
 				${customer.getPincode()}</p>
 			<p>: Rs.${customer.getWallet()}0</p>
 		</div>
-		<div><label for="image">Update Image :</label>
-		<input type="file" id="imagepath" name="image">
-				<button type="button" id="ok" onclick="UpdateImage()">Update Image</button></div>
+		<div>
+			<label for="image">Update Image :</label> <input type="file"
+				id="imagepath" name="image">
+			<button type="button" id="ok" onclick="UpdateImage()">Update
+				Image</button>
+		</div>
 	</div>
-	<table>	
-			<tr>
-				<th id="headings" colspan="4" style="font-size: 30px;">Update
-					Profile <i class="fas fa-user-edit"></i>
-				</th>
-			</tr>
-				<tbody>
+	<table>
+		<tr>
+			<th id="headings" colspan="4" style="font-size: 30px;">Update
+				Profile <i class="fas fa-user-edit"></i>
+			</th>
+		</tr>
+		<tbody>
 			<tr>
 				<form action="UpdateProfile">
-					<td><label for="firstname">Firstname</label></td>
-					<td><input type="text" name="firstname" id="firstname"
+					<td><label for="firstname">Firstname</label> <input
+						type="text" name="firstname" id="firstname"
 						value="${customer.getFirstName()}" pattern="[a-zA-Z]{3,20}"
 						required></td>
-					<td><label for="lastname" id="lastname">Lastname</label></td>
-					<td><input type="text" name="lastname" 
-						value="${customer.getLastName()}" pattern="[a-zA-Z]{3,20}"
-						required></td>
+					<td><label for="lastname" id="lastname">Lastname</label> <input
+						type="text" name="lastname" value="${customer.getLastName()}"
+						pattern="[a-zA-Z]{3,20}" required></td>
 			</tr>
 			<tr>
-				<td><label for="username">Username</label></td>
-				<td><input type="text" name="username" id="username" onchange="validateUsername()"
+				<td><label for="username">Username</label> <input type="text"
+					name="username" id="username" onchange="validateUsername()"
 					value="${customer.getUserName()}" pattern="[a-zA-Z0-9]{8,20}"
 					required></td>
-				<td><label for="gender">Gender</label></td>
-				<td><select id="gender" name="gender">
+				<td><label for="gender">Gender</label> <select id="gender"
+					name="gender" required>
 						<option value="Male">male</option>
 						<option value="Female">female</option>
 						<option value="Others">others</option>
 				</select></td>
 			</tr>
 			<tr>
-				<td><label for="email">Email</label></td>
-				<td><input type="text" name="email" id="email" onchange="validateEmail()"
+				<td><label for="email">Email</label> <input type="text"
+					name="email" id="email" onchange="validateEmail()"
 					value="${customer.getEmail()}"
 					pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required></td>
-				<td><label for="number">Mobile</label></td>
-				<td><input type="text" name="number" id="number"
-					value="${customer.getNumber()}" pattern="[6-9]{1}[0-9]{9}" required></td>
+				<td><label for="number">Mobile</label> <input type="text"
+					name="number" id="number" value="${customer.getNumber()}"
+					pattern="[6-9]{1}[0-9]{9}" required></td>
 			</tr>
 			<tr>
-				<td><label for="password">Password</label></td>
-				<td><input type="password" name="password" id="password"
+				<td><label for="password">Password</label> <input
+					type="password" name="password" id="password"
 					value="${customer.getPassword()}"
 					pattern="[a-zA-Z0-9!@#$%^&*()_+]{8,20}" required></td>
-				<td><input type="checkbox" onclick="showPassword()" id="showpassword"
-					style="position: relative; left: -190px; top: 10px;"></td>
-				<td style="position: relative; left: -390px; top: 7px;">Show
-					Password</td>
+				<td><input type="checkbox" onclick="showPassword()"
+					id="showpassword"><label for="showpassword">Show Password</label></td>
+				
 			</tr>
 			<tr>
 				<td>
@@ -114,21 +122,18 @@ integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+
 
 			<tr>
 				<form action="UpdateAddress" method="get">
-					<td><label for="address">Street</label></td>
+					<td><label for="address">Street</label> <input type="text"
+						name="address" id="address" value="${customer.getAddress()}"
+						pattern="[a-zA-Z,./0-9 ]{3,100}" required></td>
 
-					<td><input type="text" name="address" id="address"
-						value="${customer.getAddress()}" pattern="[a-zA-Z,./0-9 ]{3,100}"
-						required></td>
-
-					<td><label for="city">City</label></td>
-
-					<td><input type="text" name="city" id="city"
-						value="${customer.getCity()}" pattern="[a-zA-Z]{3,30}" required></td>
+					<td><label for="city">City</label> <input type="text"
+						name="city" id="city" value="${customer.getCity()}"
+						pattern="[a-zA-Z]{3,30}" required></td>
 			</tr>
 			<tr>
-				<td><label for="pincode">Pincode</label></td>
-				<td><input type="text" name="pincode" id="pincode"
-					pattern="[6]{1}[0-9]{5}" value="${customer.getPincode()}" required>
+				<td><label for="pincode">Pincode</label> <input type="text"
+					name="pincode" id="pincode" pattern="[6]{1}[0-9]{5}"
+					value="${customer.getPincode()}" required>
 				<td></td>
 				<td></td>
 			</tr>
@@ -142,17 +147,16 @@ integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+
 					class="fas fa-wallet"></i></td>
 			</tr>
 			<tr>
-				<td><label for="wallet">Add Amount</label></td>
-				<td><input type="number" name="wallet" id="updatewallet1"
-					min="1000" value="1000" required></td>
+				<td><label for="wallet">Add Amount</label> <input type="number"
+					name="wallet" id="updatewallet1" min="1000" value="1000" required></td>
 				<td><button id="updatewallet" onclick="UpdateWallet()"
 						type="button">Add</button></td>
 			</tr>
 			<tr>
-			<td colspan="2">Minimum Amount : Rs.1000.00</td>
+				<td colspan="2">Minimum Amount : Rs.1000.00</td>
 			</tr>
 			<tr>
-				<td ><a href="Logout">
+				<td><a href="Logout">
 						<button type="button" id="logout">Logout</button>
 				</a></td>
 			</tr>

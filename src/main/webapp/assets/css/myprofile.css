@@ -136,6 +136,9 @@ table input {
 	font-size: 15px;
 }
 
+table button{
+	margin-top: 20px;
+}
 #update {
 	width: 130px;
 	height: 30px;
@@ -239,4 +242,11 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
 	-moz-appearance: textfield;
+}
+input[type=checkbox] {
+	width: 50px;
+	margin-top: 22px;
+}
+table label{
+  width: 200px;	
 }

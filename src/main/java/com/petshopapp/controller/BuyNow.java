@@ -41,26 +41,16 @@ public class BuyNow extends HttpServlet {
 		HttpSession session = request.getSession();
 		Customers customerDetails = (Customers) session.getAttribute("customer");
 		String filename = "userdata.ser";
-
+		FileInputStream file = null;
+		ObjectInputStream in = null;
 		try {
 			// print writer for ajax response
 			PrintWriter write = response.getWriter();
-			FileInputStream file = new FileInputStream(filename);
-			ObjectInputStream in = new ObjectInputStream(file);
-			try {
-				customerDetails = (Customers) in.readObject();
-			} catch (ClassNotFoundException e) {
-				Logger.printStackTrace(e);
-				Logger.runTimeException(e.getMessage());
-			}finally {
-				if(in!=null) {
-					in.close();
-				}
-				if(file!=null) {
-					file.close();
-				}
-			}
-			
+			file = new FileInputStream(filename);
+			in = new ObjectInputStream(file);
+
+			customerDetails = (Customers) in.readObject();
+
 			// customer required quantity
 			int quantity = Integer.parseInt(request.getParameter("quantity"));
 			int petid = Integer.parseInt(request.getParameter("petid"));
@@ -120,10 +110,23 @@ public class BuyNow extends HttpServlet {
 							+ "\n Product Amount : Rs. " + (quantity * pet.getPetprice()));
 				}
 			}
-		} catch (NullPointerException | NumberFormatException | IOException e) {
+		} catch (NullPointerException | NumberFormatException | IOException | ClassNotFoundException e) {
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
+		} finally {
+			try {
+				if (in != null) {
+					in.close();
+					if (file != null) {
+						file.close();
+					}
+				}
+			} catch (IOException e) {
+				Logger.printStackTrace(e);
+				Logger.runTimeException(e.getMessage());
+			}
 		}
+
 	}
 
 }

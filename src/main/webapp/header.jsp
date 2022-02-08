@@ -3,6 +3,7 @@
 		<i class="fas fa-paw" style="color: white;"></i> Pet Shop
 	</h1>
 	<form action="Search">
+	     <label for="search"></label>
 		<input type="search" name="search" id="searchinput"
 			placeholder="Enter pet category or name">
 		<button type="submit" id="search">search</button>
