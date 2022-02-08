@@ -1,8 +1,6 @@
 package com.petshopapp.controller;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.PrintWriter;
 
 import javax.servlet.annotation.WebServlet;
@@ -40,9 +38,6 @@ public class BuyNow extends HttpServlet {
 		// session to get customer details
 		HttpSession session = request.getSession();
 		Customers customerDetails = (Customers) session.getAttribute("customer");
-		String filename = "userdata.ser";
-		FileInputStream file = null;
-		ObjectInputStream in = null;
 		try {
 			// print writer for ajax response
 			PrintWriter write = response.getWriter();

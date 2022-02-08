@@ -51,14 +51,16 @@ public class BuyCart extends HttpServlet {
 		// customer dao for update seller customer wallet
 		CustomerDAO customerDao = new CustomerDAO();
 		CartItemsDAO cartDao = new CartItemsDAO();
-		
+		PrintWriter write=null;
+		double totalPrice=0;
 		try {
 		// print writer for ajax response
-		PrintWriter write = response.getWriter();
+		write = response.getWriter();
 		// cart item id for buy a cart item
 		int itemId = Integer.parseInt(request.getParameter("itemId"));
 		// to get cart item details
 		CartItems cartItems = cartDao.showCartItem(itemId);
+		totalPrice=cartItems.getTotalPrice();
 		// to get cart item pet details
 		PetDetails pet = petDao.showCurrentPet(cartItems.getPet().getPetId());
 		// get seller customer details for update
@@ -96,17 +98,15 @@ public class BuyCart extends HttpServlet {
 			}
 		}
 		else {
-			try {
-				throw new LowWalletBalance();
-			} catch (LowWalletBalance e) {
-				write.print(e + "\n Current wallet amount : Rs. " + customerDetails.getWallet()
-						+ "\n Product amount : Rs. " + cartItems.getTotalPrice());
-			}
+				throw new LowWalletBalance();			
 		}
 		}
 		catch (NumberFormatException|NullPointerException|IOException e) {
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
-		}
+		}catch (LowWalletBalance e) {
+			write.print(e + "\n Current wallet amount : Rs. " + customerDetails.getWallet()
+			+ "\n Product amount : Rs. " + totalPrice);
+}
 	}
 }

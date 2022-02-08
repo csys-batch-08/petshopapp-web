@@ -36,6 +36,8 @@ public class PetDAO implements PetInterface{
 		} catch (SQLException e) {
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
+		}finally {
+			ConnectionUtil.close(resultSet, preparedStatement, connection);
 		}
 	}
 
@@ -67,17 +69,7 @@ public class PetDAO implements PetInterface{
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
 		} finally {
-			try {
-				if (preparedStatement != null) {
-					preparedStatement.close();
-				}
-				if (connection != null) {
-					connection.close();
-				}
-			} catch (SQLException e) {
-				Logger.printStackTrace(e);
-				Logger.runTimeException(e.getMessage());
-			}
+			ConnectionUtil.close(resultSet, preparedStatement, connection);
 		}
 	}
 
@@ -111,17 +103,7 @@ public class PetDAO implements PetInterface{
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
 		} finally {
-			try {
-				if (preparedStatement != null) {
-					preparedStatement.close();
-				}
-				if (connection != null) {
-					connection.close();
-				}
-			} catch (SQLException e) {
-				Logger.printStackTrace(e);
-				Logger.runTimeException(e.getMessage());
-			}
+			ConnectionUtil.close(resultSet, preparedStatement, connection);
 		}
 	}
 
@@ -142,17 +124,7 @@ public class PetDAO implements PetInterface{
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
 		} finally {
-			try {
-				if (preparedStatement != null) {
-					preparedStatement.close();
-				}
-				if (connection != null) {
-					connection.close();
-				}
-			} catch (SQLException e) {
-				Logger.printStackTrace(e);
-				Logger.runTimeException(e.getMessage());
-			}
+			ConnectionUtil.close(resultSet, preparedStatement, connection);
 		}
 	}
 
@@ -184,20 +156,7 @@ public class PetDAO implements PetInterface{
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
 		} finally {
-			try {
-				if (resultSet != null) {
-					resultSet.close();
-				}
-				if (preparedStatement != null) {
-					preparedStatement.close();
-				}
-				if (connection != null) {
-					connection.close();
-				}
-			} catch (SQLException e) {
-				Logger.printStackTrace(e);
-				Logger.runTimeException(e.getMessage());
-			}
+			ConnectionUtil.close(resultSet, preparedStatement, connection);
 		}
 		return petList;
 	}
@@ -234,20 +193,7 @@ public class PetDAO implements PetInterface{
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
 		} finally {
-			try {
-				if (resultSet != null) {
-					resultSet.close();
-				}
-				if (preparedStatement != null) {
-					preparedStatement.close();
-				}
-				if (connection != null) {
-					connection.close();
-				}
-			} catch (SQLException e) {
-				Logger.printStackTrace(e);
-				Logger.runTimeException(e.getMessage());
-			}
+			ConnectionUtil.close(resultSet, preparedStatement, connection);
 		}
 		return pet;
 	}
@@ -277,20 +223,7 @@ public class PetDAO implements PetInterface{
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
 		} finally {
-			try {
-				if (resultSet != null) {
-					resultSet.close();
-				}
-				if (preparedStatement != null) {
-					preparedStatement.close();
-				}
-				if (connection != null) {
-					connection.close();
-				}
-			} catch (SQLException e) {
-				Logger.printStackTrace(e);
-				Logger.runTimeException(e.getMessage());
-			}
+			ConnectionUtil.close(resultSet, preparedStatement, connection);
 		}
 		return petList;
 	}
@@ -322,20 +255,7 @@ public class PetDAO implements PetInterface{
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
 		} finally {
-			try {
-				if (resultSet != null) {
-					resultSet.close();
-				}
-				if (preparedStatement != null) {
-					preparedStatement.close();
-				}
-				if (connection != null) {
-					connection.close();
-				}
-			} catch (SQLException e) {
-				Logger.printStackTrace(e);
-				Logger.runTimeException(e.getMessage());
-			}
+			ConnectionUtil.close(resultSet, preparedStatement, connection);
 		}
 		return petList;
 	}
@@ -370,21 +290,7 @@ public class PetDAO implements PetInterface{
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
 		} finally {
-			try {
-				if (resultSet != null) {
-					resultSet.close();
-				}
-				if (preparedStatement != null) {
-					preparedStatement.close();
-				}
-
-				if (connection != null) {
-					connection.close();
-				}
-			} catch (SQLException e) {
-				Logger.printStackTrace(e);
-				Logger.runTimeException(e.getMessage());
-			}
+			ConnectionUtil.close(resultSet, preparedStatement, connection);
 		}
 		return petList;
 	}
@@ -404,17 +310,7 @@ public class PetDAO implements PetInterface{
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
 		} finally {
-			try {
-				if (preparedStatement != null) {
-					preparedStatement.close();
-				}
-				if (connection != null) {
-					connection.close();
-				}
-			} catch (SQLException e) {
-				Logger.printStackTrace(e);
-				Logger.runTimeException(e.getMessage());
-			}
+			ConnectionUtil.close(resultSet, preparedStatement, connection);
 		}
 	}
 
@@ -434,18 +330,7 @@ public class PetDAO implements PetInterface{
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
 		} finally {
-
-			try {
-				if (preparedStatement != null) {
-					preparedStatement.close();
-				}
-				if (connection != null) {
-					connection.close();
-				}
-			} catch (SQLException e) {
-				Logger.printStackTrace(e);
-				Logger.runTimeException(e.getMessage());
-			}
+			ConnectionUtil.close(resultSet, preparedStatement, connection);
 		}
 	}
 

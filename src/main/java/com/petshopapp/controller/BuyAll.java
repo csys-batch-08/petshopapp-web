@@ -50,9 +50,11 @@ public class BuyAll extends HttpServlet {
 		OrderItemsDAO orderItemsDao = new OrderItemsDAO();
 		CartItemsDAO cartItemsDao = new CartItemsDAO();
 		boolean flage = true;
+		PrintWriter write=null;
+		double totalPrice=0;
 		try {
-			PrintWriter write = response.getWriter();
-			double totalPrice = (Double) session.getAttribute("totalAmount");
+			write = response.getWriter();
+			totalPrice = (Double) session.getAttribute("totalAmount");
 			// Cart item for buy all cart items
 			List<CartItems> cartList = cartItemsDao.showAllCartItems(customerDetails);
 			// Check customer wallet higher or equal to total price
@@ -61,8 +63,9 @@ public class BuyAll extends HttpServlet {
 					PetDetails petDetails = petDao.showCurrentPet(cartItems.getPet().getPetId());
 					if (petDetails.getAvilableQty() < cartItems.getQuantity()) {
 						flage = false;
-						write.print("\n Sorry we can't process this request now " + "\n Quantity not Avialble Pet Id "
-								+ cartItems.getPet().getPetId());
+						write.print("\n Sorry we can't process this request now " 
+						           + "\n Quantity not Avialble Pet Id "
+								   + cartItems.getPet().getPetId());
 					}
 				}
 				// if customer wallet and cart quantity available place order
@@ -102,16 +105,14 @@ public class BuyAll extends HttpServlet {
 			}
 			// If cart quantity is not available throws exception
 			else {
-				try {
 					throw new LowWalletBalance();
-				} catch (LowWalletBalance e) {
-					write.print(e + "\n Your wallet balance : Rs. " + customerDetails.getWallet()
-							+ "0 \n Total cart amount : Rs. " + totalPrice);
-				}
 			}
 		} catch (IOException | NullPointerException | NumberFormatException e) {
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
-		}
-	}
+		}catch (LowWalletBalance e) {
+			write.print(e + "\n Your wallet balance : Rs. " + customerDetails.getWallet()
+			+ "0 \n Total cart amount : Rs. " + totalPrice);
+             }
+   	}
 }

@@ -35,17 +35,7 @@ public class CustomerDAO implements CustomerInterface{
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
 		} finally {
-			try {
-				if (preparedStatement != null) {
-					preparedStatement.close();
-				}
-				if (connection != null) {
-					connection.close();
-				}
-			} catch (SQLException e) {
-				Logger.printStackTrace(e);
-				Logger.runTimeException(e.getMessage());
-			}
+			ConnectionUtil.close(resultSet, preparedStatement, connection);
 		}
 	}
 
@@ -79,17 +69,7 @@ public class CustomerDAO implements CustomerInterface{
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
 		} finally {
-			try {
-				if (preparedStatement != null) {
-					preparedStatement.close();
-				}
-				if (connection != null) {
-					connection.close();
-				}
-			} catch (SQLException e) {
-				Logger.printStackTrace(e);
-				Logger.runTimeException(e.getMessage());
-			}
+			ConnectionUtil.close(resultSet, preparedStatement, connection);
 		}
 		return register;
 	}
@@ -118,17 +98,7 @@ public class CustomerDAO implements CustomerInterface{
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
 		} finally {
-			try {
-				if (preparedStatement != null) {
-					preparedStatement.close();
-				}
-				if (connection != null) {
-					connection.close();
-				}
-			} catch (SQLException e) {
-				Logger.printStackTrace(e);
-				Logger.runTimeException(e.getMessage());
-			}
+			ConnectionUtil.close(resultSet, preparedStatement, connection);
 		}
 	}
 
@@ -151,17 +121,7 @@ public class CustomerDAO implements CustomerInterface{
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
 		} finally {
-			try {
-				if (preparedStatement != null) {
-					preparedStatement.close();
-				}
-				if (connection != null) {
-					connection.close();
-				}
-			} catch (SQLException e) {
-				Logger.printStackTrace(e);
-				Logger.runTimeException(e.getMessage());
-			}
+			ConnectionUtil.close(resultSet, preparedStatement, connection);
 		}
 	}
 
@@ -181,17 +141,7 @@ public class CustomerDAO implements CustomerInterface{
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
 		} finally {
-			try {
-				if (preparedStatement != null) {
-					preparedStatement.close();
-				}
-				if (connection != null) {
-					connection.close();
-				}
-			} catch (SQLException e) {
-				Logger.printStackTrace(e);
-				Logger.runTimeException(e.getMessage());
-			}
+			ConnectionUtil.close(resultSet, preparedStatement, connection);
 		}
 	}
 
@@ -222,20 +172,7 @@ public class CustomerDAO implements CustomerInterface{
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
 		} finally {
-			try {
-				if (resultSet != null) {
-					resultSet.close();
-				}
-				if (preparedStatement != null) {
-					preparedStatement.close();
-				}
-				if (connection != null) {
-					connection.close();
-				}
-			} catch (SQLException e) {
-				Logger.printStackTrace(e);
-				Logger.runTimeException(e.getMessage());
-			}
+			ConnectionUtil.close(resultSet, preparedStatement, connection);
 		}
 		return null;
 	}
@@ -267,20 +204,7 @@ public class CustomerDAO implements CustomerInterface{
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
 		} finally {
-			try {
-				if (resultSet != null) {
-					resultSet.close();
-				}
-				if (preparedStatement != null) {
-					preparedStatement.close();
-				}
-				if (connection != null) {
-					connection.close();
-				}
-			} catch (SQLException e) {
-				Logger.printStackTrace(e);
-				Logger.runTimeException(e.getMessage());
-			}
+			ConnectionUtil.close(resultSet, preparedStatement, connection);
 		}
 		return flag;
 	}
@@ -311,20 +235,7 @@ public class CustomerDAO implements CustomerInterface{
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
 		} finally {
-			try {
-				if (resultSet != null) {
-					resultSet.close();
-				}
-				if (preparedStatement != null) {
-					preparedStatement.close();
-				}
-				if (connection != null) {
-					connection.close();
-				}
-			} catch (SQLException e) {
-				Logger.printStackTrace(e);
-				Logger.runTimeException(e.getMessage());
-			}
+			ConnectionUtil.close(resultSet, preparedStatement, connection);
 		}
 		return flag;
 	}
@@ -357,20 +268,7 @@ public class CustomerDAO implements CustomerInterface{
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
 		} finally {
-			try {
-				if (resultSet != null) {
-					resultSet.close();
-				}
-				if (preparedStatement != null) {
-					preparedStatement.close();
-				}
-				if (connection != null) {
-					connection.close();
-				}
-			} catch (SQLException e) {
-				Logger.printStackTrace(e);
-				Logger.runTimeException(e.getMessage());
-			}
+			ConnectionUtil.close(resultSet, preparedStatement, connection);
 		}
 		return customerList;
 
@@ -404,20 +302,7 @@ public class CustomerDAO implements CustomerInterface{
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
 		} finally {
-			try {
-				if (resultSet != null) {
-					resultSet.close();
-				}
-				if (preparedStatement != null) {
-					preparedStatement.close();
-				}
-				if (connection != null) {
-					connection.close();
-				}
-			} catch (SQLException e) {
-				Logger.printStackTrace(e);
-				Logger.runTimeException(e.getMessage());
-			}
+			ConnectionUtil.close(resultSet, preparedStatement, connection);
 		}
 		return customer;
 	}
@@ -450,20 +335,7 @@ public class CustomerDAO implements CustomerInterface{
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
 		} finally {
-			try {
-				if (resultSet != null) {
-					resultSet.close();
-				}
-				if (preparedStatement != null) {
-					preparedStatement.close();
-				}
-				if (connection != null) {
-					connection.close();
-				}
-			} catch (SQLException e) {
-				Logger.printStackTrace(e);
-				Logger.runTimeException(e.getMessage());
-			}
+			ConnectionUtil.close(resultSet, preparedStatement, connection);
 		}
 		return customer;
 	}
@@ -483,6 +355,8 @@ public class CustomerDAO implements CustomerInterface{
 		} catch (SQLException e) {
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
+		}finally {
+			ConnectionUtil.close(resultSet, preparedStatement, connection);
 		}
 	}
 
@@ -501,7 +375,8 @@ public class CustomerDAO implements CustomerInterface{
 		} catch (SQLException e) {
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
+		}finally {
+			ConnectionUtil.close(resultSet, preparedStatement, connection);
 		}
 	}
-
 }
