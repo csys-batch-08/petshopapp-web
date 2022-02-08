@@ -114,11 +114,11 @@ public class PetDAO implements PetInterface{
 		try {
 			connection = ConnectionUtil.getDbConnect();
 			query = "update pet_details set status=?,admin_id=? where pet_id=?";
-			PreparedStatement pstmt = connection.prepareStatement(query);
-			pstmt.setString(1, status);
-			pstmt.setInt(2, adminId);
-			pstmt.setInt(3, petId);
-			pstmt.executeUpdate();
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setString(1, status);
+			preparedStatement.setInt(2, adminId);
+			preparedStatement.setInt(3, petId);
+			preparedStatement.executeUpdate();
 			commit();
 		} catch (SQLException e) {
 			Logger.printStackTrace(e);

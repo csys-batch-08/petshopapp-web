@@ -1,6 +1,7 @@
 <header>
 	<h1 style="font-size: 30px; margin-left: 10px;">
-		<i class="fas fa-paw" style="color: white;"></i> Pet Shop
+		<i class="fas fa-paw" style="color: white;"></i>  <!-- Compliant icon fonts usage -->
+		Pet Shop
 	</h1>
 	<form action="Search">
 	     <label for="search"></label>

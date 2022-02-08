@@ -38,28 +38,25 @@ public class BuyNow extends HttpServlet {
 		// session to get customer details
 		HttpSession session = request.getSession();
 		Customers customerDetails = (Customers) session.getAttribute("customer");
+		double wallet=0;
+		double totalPrice=0;
+		PrintWriter write =null;
 		try {
-			// print writer for ajax response
-			PrintWriter write = response.getWriter();
+			 write = response.getWriter();
 			
-			// customer required quantity
 			int quantity = Integer.parseInt(request.getParameter("quantity"));
 			int petid = Integer.parseInt(request.getParameter("petid"));
 
-			// order and orderdao objects used to store and update order details
+		
 			Orders orders = new Orders();
 			OrdersDAO ordersDao = new OrdersDAO();
 
-			// orderitems and orderitemsdao objects used to store and update order items
-			// details
 			OrderItems orderItems = new OrderItems();
 			OrderItemsDAO orderItemsDao = new OrderItemsDAO();
 
-			// petdao object used to get pet details
 			PetDAO petDao = new PetDAO();
 			PetDetails pet = petDao.showCurrentPet(petid);
 
-			// customerdao used to update wallet of customer and get seller customer details
 			CustomerDAO customerDao = new CustomerDAO();
 			Customers petCustomerDetails = customerDao.customerDetails(pet.getCustomer().getCustomerId());
 
@@ -87,24 +84,23 @@ public class BuyNow extends HttpServlet {
 					// update seller wallet
 					petCustomerDetails.setWallet(petCustomerDetails.getWallet() + (quantity * pet.getPetprice()));
 					customerDao.updateCustomerWallet(petCustomerDetails);
-
 					write.print("Order placed sucussfully " + "\n Order Amount : Rs. " + (quantity * pet.getPetprice())
 							+ "\n Current wallet Balance : Rs. " + customerDetails.getWallet());
 				} else {
 					write.print("Quantity not avilable");
 				}
 			} else {
-				try {
+					wallet=customerDetails.getWallet();
+					totalPrice=quantity * pet.getPetprice();
 					throw new LowWalletBalance();
-				} catch (LowWalletBalance e) {
-					write.print(e + "\n Current wallet balance : Rs. " + customerDetails.getWallet()
-							+ "\n Product Amount : Rs. " + (quantity * pet.getPetprice()));
-				}
 			}
 		} catch (NullPointerException | NumberFormatException | IOException e) {
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
-		} 
+		} catch (LowWalletBalance e) {
+			write.print(e + "\n Current wallet balance : Rs. " + wallet
+			+ "\n Product Amount : Rs. " + totalPrice);
+         }
 	}
 
 }

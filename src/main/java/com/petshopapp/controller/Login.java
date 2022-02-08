@@ -48,75 +48,52 @@ public class Login extends HttpServlet {
 
 		FileOutputStream file = null;
 		ObjectOutputStream out = null;
-		// login validation
-		if (firstName != null) {
-			// customer login
-			if (firstName.charAt(0) == 'C') {
-				customerDetails = customerDao.customerDetails(userName);
-				RequestDispatcher requestDispatcher = request.getRequestDispatcher("Home");
-				try {
+		RequestDispatcher requestDispatcher = null;
+		try {
+			// login validation
+			if (firstName != null) {
+				// customer login
+				if (firstName.charAt(0) == 'C') {
+					customerDetails = customerDao.customerDetails(userName);
+					requestDispatcher = request.getRequestDispatcher("Home");
 					file = new FileOutputStream(filename);
 					out = new ObjectOutputStream(file);
-					// Method for serialization of object
 					out.writeObject(customerDetails);
-
 					session.setAttribute("customer", customerDetails);
 					requestDispatcher.forward(request, response);
-				} catch (ServletException | IOException | NullPointerException e) {
-					Logger.printStackTrace(e);
-					Logger.runTimeException(e.getMessage());
-				} finally {
-					try {
-						if (out != null) {
-							out.close();
-						}
-						if (file != null) {
-							file.close();
-						}
-					} catch (IOException e) {
-						Logger.printStackTrace(e);
-						Logger.runTimeException(e.getMessage());
-					}
 				}
-			}
-			// Admin login
-			else {
-				Admin admin;
-				AdminDAO adminDao = new AdminDAO();
-				admin = adminDao.show(userName);
-				RequestDispatcher requestDispatcher = request.getRequestDispatcher("AdminHome");
-				try {
+				// Admin login
+				else {
+					Admin admin;
+					AdminDAO adminDao = new AdminDAO();
+					admin = adminDao.show(userName);
+					requestDispatcher = request.getRequestDispatcher("AdminHome");
 					file = new FileOutputStream(filename);
 					out = new ObjectOutputStream(file);
 					// Method for serialization of object
 					out.writeObject(admin);
 					session.setAttribute("Admin", admin);
 					requestDispatcher.forward(request, response);
-				} catch (ServletException | IOException |NullPointerException e) {
-					Logger.printStackTrace(e);
-					Logger.runTimeException(e.getMessage());
-				} finally {
-					try {
-						if (out != null) {
-							out.close();
-						}
-						if (file != null) {
-							file.close();
-						}
-					} catch (IOException e) {
-						Logger.printStackTrace(e);
-						Logger.runTimeException(e.getMessage());
-					}
 				}
 			}
-		}
-		// If user name password does not match send redirect page
-		else {
-			request.setAttribute("message", "Invalid username or password");
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("redirect.jsp");
-			try {
+			// If user name password does not match send redirect page
+			else {
+				request.setAttribute("message", "Invalid username or password");
+				requestDispatcher = request.getRequestDispatcher("redirect.jsp");
 				requestDispatcher.forward(request, response);
-			} catch (ServletException | IOException e) {
+			}
+		} catch (ServletException | IOException | NullPointerException e) {
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
+		} finally {
+			try {
+				if (out != null) {
+					out.close();
+				}
+				if (file != null) {
+					file.close();
+				}
+			} catch (IOException e) {
 				Logger.printStackTrace(e);
 				Logger.runTimeException(e.getMessage());
 			}

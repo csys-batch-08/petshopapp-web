@@ -63,7 +63,7 @@
 	</div>
 	<table>
 		<tr>
-			<th id="headings" colspan="4" style="font-size: 30px;">Update
+			<th id="headings" colspan="4" style="font-size: 30px;"> <!-- Compliant icon fonts usage -->Update
 				Profile <i class="fas fa-user-edit"></i>
 			</th>
 		</tr>

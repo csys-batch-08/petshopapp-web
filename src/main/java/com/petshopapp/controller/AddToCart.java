@@ -33,7 +33,6 @@ public class AddToCart extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
-		boolean available = true;
 		PetDAO petDao = new PetDAO();
 		CartItemsDAO cartItemDao = new CartItemsDAO();
 		HttpSession session = request.getSession();
@@ -51,7 +50,7 @@ public class AddToCart extends HttpServlet {
   				  throw new ItemAlreadyInCart();
   				}
   			}
-    	  if (available) {
+
 				CartItems cart = new CartItems();
 				cart.getPet().setPetId(pet.getPetId());
 				cart.getCustomer().setCustomerId(customerDetails.getCustomerId());
@@ -61,7 +60,6 @@ public class AddToCart extends HttpServlet {
 				CartItemsDAO cartItemsDao = new CartItemsDAO();
 				cartItemsDao.insertCartItem(cart);
 				write.print("Pet item add to cart");
-			}
       }
     	  else {
   				throw new QuantityNotAvalilable();	
