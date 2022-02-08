@@ -2,6 +2,8 @@ package com.petshopapp.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.petshopapp.encrypt.EncryptPassword;
@@ -24,7 +26,20 @@ public class ConnectionUtil {
 		}
 		return null;
 	}
-
+	
+	public static void close(ResultSet resultSet,PreparedStatement preparedStatement,Connection connection) {
+		try {
+		if (resultSet != null) {
+			resultSet.close();
+		}
+		if (preparedStatement != null) {
+			preparedStatement.close();
+		}
+		if (connection != null) {
+			connection.close();
+		}}catch (SQLException e) {
+		}		
+	}
 	private ConnectionUtil() {
 		super();
 	}

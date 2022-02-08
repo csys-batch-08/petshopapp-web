@@ -20,7 +20,7 @@ public class OrderItemsDAO implements OrderItemsInterface {
 	Connection connection = null;
 	PreparedStatement preparedStatement = null;
 	OrderItems orderitems = new OrderItems();
-	List<OrderItems> orderItemList = new ArrayList<OrderItems>();
+	List<OrderItems> orderItemList = new ArrayList<>();
 
 	/**
 	 * this method is used to commit during DML operation

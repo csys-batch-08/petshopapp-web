@@ -21,7 +21,7 @@ public class CartItemsDAO implements CartItemsInterface{
 	ResultSet resultSet = null;
 	PreparedStatement preparedStatement = null;
 	CartItems cartItem = new CartItems();
-	List<CartItems> cartList = new ArrayList<CartItems>();
+	List<CartItems> cartList = new ArrayList<>();
 
 	/**
 	 * this method is used to commit during DML operation

@@ -46,11 +46,7 @@ public class BuyNow extends HttpServlet {
 		try {
 			// print writer for ajax response
 			PrintWriter write = response.getWriter();
-			file = new FileInputStream(filename);
-			in = new ObjectInputStream(file);
-
-			customerDetails = (Customers) in.readObject();
-
+			
 			// customer required quantity
 			int quantity = Integer.parseInt(request.getParameter("quantity"));
 			int petid = Integer.parseInt(request.getParameter("petid"));
@@ -110,23 +106,10 @@ public class BuyNow extends HttpServlet {
 							+ "\n Product Amount : Rs. " + (quantity * pet.getPetprice()));
 				}
 			}
-		} catch (NullPointerException | NumberFormatException | IOException | ClassNotFoundException e) {
+		} catch (NullPointerException | NumberFormatException | IOException e) {
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
-		} finally {
-			try {
-				if (in != null) {
-					in.close();
-					if (file != null) {
-						file.close();
-					}
-				}
-			} catch (IOException e) {
-				Logger.printStackTrace(e);
-				Logger.runTimeException(e.getMessage());
-			}
-		}
-
+		} 
 	}
 
 }

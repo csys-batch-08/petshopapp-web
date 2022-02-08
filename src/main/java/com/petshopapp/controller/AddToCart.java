@@ -39,21 +39,16 @@ public class AddToCart extends HttpServlet {
 		HttpSession session = request.getSession();
 		Customers customerDetails = (Customers) session.getAttribute("customer");
 		List<CartItems> cartList = cartItemDao.showAllCartItems(customerDetails);
-		
+		PrintWriter write =null;
+		PetDetails pet =null;
       try {
-    	  PrintWriter write = response.getWriter();
-    	  PetDetails pet = petDao.showCurrentPet(Integer.parseInt(request.getParameter("petid")));
+    	  write = response.getWriter();
+    	  pet = petDao.showCurrentPet(Integer.parseInt(request.getParameter("petid")));
     	  int quantity = Integer.parseInt(request.getParameter("quantity"));
     	  if (quantity <= pet.getAvilableQty()) {
   			for (CartItems cartitems : cartList) {
   				if (cartitems.getPet().getPetId() == pet.getPetId()) {
-  					try {
-  						throw new ItemAlreadyInCart();
-  					} catch (ItemAlreadyInCart e) {
-  						write.print(e);
-  					}
-  					available = false;
-  					break;
+  				  throw new ItemAlreadyInCart();
   				}
   			}
     	  if (available) {
@@ -69,16 +64,17 @@ public class AddToCart extends HttpServlet {
 			}
       }
     	  else {
-  			try {
-  				throw new QuantityNotAvalilable();
-  			} catch (QuantityNotAvalilable e) {
-  				write.print(e + "\n\n Available Pet Quantity : " + pet.getAvilableQty());
-  			}
+  				throw new QuantityNotAvalilable();	
   		}
     	  }
       catch(IOException |NullPointerException|NumberFormatException e) {  
     	  Logger.printStackTrace(e);
   	      Logger.runTimeException(e.getMessage());  
-      }
+      }catch (ItemAlreadyInCart e) {
+			write.print(e);
+		}
+      catch (QuantityNotAvalilable e) {
+			write.print(e + "\n\n Available Pet Quantity : " + pet.getAvilableQty());
+		}
 	}
 }

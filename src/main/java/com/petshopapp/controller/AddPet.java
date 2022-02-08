@@ -22,6 +22,8 @@ import com.petshopapp.model.PetDetails;
 public class AddPet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
+	
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) {
 		doGet(request, response);
 	}

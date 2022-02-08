@@ -59,7 +59,7 @@ public class CancelOrder extends HttpServlet {
 			int orderId = Integer.parseInt(request.getParameter("orderId"));
 			order.setOrderId(orderId);
 			List<OrderItems> orderItemList = orderItemDao.getCurrentOrderItemDetails(orderId);
-			int Amount = 0;
+			int amount = 0;
 			for (OrderItems orderItem : orderItemList) {
 				// get order item pet details
 				pet = petDao.showCurrentPet(orderItem.getPet().getPetId());
@@ -67,7 +67,7 @@ public class CancelOrder extends HttpServlet {
 				pet.setAvilableQty((pet.getAvilableQty() + orderItem.getQuantity()));
 				petDao.updatePetAvailableQuantity(pet);
 				// refund amount
-				Amount += orderItem.getTotalPrice();
+				amount += orderItem.getTotalPrice();
 				// update buyer customer wallet
 				customerDetails.setWallet(customerDetails.getWallet() + (orderItem.getTotalPrice()));
 				customerDao.updateCustomerWallet(customerDetails);
@@ -78,7 +78,7 @@ public class CancelOrder extends HttpServlet {
 			}
 			orderDao.updateOrderStatus(order);
 			// ajax response message
-			write.print("order cancelld " + "\n credit amount :" + Amount + "\n Total Wallet balance :"
+			write.print("order cancelld " + "\n credit amount :" + amount + "\n Total Wallet balance :"
 					+ customerDetails.getWallet());
 		} catch (NullPointerException | NumberFormatException | IOException e) {
 			Logger.printStackTrace(e);

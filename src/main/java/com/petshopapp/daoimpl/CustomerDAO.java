@@ -20,7 +20,7 @@ public class CustomerDAO implements CustomerInterface{
 	ResultSet resultSet = null;
 	Customers customer = null;
 	PreparedStatement preparedStatement = null;
-	List<Customers> customerList = new ArrayList<Customers>();
+	List<Customers> customerList = new ArrayList<>();
 
 	/**
 	 * this method is used to commit every DML operation

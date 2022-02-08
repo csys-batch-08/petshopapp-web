@@ -36,20 +36,7 @@ public class AdminDAO implements AdminInterface{
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
 		} finally {
-			try {
-				if (resultSet != null) {
-					resultSet.close();
-				}
-				if (preparedStatement != null) {
-					preparedStatement.close();
-				}
-				if (connection != null) {
-					connection.close();
-				}
-			} catch (SQLException e) {
-				Logger.printStackTrace(e);
-				Logger.runTimeException(e.getMessage());
-			}
+			ConnectionUtil.close(resultSet, preparedStatement, connection);
 		}
 		return admin;
 	}
