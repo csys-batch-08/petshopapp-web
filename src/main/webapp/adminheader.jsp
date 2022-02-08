@@ -1,6 +1,6 @@
 <header>
 	<h1>
-		<i class="fas fa-paw" style="color: white;"></i> PET SHOP
+		<i class="fas fa-paw" style="color: white;" aria-hidden="true"></i> PET SHOP
 	</h1>
 	<nav>
 		<ul>

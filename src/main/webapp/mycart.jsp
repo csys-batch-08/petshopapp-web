@@ -51,7 +51,7 @@ integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+
 							Now</button>
 						<button type="button" data-bs-toggle="modal"
 							data-bs-target="#myModal" id="remove">
-							<i class="fas fa-trash-alt"></i> Remove
+							<i class="fas fa-trash-alt" aria-hidden="true"></i> Remove
 						</button>
 					<div class="modal" id="myModal">
 						<div class="modal-dialog">
@@ -90,7 +90,7 @@ integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+
 					<button id="buyall" onclick="buyAll('${customer.getAddress()}')">Buyall</button>
 					<button id="removeall" data-bs-toggle="modal"
 						data-bs-target="#myModalRemove">
-						<i class="fas fa-trash-alt"></i> Remove All
+						<i class="fas fa-trash-alt" aria-hidden="true"></i> Remove All
 					</button> 
 					<div class="modal" id="myModalRemove">
 						<div class="modal-dialog">

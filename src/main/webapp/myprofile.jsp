@@ -63,8 +63,8 @@
 	</div>
 	<table>
 		<tr>
-			<th id="headings" colspan="4" style="font-size: 30px;"> <!-- Compliant icon fonts usage -->Update
-				Profile <i class="fas fa-user-edit"></i>
+			<th id="headings" colspan="4" style="font-size: 30px;"> Update
+				Profile <i class="fas fa-user-edit" aria-hidden="true"></i>
 			</th>
 		</tr>
 		<tbody>
@@ -119,7 +119,7 @@
 			<tr>
 				<td id="headings" colspan="4"
 					style="font-size: 30px; padding-top: 70px;">Update Address <i
-					class="fas fa-user-edit"></i></td>
+					class="fas fa-user-edit" aria-hidden="true"></i></td>
 			</tr>
 
 			<tr>
@@ -146,7 +146,7 @@
 			<tr>
 				<td id="headings" colspan="4"
 					style="font-size: 30px; padding-top: 70px;">Update Wallet <i
-					class="fas fa-wallet"></i></td>
+					class="fas fa-wallet" aria-hidden="true"></i></td>
 			</tr>
 			<tr>
 				<td><label for="wallet">Add Amount</label> 

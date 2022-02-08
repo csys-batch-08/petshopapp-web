@@ -23,7 +23,7 @@ integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+
       <p id="snackbar">Username not available</p>
 	<div id="background">
 		<h1>
-			<i class="fas fa-paw" style="color: white;"></i> Pet Shop  
+			<i class="fas fa-paw" style="color: white;" aria-hidden="true"></i> Pet Shop  
 		</h1>      
 		<form action="register" name="registerform" class="registerform"
 			method="post">

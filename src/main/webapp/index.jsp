@@ -17,7 +17,7 @@ integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+
 	<div id="background">
 		<!-- Web site Name and Logo-->
 		<h1>
-			<i class="fas fa-paw" style="color: white;"></i> Pet Shop
+			<i class="fas fa-paw" style="color: white;" aria-hidden="true"></i> Pet Shop
 		</h1>
         <p id="snackbar">hello</p>
 		<!--Login form-->
@@ -27,7 +27,7 @@ integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+
 			<!--UserName And Password-->
 			<p>
 				<label for="username" id="username"><i
-					class="fas fa-id-card" style="color: black;"></i> Username:</label>
+					class="fas fa-id-card" style="color: black;" aria-hidden="true"></i> Username:</label>
 			</p>
 			<p>
 				<input type="text" name="usernameinput" id="usernameinput"
@@ -36,7 +36,7 @@ integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+
 			</p>
 			<p>
 				<label for="password"><i class="fas fa-lock"
-					style="color: black;"></i> Password:</label> </p>
+					style="color: black;" aria-hidden="true"></i> Password:</label> </p>
 					<p> <input
 					type="password" name="passwordinput" id="passwordinput"
 					placeholder="Enter the password"
