@@ -64,7 +64,7 @@ integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+
 					
 				<p>
 				<button type="button" onclick="addToCart('${petDescription.getPetId()}')">
-					<i class="fas fa-cart-plus"></i> Cart
+					<i class="fas fa-cart-plus" aria-hidden="true"></i> Cart
 				</button>
 				<button type="button" onclick="buyNow('${customer.address}','${petDescription.getPetId()}')">Buy
 					Now</button>					
