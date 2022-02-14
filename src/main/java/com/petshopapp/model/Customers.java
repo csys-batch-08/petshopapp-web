@@ -175,9 +175,5 @@ public class Customers implements java.io.Serializable{
 		this.image = image;
 		this.city=city;
 		this.staus=status;
-	}
-		
-	
-	
-	  
+	}	  
 }

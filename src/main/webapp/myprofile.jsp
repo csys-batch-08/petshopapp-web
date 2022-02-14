@@ -26,10 +26,6 @@
 </head>
 <body>
 	<h2>My profile</h2>
-	<jsp:useBean id="CustomerDao"
-		class="com.petshopapp.daoimpl.CustomerDAO" />
-	<c:set var="customer"
-		value="${CustomerDao.customerDetails(customer.getCustomerId())}"></c:set>
 	<div id="data">
 		<div id="image">
 			<img src="./assets/images/profile picture/${customer.getImage()}"

@@ -50,14 +50,15 @@ public class Login extends HttpServlet {
 		ObjectOutputStream out = null;
 		RequestDispatcher requestDispatcher = null;
 		try {
+			file = new FileOutputStream(filename);
+			out = new ObjectOutputStream(file);
 			// login validation
+			
 			if (firstName != null) {
 				// customer login
 				if (firstName.charAt(0) == 'C') {
 					customerDetails = customerDao.customerDetails(userName);
-					requestDispatcher = request.getRequestDispatcher("Home");
-					file = new FileOutputStream(filename);
-					out = new ObjectOutputStream(file);
+					requestDispatcher = request.getRequestDispatcher("Home");			
 					out.writeObject(customerDetails);
 					session.setAttribute("customer", customerDetails);
 					requestDispatcher.forward(request, response);
@@ -68,8 +69,6 @@ public class Login extends HttpServlet {
 					AdminDAO adminDao = new AdminDAO();
 					admin = adminDao.show(userName);
 					requestDispatcher = request.getRequestDispatcher("AdminHome");
-					file = new FileOutputStream(filename);
-					out = new ObjectOutputStream(file);
 					// Method for serialization of object
 					out.writeObject(admin);
 					session.setAttribute("Admin", admin);

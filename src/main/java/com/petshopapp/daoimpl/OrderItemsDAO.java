@@ -122,7 +122,7 @@ public class OrderItemsDAO implements OrderItemsInterface {
 	public List<OrderItems> getCurrentOrderItemDetails(int orderId) {
 		try {
 			connection = ConnectionUtil.getDbConnect();
-			String query = "select item_id,order_id,pet_id,quantity,unit_price,"
+			query = "select item_id,order_id,pet_id,quantity,unit_price,"
 					+ "total_price from order_items where order_id=?";
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1, orderId);

@@ -20,9 +20,9 @@ public class ConnectionUtil {
 		} catch (ClassNotFoundException | SQLException e) {
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
-		} catch (Exception e1) {
-			Logger.printStackTrace(e1);
-			Logger.runTimeException(e1.getMessage());
+		} catch (Exception e) {
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
 		}
 		return null;
 	}
@@ -38,8 +38,11 @@ public class ConnectionUtil {
 		if (connection != null) {
 			connection.close();
 		}}catch (SQLException e) {
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
+		}
 		}		
-	}
+	
 	private ConnectionUtil() {
 		super();
 	}
