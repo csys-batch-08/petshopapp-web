@@ -26,8 +26,9 @@ public class UpdateWallet extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+		PrintWriter write =null;
 		try {
-			PrintWriter write = response.getWriter();				
+		 write = response.getWriter();				
 		// Get customer details
 		HttpSession session = request.getSession();
 		Customers customer = (Customers) session.getAttribute("customer");
@@ -35,12 +36,7 @@ public class UpdateWallet extends HttpServlet {
 		boolean message = true;
 		//check wallet amount grater then or equal 1000
 		if (wallet < 1000) {
-			try {
-				throw new InvalidWalletAmount();
-			} catch (InvalidWalletAmount e) {
-				write.print(e);
-			}
-			message = false;
+				throw new InvalidWalletAmount();		
 		}
 		//customer wallet updation
 		if (message) {	
@@ -53,6 +49,8 @@ public class UpdateWallet extends HttpServlet {
 		} catch (IOException|NullPointerException|NumberFormatException e) {
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
+		}catch (InvalidWalletAmount e) {
+			write.print(e);
 		}
 	}
 }

@@ -17,13 +17,10 @@ public class ConnectionUtil {
 			String userName = "system";
 			return DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", userName,
 					EncryptPassword.decrypt());
-		} catch (ClassNotFoundException | SQLException e) {
-			Logger.printStackTrace(e);
-			Logger.runTimeException(e.getMessage());
 		} catch (Exception e) {
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
-		}
+		} 
 		return null;
 	}
 	

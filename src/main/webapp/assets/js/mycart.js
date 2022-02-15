@@ -1,8 +1,8 @@
 $("#removeAllCart").click(function() {
 	$.ajax({
 		url: "RemoveCartItems", success: function(result) {
-        alert(result);
-        location.reload();
+			alert(result);
+			location.reload();
 		}
 	});
 });
@@ -11,26 +11,20 @@ $("#removeAllCart").click(function() {
 
 //buy all
 function buyAll(address) {
-
 	if (address != 'none') {
 		var confirmAction = confirm("Are you sure you want buy  all this item");
 		if (confirmAction) {
-			var url = "BuyAll";
-			if (window.XMLHttpRequest) {
-				request = new XMLHttpRequest();
-			} else if (window.ActiveXObject) {
-				request = new ActiveXObject("Microsoft.XMLHTTP");
-			}
-			try {
-				request.onreadystatechange = getInfo;
-				request.open("GET", url, true);
-				request.send();
-			} catch (e) {
-				alert("Unable to connect to server");
-			}
-		}
-		else {
-			alert("Action canceled");
+			$.ajax({
+				url: "BuyAll", success: function(result) {
+					alert(result.trim());
+					if (result.includes('Low wallet balance')) {
+						window.location = 'myprofile.jsp';
+					}
+					else {
+						location.reload();
+					}
+				}
+			});
 		}
 	}
 	else {
@@ -38,7 +32,6 @@ function buyAll(address) {
 		if (confirms) {
 			window.location = 'myprofile.jsp';
 		}
-
 	}
 }
 
@@ -84,9 +77,9 @@ function removeCart(itemId) {
 	var url = "RemoveCartItem?itemId=" + itemId;
 
 	if (window.XMLHttpRequest) {
-	var request = new XMLHttpRequest();
+		var request = new XMLHttpRequest();
 	} else if (window.ActiveXObject) {
-	var request = new ActiveXObject("Microsoft.XMLHTTP");
+		var request = new ActiveXObject("Microsoft.XMLHTTP");
 	}
 	try {
 		request.onreadystatechange = getInfo;

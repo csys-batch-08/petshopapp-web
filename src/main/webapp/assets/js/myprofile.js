@@ -1,52 +1,25 @@
 //Update Wallet to ajax
 function UpdateWallet() {
 	var wallet = document.getElementById("updatewallet1").value;
-	var url = "UpdateWallet?wallet=" + wallet;
-	if (window.XMLHttpRequest) {
-		request = new XMLHttpRequest();
-	}
-	else if (window.ActiveXObject) {
-		request = new ActiveXObject("Microsoft.XMLHTTP");
-	}
-	try {
-		request.onreadystatechange = getInfo;
-		request.open("GET", url, true);
-		request.send();
-	}
-	catch (e) {
-		alert("Unable to connect to server");
-	}
+	$.ajax({
+		url: "UpdateWallet?wallet=" + wallet, success: function(result) {
+			alert(result);
+			location.reload();
+		}
+	});
 }
+
 
 // Update image to ajax
-function UpdateImage() {
+function UpdateImage(){
 	var image = document.getElementById("imagepath").value;
-	console.log(image);
 	const name = image.substring(12, image.length);
-	var url = "updateProfileImage?image=" + name;
-	if (window.XMLHttpRequest) {
-		request = new XMLHttpRequest();
-	}
-	else if (window.ActiveXObject) {
-		request = new ActiveXObject("Microsoft.XMLHTTP");
-	}
-	try {
-		request.onreadystatechange = getInfo;
-		request.open("GET", url, true);
-		request.send();
-	}
-	catch (e) {
-		alert("Unable to connect to server");
-	}
-}
-
-// Show Password
-function getInfo() {
-	if (request.readyState == 4) {
-		var val = request.responseText;
-		alert(val.trim());
-		location.reload();
-	}
+	$.ajax({
+		url: "updateProfileImage?image=" + name, success: function(result) {
+			alert(result);
+			location.reload();
+		}
+	});
 }
 
 function showPassword() {

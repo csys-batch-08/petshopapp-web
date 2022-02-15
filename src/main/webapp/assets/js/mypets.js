@@ -3,8 +3,9 @@ function deletePet(petId) {
 	if (confirmAction) {
 		$.ajax({
 			url: "DeletePet?petId=" + petId, success: function(result) {
-				 
-        }
+				alert(result.trim());	
+				location.reload();	 
+           }
 		});
 	}
 }
