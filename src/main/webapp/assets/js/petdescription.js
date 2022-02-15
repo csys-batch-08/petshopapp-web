@@ -30,10 +30,10 @@ function buyNow(address, petid) {
 	else {
 		var confirmAction1 = confirm("Are you sure you want buy this item");
 		if (confirmAction1) {
-			let qty = document.getElementById("quantity").value;
+			let quantity = document.getElementById("quantity").value;
 			if (qty > 0) {
 				$.ajax({
-					url: "BuyNow?quantity=" + qty + "&petid=" + petid, success: function(result) {
+					url: "BuyNow?quantity=" + quantity + "&petid=" + petid, success: function(result) {
 						alert(result.trim());
 						if (result.includes("Low wallet balance")) {
 							window.location = 'myprofile.jsp';

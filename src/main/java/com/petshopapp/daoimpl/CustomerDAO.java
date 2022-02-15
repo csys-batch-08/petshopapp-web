@@ -22,6 +22,9 @@ public class CustomerDAO implements CustomerInterface {
 	PreparedStatement preparedStatement = null;
 	List<Customers> customerList = new ArrayList<>();
 
+	/**
+	 * load customer data
+	 */
 	public void getCustomer() {
 		try {
 			while (resultSet.next()) {
@@ -41,6 +44,22 @@ public class CustomerDAO implements CustomerInterface {
 		}
 	}
 
+	public void loadCustomerData(Customers customer){
+		try {
+			preparedStatement.setString(1, customer.getFirstName());
+			preparedStatement.setString(2, customer.getLastName());
+			preparedStatement.setString(3, customer.getUserName());
+			preparedStatement.setString(4, customer.getPassword());
+			preparedStatement.setString(5, customer.getEmail());
+			preparedStatement.setLong(6, customer.getNumber());
+			preparedStatement.setString(7, customer.getGender());
+		} catch (SQLException e) {
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());
+		}
+		
+	}
+	
 	/**
 	 * this method is used to register new customer
 	 */
@@ -52,13 +71,7 @@ public class CustomerDAO implements CustomerInterface {
 					+ "customer_username,customer_password,customer_email,customer_mobilenumber,"
 					+ "customer_gender) values (?,?,?,?,?,?,?)";
 			preparedStatement = connection.prepareStatement(query);
-			preparedStatement.setString(1, customer.getFirstName());
-			preparedStatement.setString(2, customer.getLastName());
-			preparedStatement.setString(3, customer.getUserName());
-			preparedStatement.setString(4, customer.getPassword());
-			preparedStatement.setString(5, customer.getEmail());
-			preparedStatement.setLong(6, customer.getNumber());
-			preparedStatement.setString(7, customer.getGender());
+			loadCustomerData(customer);
 			int i = preparedStatement.executeUpdate();
 			ConnectionUtil.commit(preparedStatement, connection);
 			if (i == 1) {
@@ -85,13 +98,7 @@ public class CustomerDAO implements CustomerInterface {
 					+ "customer_username=?,customer_password=?,customer_email=?,"
 					+ "customer_mobilenumber=?,customer_gender=? where customer_id=?";
 			preparedStatement = connection.prepareStatement(query);
-			preparedStatement.setString(1, customer.getFirstName());
-			preparedStatement.setString(2, customer.getLastName());
-			preparedStatement.setString(3, customer.getUserName());
-			preparedStatement.setString(4, customer.getPassword());
-			preparedStatement.setString(5, customer.getEmail());
-			preparedStatement.setLong(6, customer.getNumber());
-			preparedStatement.setString(7, customer.getGender());
+			loadCustomerData(customer);
 			preparedStatement.setInt(8, customer.getCustomerId());
 			preparedStatement.executeUpdate();
 			ConnectionUtil.commit(preparedStatement, connection);

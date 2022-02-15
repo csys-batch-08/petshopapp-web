@@ -51,7 +51,7 @@ integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+
 						<a href="PetDescription?petid=${cart.getPet().getPetId()}"><button
 								id="view">View</button></a>
 						<button type="button" id="buynow"
-							onclick="buy('${cart.getItemId()}','${cart.getPet().getAvilableQty()}','${cart.getQuantity()}','${customer.getAddress()}')">Buy
+							onclick="buy('${cart.getItemId()}','${customer.getAddress()}')">Buy
 							Now</button>
 						<button type="button" data-bs-toggle="modal"
 							data-bs-target="#myModal" id="remove">

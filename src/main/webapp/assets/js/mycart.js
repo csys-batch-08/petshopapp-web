@@ -29,9 +29,7 @@ function buyAll(address) {
 					if (result.includes('Low wallet balance')) {
 						window.location = 'myprofile.jsp';
 					}
-					else {
 						location.reload();
-					}
 				}
 			});
 		}
@@ -45,8 +43,7 @@ function buyAll(address) {
 }
 
 //buy
-function buy(itemId, availableQuantity, cartQuantity, address) {
-	if (availableQuantity >= cartQuantity) {
+function buy(itemId, address) {
 	if (address != 'none') {
 		var confirmAction = confirm("Are you sure you want buy this item");
 		if (confirmAction) {
@@ -56,10 +53,8 @@ function buy(itemId, availableQuantity, cartQuantity, address) {
 					if (result.includes('Low wallet balance')) {
 						window.location = 'myprofile.jsp';
 					}
-					else {
 						location.reload();
-					}
-				}
+				   }
 			});
 		}
 	}
@@ -68,11 +63,7 @@ function buy(itemId, availableQuantity, cartQuantity, address) {
 		if (confirms) {
 			window.location = 'myprofile.jsp';
 		}
-	}
-	}
-	else{
-			alert("Sorry pet item not available now");
-  }
+	}	
 }
 
 

@@ -40,14 +40,16 @@ public class ConnectionUtil {
 		}
 		}
 	
-	public static void commit(PreparedStatement preparedStatement,Connection connection) {
+	public static void commit(PreparedStatement commitStatement,Connection connection) {
 		String query="commit";
 		try {
-			preparedStatement = connection.prepareStatement(query);
-			preparedStatement.executeUpdate();
+			commitStatement = connection.prepareStatement(query);
+			commitStatement.executeUpdate();
 		} catch (SQLException e) {
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
+		}finally {
+			close(null, commitStatement, connection);
 		}	
 	}
 	
