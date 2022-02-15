@@ -39,13 +39,13 @@ public class UpdateWallet extends HttpServlet {
 				throw new InvalidWalletAmount();		
 		}
 		//customer wallet updation
-		if (message) {	
+	
 			customer.setWallet(customer.getWallet() + wallet);
 			CustomerDAO customerDao = new CustomerDAO();
 			customerDao.updateCustomerWallet(customer);			
 			//response message
 			write.print("Amount Added");
-		}
+
 		} catch (IOException|NullPointerException|NumberFormatException e) {
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
