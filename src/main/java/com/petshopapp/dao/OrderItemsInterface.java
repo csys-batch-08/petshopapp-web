@@ -6,8 +6,6 @@ import com.petshopapp.model.Customers;
 import com.petshopapp.model.OrderItems;
 
 public interface OrderItemsInterface {
-  
-	public void commit();
 	
 	public void insertOrderItems(OrderItems orditm);
 	

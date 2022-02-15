@@ -12,7 +12,7 @@ import com.petshopapp.logger.Logger;
 import com.petshopapp.model.Customers;
 import com.petshopapp.util.ConnectionUtil;
 
-public class CustomerDAO implements CustomerInterface{
+public class CustomerDAO implements CustomerInterface {
 
 	// Instance object and variables for operation
 	String query = "";
@@ -22,44 +22,45 @@ public class CustomerDAO implements CustomerInterface{
 	PreparedStatement preparedStatement = null;
 	List<Customers> customerList = new ArrayList<>();
 
-	/**
-	 * this method is used to commit every DML operation
-	 */
-	public void commit() {
+	public void getCustomer() {
 		try {
-			connection = ConnectionUtil.getDbConnect();
-			query = "commit";
-			preparedStatement = connection.prepareStatement(query);
-			preparedStatement.executeUpdate();
+			while (resultSet.next()) {
+				customer = new Customers(resultSet.getInt("customer_id"), resultSet.getString("customer_firstname"),
+						resultSet.getString("customer_lastname"), resultSet.getString("customer_gender"),
+						resultSet.getString("customer_username"), resultSet.getString("customer_password"),
+						resultSet.getString("customer_email"), resultSet.getLong("customer_mobilenumber"),
+						resultSet.getDouble("customer_wallet"), resultSet.getDate("customer_reg_date"),
+						resultSet.getString("customer_address"), resultSet.getInt("customer_pincode"),
+						resultSet.getString("customer_image"), resultSet.getString("customer_city"),
+						resultSet.getString("status"));
+				customerList.add(customer);
+			}
 		} catch (SQLException e) {
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
-		} finally {
-			ConnectionUtil.close(resultSet, preparedStatement, connection);
 		}
 	}
 
 	/**
 	 * this method is used to register new customer
 	 */
-	public boolean insertNewCustomer(Customers cus) {
-		Connection con;
+	public boolean insertNewCustomer(Customers customer) {
 		boolean register = true;
 		try {
-			con = ConnectionUtil.getDbConnect();
+			connection = ConnectionUtil.getDbConnect();
 			query = "insert into customers(customer_firstname,customer_lastname,"
 					+ "customer_username,customer_password,customer_email,customer_mobilenumber,"
 					+ "customer_gender) values (?,?,?,?,?,?,?)";
-			preparedStatement = con.prepareStatement(query);
-			preparedStatement.setString(1, cus.getFirstName());
-			preparedStatement.setString(2, cus.getLastName());
-			preparedStatement.setString(3, cus.getUserName());
-			preparedStatement.setString(4, cus.getPassword());
-			preparedStatement.setString(5, cus.getEmail());
-			preparedStatement.setLong(6, cus.getNumber());
-			preparedStatement.setString(7, cus.getGender());
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setString(1, customer.getFirstName());
+			preparedStatement.setString(2, customer.getLastName());
+			preparedStatement.setString(3, customer.getUserName());
+			preparedStatement.setString(4, customer.getPassword());
+			preparedStatement.setString(5, customer.getEmail());
+			preparedStatement.setLong(6, customer.getNumber());
+			preparedStatement.setString(7, customer.getGender());
 			int i = preparedStatement.executeUpdate();
-			commit();
+			ConnectionUtil.commit(preparedStatement, connection);
 			if (i == 1) {
 				register = true;
 			} else {
@@ -93,7 +94,7 @@ public class CustomerDAO implements CustomerInterface{
 			preparedStatement.setString(7, customer.getGender());
 			preparedStatement.setInt(8, customer.getCustomerId());
 			preparedStatement.executeUpdate();
-			commit();
+			ConnectionUtil.commit(preparedStatement, connection);
 		} catch (SQLException e) {
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
@@ -116,7 +117,7 @@ public class CustomerDAO implements CustomerInterface{
 			preparedStatement.setString(3, customer.getCity());
 			preparedStatement.setInt(4, customer.getCustomerId());
 			preparedStatement.executeUpdate();
-			commit();
+			ConnectionUtil.commit(preparedStatement, connection);
 		} catch (SQLException e) {
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
@@ -136,7 +137,7 @@ public class CustomerDAO implements CustomerInterface{
 			preparedStatement.setString(1, status);
 			preparedStatement.setInt(2, customer.getCustomerId());
 			preparedStatement.executeUpdate();
-			commit();
+			ConnectionUtil.commit(preparedStatement, connection);
 		} catch (SQLException e) {
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
@@ -253,17 +254,7 @@ public class CustomerDAO implements CustomerInterface{
 					+ "customer_image,customer_city,status from customers";
 			preparedStatement = connection.prepareStatement(query);
 			resultSet = preparedStatement.executeQuery();
-			while (resultSet.next()) {
-				customer = new Customers(resultSet.getInt("customer_id"), resultSet.getString("customer_firstname"),
-						resultSet.getString("customer_lastname"), resultSet.getString("customer_gender"),
-						resultSet.getString("customer_username"), resultSet.getString("customer_password"),
-						resultSet.getString("customer_email"), resultSet.getLong("customer_mobilenumber"),
-						resultSet.getDouble("customer_wallet"), resultSet.getDate("customer_reg_date"),
-						resultSet.getString("customer_address"), resultSet.getInt("customer_pincode"),
-						resultSet.getString("customer_image"), resultSet.getString("customer_city"),
-						resultSet.getString("status"));
-				customerList.add(customer);
-			}
+			getCustomer();
 		} catch (SQLException e) {
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
@@ -288,16 +279,7 @@ public class CustomerDAO implements CustomerInterface{
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setString(1, userName);
 			resultSet = preparedStatement.executeQuery();
-			while (resultSet.next()) {
-				customer = new Customers(resultSet.getInt("customer_id"), resultSet.getString("customer_firstname"),
-						resultSet.getString("customer_lastname"), resultSet.getString("customer_gender"),
-						resultSet.getString("customer_username"), resultSet.getString("customer_password"),
-						resultSet.getString("customer_email"), resultSet.getLong("customer_mobilenumber"),
-						resultSet.getDouble("customer_wallet"), resultSet.getDate("customer_reg_date"),
-						resultSet.getString("customer_address"), resultSet.getInt("customer_pincode"),
-						resultSet.getString("customer_image"), resultSet.getString("customer_city"),
-						resultSet.getString("status"));
-			}
+			getCustomer();
 		} catch (SQLException e) {
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
@@ -321,16 +303,7 @@ public class CustomerDAO implements CustomerInterface{
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1, customerId);
 			resultSet = preparedStatement.executeQuery();
-			while (resultSet.next()) {
-				customer = new Customers(resultSet.getInt("customer_id"), resultSet.getString("customer_firstname"),
-						resultSet.getString("customer_lastname"), resultSet.getString("customer_gender"),
-						resultSet.getString("customer_username"), resultSet.getString("customer_password"),
-						resultSet.getString("customer_email"), resultSet.getLong("customer_mobilenumber"),
-						resultSet.getDouble("customer_wallet"), resultSet.getDate("customer_reg_date"),
-						resultSet.getString("customer_address"), resultSet.getInt("customer_pincode"),
-						resultSet.getString("customer_image"), resultSet.getString("customer_city"),
-						resultSet.getString("status"));
-			}
+			getCustomer();
 		} catch (SQLException e) {
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
@@ -343,19 +316,19 @@ public class CustomerDAO implements CustomerInterface{
 	/**
 	 * this method is used to update customer image
 	 */
-	public void updateCustomerProfileImage(Customers cus) {
+	public void updateCustomerProfileImage(Customers customer) {
 		try {
 			connection = ConnectionUtil.getDbConnect();
 			query = "update Customers set customer_image=? where customer_id=?";
 			preparedStatement = connection.prepareStatement(query);
-			preparedStatement.setString(1, cus.getImage());
-			preparedStatement.setInt(2, cus.getCustomerId());
+			preparedStatement.setString(1, customer.getImage());
+			preparedStatement.setInt(2, customer.getCustomerId());
 			preparedStatement.executeUpdate();
-			commit();
+			ConnectionUtil.commit(preparedStatement, connection);
 		} catch (SQLException e) {
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
-		}finally {
+		} finally {
 			ConnectionUtil.close(resultSet, preparedStatement, connection);
 		}
 	}
@@ -363,19 +336,19 @@ public class CustomerDAO implements CustomerInterface{
 	/**
 	 * this method is used to update customer wallet
 	 */
-	public void updateCustomerWallet(Customers cus) {
+	public void updateCustomerWallet(Customers customer) {
 		try {
 			connection = ConnectionUtil.getDbConnect();
 			query = "update Customers set customer_wallet=? where customer_id=?";
 			preparedStatement = connection.prepareStatement(query);
-			preparedStatement.setDouble(1, cus.getWallet());
-			preparedStatement.setInt(2, cus.getCustomerId());
+			preparedStatement.setDouble(1, customer.getWallet());
+			preparedStatement.setInt(2, customer.getCustomerId());
 			preparedStatement.executeUpdate();
-			commit();
+			ConnectionUtil.commit(preparedStatement, connection);
 		} catch (SQLException e) {
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
-		}finally {
+		} finally {
 			ConnectionUtil.close(resultSet, preparedStatement, connection);
 		}
 	}

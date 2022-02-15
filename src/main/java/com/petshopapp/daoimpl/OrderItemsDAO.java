@@ -23,23 +23,6 @@ public class OrderItemsDAO implements OrderItemsInterface {
 	List<OrderItems> orderItemList = new ArrayList<>();
 
 	/**
-	 * this method is used to commit during DML operation
-	 */
-	public void commit() {
-		try {
-			connection = ConnectionUtil.getDbConnect();
-			query = "commit";
-			preparedStatement = connection.prepareStatement(query);
-			preparedStatement.executeUpdate();
-		} catch (SQLException e) {
-			Logger.printStackTrace(e);
-			Logger.runTimeException(e.getMessage());
-		} finally {
-			ConnectionUtil.close(resultSet, preparedStatement, connection);
-		}
-	}
-
-	/**
 	 * this method is used to insert values in order items
 	 */
 	public void insertOrderItems(OrderItems orditm) {
@@ -53,7 +36,7 @@ public class OrderItemsDAO implements OrderItemsInterface {
 			preparedStatement.setDouble(4, orditm.getUnitPrice());
 			preparedStatement.setDouble(5, orditm.getTotalPrice());
 			preparedStatement.executeUpdate();
-			commit();
+			ConnectionUtil.commit(preparedStatement, connection);
 		} catch (SQLException e) {
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
@@ -72,7 +55,7 @@ public class OrderItemsDAO implements OrderItemsInterface {
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1, ord.getOrders().getOrderId());
 			preparedStatement.executeUpdate();
-			commit();
+			ConnectionUtil.commit(preparedStatement, connection);
 		} catch (SQLException e) {
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());

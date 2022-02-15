@@ -23,39 +23,23 @@ public class CartItemsDAO implements CartItemsInterface{
 	CartItems cartItem = new CartItems();
 	List<CartItems> cartList = new ArrayList<>();
 
-	/**
-	 * this method is used to commit during DML operation
-	 */
-	public void commit() {
-		try {
-			connection = ConnectionUtil.getDbConnect();
-			query = "commit";
-			preparedStatement = connection.prepareStatement(query);
-			preparedStatement.executeUpdate();
-		} catch (SQLException e) {
-			Logger.printStackTrace(e);
-			Logger.runTimeException(e.getMessage());
-		} finally {
-			ConnectionUtil.close(resultSet, preparedStatement, connection);
-		}
-	}
 
 	/**
 	 * this method is used to insert data into cart items table
 	 */
 	public void insertCartItem(CartItems cartit) {
-		Connection con;
+	
 		try {
-			con = ConnectionUtil.getDbConnect();
+			connection = ConnectionUtil.getDbConnect();
 			query = "insert into cart_items(pet_id,customer_id,quantity,unit_price,total_price) values(?,?,?,?,?)";
-			preparedStatement = con.prepareStatement(query);
+			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1, cartit.getPet().getPetId());
 			preparedStatement.setInt(2, cartit.getCustomer().getCustomerId());
 			preparedStatement.setInt(3, cartit.getQuantity());
 			preparedStatement.setDouble(4, cartit.getUnitPrice());
 			preparedStatement.setDouble(5, cartit.getTotalPrice());
 			preparedStatement.executeUpdate();
-			commit();
+			ConnectionUtil.commit(preparedStatement, connection);
 		} catch (SQLException e) {
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
@@ -75,7 +59,7 @@ public class CartItemsDAO implements CartItemsInterface{
 			preparedStatement.setInt(1, qty);
 			preparedStatement.setInt(2, itemId);
 			preparedStatement.executeUpdate();
-			commit();
+			ConnectionUtil.commit(preparedStatement, connection);
 		} catch (SQLException e) {
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
@@ -95,7 +79,7 @@ public class CartItemsDAO implements CartItemsInterface{
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1, itemId);
 			preparedStatement.executeUpdate();
-			commit();
+			ConnectionUtil.commit(preparedStatement, connection);
 		} catch (SQLException e) {
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());

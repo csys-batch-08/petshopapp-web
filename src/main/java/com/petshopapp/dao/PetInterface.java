@@ -7,8 +7,6 @@ import com.petshopapp.model.PetDetails;
 
 public interface PetInterface {
 
-	public void commit();
-	
 	public void insertPetDetails(PetDetails pet);
 	
 	public void updatePetDetails(PetDetails pet);

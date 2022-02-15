@@ -17,23 +17,6 @@ public class OrdersDAO implements Ordersinterface {
 	Connection connection = null;
 	PreparedStatement preparedStatement = null;
 
-	/**
-	 * this method is used to commit during DML operation
-	 */
-	public void commit() {
-		try {
-			connection = ConnectionUtil.getDbConnect();
-			query = "commit";
-			preparedStatement = connection.prepareStatement(query);
-			preparedStatement.executeUpdate();
-		} catch (SQLException e) {
-			Logger.printStackTrace(e);
-			Logger.runTimeException(e.getMessage());
-		} finally {
-			ConnectionUtil.close(resultSet, preparedStatement, connection);
-		}
-	}
-
 	// insert order
 	/**
 	 * this method is used to insert order data into order table
@@ -46,7 +29,7 @@ public class OrdersDAO implements Ordersinterface {
 			preparedStatement.setInt(1, order.getCustomer().getCustomerId());
 			preparedStatement.setDouble(2, order.getTotalprice());
 			preparedStatement.executeUpdate();
-			commit();
+			ConnectionUtil.commit(preparedStatement, connection);
 		} catch (SQLException e) {
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
@@ -65,7 +48,7 @@ public class OrdersDAO implements Ordersinterface {
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1, order.getOrderId());
 			preparedStatement.executeUpdate();
-			commit();
+			ConnectionUtil.commit(preparedStatement, connection);
 		} catch (SQLException e) {
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());

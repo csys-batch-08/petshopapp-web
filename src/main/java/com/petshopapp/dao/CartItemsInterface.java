@@ -7,7 +7,6 @@ import com.petshopapp.model.Customers;
 
 public interface CartItemsInterface {
    
-	   public void commit();
 	   
 	   public void insertCartItem(CartItems cartit);
 	   

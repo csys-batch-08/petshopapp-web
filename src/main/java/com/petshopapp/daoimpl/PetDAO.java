@@ -25,23 +25,6 @@ public class PetDAO implements PetInterface{
 	SimpleDateFormat formeter = new SimpleDateFormat("dd-mm-yyyy");
 
 	/**
-	 * this method is used to commit during DML operation
-	 */
-	public void commit() {
-		try {
-			connection = ConnectionUtil.getDbConnect();
-			query = "commit";
-			preparedStatement = connection.prepareStatement(query);
-			preparedStatement.executeUpdate();
-		} catch (SQLException e) {
-			Logger.printStackTrace(e);
-			Logger.runTimeException(e.getMessage());
-		}finally {
-			ConnectionUtil.close(resultSet, preparedStatement, connection);
-		}
-	}
-
-	/**
 	 * this method is used to insert new pet into database
 	 */
 	public void insertPetDetails(PetDetails pet) {
@@ -64,7 +47,7 @@ public class PetDAO implements PetInterface{
 			preparedStatement.setInt(10, pet.getCustomer().getCustomerId());
 			preparedStatement.setInt(11, pet.getAvilableQty());
 			preparedStatement.executeUpdate();
-			commit();
+			ConnectionUtil.commit(preparedStatement, connection);
 		} catch (SQLException e) {
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
@@ -98,7 +81,7 @@ public class PetDAO implements PetInterface{
 			preparedStatement.setInt(11, pet.getPetQty());
 			preparedStatement.setInt(12, pet.getPetId());
 			preparedStatement.executeUpdate();
-			commit();
+			ConnectionUtil.commit(preparedStatement, connection);
 		} catch (SQLException e) {
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
@@ -119,7 +102,7 @@ public class PetDAO implements PetInterface{
 			preparedStatement.setInt(2, adminId);
 			preparedStatement.setInt(3, petId);
 			preparedStatement.executeUpdate();
-			commit();
+			ConnectionUtil.commit(preparedStatement, connection);
 		} catch (SQLException e) {
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
@@ -305,7 +288,7 @@ public class PetDAO implements PetInterface{
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1, pet.getPetId());
 			preparedStatement.executeUpdate();
-			commit();
+			ConnectionUtil.commit(preparedStatement, connection);
 		} catch (SQLException e) {
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
@@ -325,7 +308,7 @@ public class PetDAO implements PetInterface{
 			preparedStatement.setInt(1, pet.getAvilableQty());
 			preparedStatement.setInt(2, pet.getPetId());
 			preparedStatement.executeUpdate();
-			commit();
+			ConnectionUtil.commit(preparedStatement, connection);
 		} catch (SQLException e) {
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());

@@ -5,8 +5,6 @@ import java.util.List;
 import com.petshopapp.model.Customers;
 
 public interface CustomerInterface {
-
-	public void commit();
 	
 	public boolean insertNewCustomer(Customers cus);
 	
