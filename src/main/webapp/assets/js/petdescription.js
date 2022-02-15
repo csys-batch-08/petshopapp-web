@@ -38,9 +38,7 @@ function buyNow(address, petid) {
 						if (result.includes("Low wallet balance")) {
 							window.location = 'myprofile.jsp';
 						}
-						else {
 							location.reload();
-						}
 					}
 				});
 			}

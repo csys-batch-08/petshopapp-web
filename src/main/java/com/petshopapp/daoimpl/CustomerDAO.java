@@ -16,6 +16,11 @@ public class CustomerDAO implements CustomerInterface {
 
 	// Instance object and variables for operation
 	String query = "";
+	String alldetails="select customer_id,customer_firstname,customer_lastname,"
+			+ "customer_gender,customer_username,customer_password,"
+			+ "customer_email,customer_mobilenumber,customer_wallet,"
+			+ "customer_reg_date,customer_address,customer_pincode,"
+			+ "customer_image,customer_city,status from customers";
 	Connection connection;
 	ResultSet resultSet = null;
 	Customers customer = null;
@@ -254,11 +259,7 @@ public class CustomerDAO implements CustomerInterface {
 	public List<Customers> customersList() {
 		try {
 			connection = ConnectionUtil.getDbConnect();
-			query = "select customer_id,customer_firstname,customer_lastname,"
-					+ "customer_gender,customer_username,customer_password,"
-					+ "customer_email,customer_mobilenumber,customer_wallet,"
-					+ "customer_reg_date,customer_address,customer_pincode,"
-					+ "customer_image,customer_city,status from customers";
+			query =  alldetails;
 			preparedStatement = connection.prepareStatement(query);
 			resultSet = preparedStatement.executeQuery();
 			getCustomer();
@@ -278,15 +279,12 @@ public class CustomerDAO implements CustomerInterface {
 	public Customers customerDetails(String userName) {
 		try {
 			connection = ConnectionUtil.getDbConnect();
-			query = "select customer_id,customer_firstname,customer_lastname,"
-					+ "customer_gender,customer_username,customer_password,"
-					+ "customer_email,customer_mobilenumber,customer_wallet,"
-					+ "customer_reg_date,customer_address,customer_pincode,"
-					+ "customer_image,customer_city,status from customers " + "where customer_username=?";
+			query = alldetails + " where customer_username=?";
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setString(1, userName);
 			resultSet = preparedStatement.executeQuery();
 			getCustomer();
+			
 		} catch (SQLException e) {
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
@@ -302,11 +300,7 @@ public class CustomerDAO implements CustomerInterface {
 	public Customers customerDetails(int customerId) {
 		try {
 			connection = ConnectionUtil.getDbConnect();
-			query = "select customer_id,customer_firstname,customer_lastname,"
-					+ "customer_gender,customer_username,customer_password,"
-					+ "customer_email,customer_mobilenumber,customer_wallet,"
-					+ "customer_reg_date,customer_address,customer_pincode,"
-					+ "customer_image,customer_city,status from customers " + "where Customer_id=?";
+			query = alldetails + "where Customer_id=?";
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1, customerId);
 			resultSet = preparedStatement.executeQuery();

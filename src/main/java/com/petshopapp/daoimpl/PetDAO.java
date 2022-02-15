@@ -17,12 +17,33 @@ import com.petshopapp.util.ConnectionUtil;
 public class PetDAO implements PetInterface{
 	// Instance fields for methods
 	String query = "";
+	String petId="pet_id",petType="pet_type",petName="pet_name",petColor="pet_color",petPrice="pet_price"
+			,petImage="pet_image",availableQuantity="available_qty";
 	ResultSet resultSet = null;
 	Connection connection = null;
 	PreparedStatement preparedStatement = null;
 	PetDetails pet = new PetDetails();
 	List<PetDetails> petList = new ArrayList<>();
 	SimpleDateFormat formeter = new SimpleDateFormat("dd-mm-yyyy");
+	
+	public void loadPetDetails() {
+		try {
+			while (resultSet.next()) {
+				pet = new PetDetails();
+				pet.setPetId(resultSet.getInt(petId));
+				pet.setPetType(resultSet.getString(petType));
+				pet.setPetName(resultSet.getString(petName));
+				pet.setPetColor(resultSet.getString(petColor));
+				pet.setPetprice(resultSet.getDouble(petPrice));
+				pet.setPetImage(resultSet.getString(petImage));
+				pet.setAvilableQty(resultSet.getInt(availableQuantity));
+				petList.add(pet);
+			}
+		} catch (SQLException e) {
+			Logger.printStackTrace(e);
+			Logger.runTimeException(e.getMessage());	
+		}
+	}
 
 	/**
 	 * this method is used to insert new pet into database
@@ -124,17 +145,7 @@ public class PetDAO implements PetInterface{
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1, customer.getCustomerId());
 			resultSet = preparedStatement.executeQuery();
-			while (resultSet.next()) {
-				pet = new PetDetails();
-				pet.setPetId(resultSet.getInt("pet_id"));
-				pet.setPetType(resultSet.getString("pet_type"));
-				pet.setPetName(resultSet.getString("pet_name"));
-				pet.setPetColor(resultSet.getString("pet_color"));
-				pet.setPetprice(resultSet.getDouble("pet_price"));
-				pet.setPetImage(resultSet.getString("pet_image"));
-				pet.setAvilableQty(resultSet.getInt("available_qty"));
-				petList.add(pet);
-			}
+			loadPetDetails();
 		} catch (SQLException e) {
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
@@ -191,17 +202,7 @@ public class PetDAO implements PetInterface{
 					+ "available_qty from pet_details where status='Not approved'";
 			preparedStatement = connection.prepareStatement(query);
 			resultSet = preparedStatement.executeQuery();
-			while (resultSet.next()) {
-				pet = new PetDetails();
-				pet.setPetId(resultSet.getInt("pet_id"));
-				pet.setPetType(resultSet.getString("pet_type"));
-				pet.setPetName(resultSet.getString("pet_name"));
-				pet.setPetColor(resultSet.getString("pet_color"));
-				pet.setPetprice(resultSet.getDouble("pet_price"));
-				pet.setPetImage(resultSet.getString("pet_image"));
-				pet.setAvilableQty(resultSet.getInt("available_qty"));
-				petList.add(pet);
-			}
+			loadPetDetails();
 		} catch (SQLException e) {
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
@@ -224,13 +225,13 @@ public class PetDAO implements PetInterface{
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				pet = new PetDetails();
-				pet.setPetId(resultSet.getInt("pet_id"));
-				pet.setPetName(resultSet.getString("pet_name"));
-				pet.setPetColor(resultSet.getString("pet_color"));
-				pet.setPetprice(resultSet.getDouble("pet_price"));
-				pet.setPetImage(resultSet.getString("pet_image"));
+				pet.setPetId(resultSet.getInt(petId));
+				pet.setPetName(resultSet.getString(petName));
+				pet.setPetColor(resultSet.getString(petColor));
+				pet.setPetprice(resultSet.getDouble(petPrice));
+				pet.setPetImage(resultSet.getString(petImage));
 				pet.setPetQty(resultSet.getInt("pet_qty"));
-				pet.setAvilableQty(resultSet.getInt("available_qty"));
+				pet.setAvilableQty(resultSet.getInt(availableQuantity));
 				pet.setStatus(resultSet.getString("status"));
 				petList.add(pet);
 			}
@@ -258,17 +259,7 @@ public class PetDAO implements PetInterface{
 			preparedStatement.setString(2, "%"+ search+"%");
 			preparedStatement.setInt(3, customerId);
 			resultSet = preparedStatement.executeQuery();
-			while (resultSet.next()) {
-				pet = new PetDetails();
-				pet.setPetId(resultSet.getInt("pet_id"));
-				pet.setPetType(resultSet.getString("pet_type"));
-				pet.setPetName(resultSet.getString("pet_name"));
-				pet.setPetColor(resultSet.getString("pet_color"));
-				pet.setPetprice(resultSet.getDouble("pet_price"));
-				pet.setPetImage(resultSet.getString("pet_image"));
-				pet.setAvilableQty(resultSet.getInt("available_qty"));
-				petList.add(pet);
-			}
+			loadPetDetails();
 		} catch (SQLException e) {
 			Logger.printStackTrace(e);
 			Logger.runTimeException(e.getMessage());
