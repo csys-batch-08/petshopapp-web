@@ -300,7 +300,7 @@ public class CustomerDAO implements CustomerInterface {
 	public Customers customerDetails(int customerId) {
 		try {
 			connection = ConnectionUtil.getDbConnect();
-			query = alldetails + "where Customer_id=?";
+			query = alldetails + " where Customer_id=?";
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1, customerId);
 			resultSet = preparedStatement.executeQuery();
