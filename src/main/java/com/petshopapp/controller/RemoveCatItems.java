@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.petshopapp.daoimpl.CartItemsDAO;
+import com.petshopapp.daoimpl.CartItemsDaoImpl;
 import com.petshopapp.logger.Logger;
 import com.petshopapp.model.CartItems;
 import com.petshopapp.model.Customers;
@@ -32,7 +32,7 @@ public class RemoveCatItems extends HttpServlet {
 		HttpSession session = request.getSession();
 		Customers customerDetails = (Customers) session.getAttribute("customer");
 		// Get cart list
-		CartItemsDAO cartItemsDao = new CartItemsDAO();
+		CartItemsDaoImpl cartItemsDao = new CartItemsDaoImpl();
 		List<CartItems> cartList = cartItemsDao.showAllCartItems(customerDetails);
 		// remove all cart List
 		for (CartItems cartItems : cartList) {

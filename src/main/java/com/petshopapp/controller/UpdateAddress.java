@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import com.petshopapp.daoimpl.CustomerDAO;
+import com.petshopapp.daoimpl.CustomerDaoImpl;
 import com.petshopapp.logger.Logger;
 import com.petshopapp.model.Customers;
 
@@ -39,7 +39,7 @@ public class UpdateAddress extends HttpServlet {
 		customer.setPincode(Integer.parseInt(request.getParameter("pincode")));
 		//check address are not equal to none
 		if (!customer.getAddress().equals("none") || !customer.getCity().equals("none")) {
-			CustomerDAO customerDao = new CustomerDAO();
+			CustomerDaoImpl customerDao = new CustomerDaoImpl();
 			customerDao.updateAddressDetails(customer);
 			request.setAttribute("message", "Address updated");
 		} else {

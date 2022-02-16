@@ -2,7 +2,7 @@ package com.petshopapp.dao;
 
 import com.petshopapp.model.Orders;
 
-public interface Ordersinterface {
+public interface OrdersDAO {
 	
 	public void insertOrder(Orders order);
 	

@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.petshopapp.daoimpl.CustomerDAO;
+import com.petshopapp.daoimpl.CustomerDaoImpl;
 import com.petshopapp.exception.InvalidWalletAmount;
 import com.petshopapp.logger.Logger;
 import com.petshopapp.model.Customers;
@@ -41,7 +41,7 @@ public class UpdateWallet extends HttpServlet {
 			}
 			// customer wallet updation
 			customer.setWallet(customer.getWallet() + wallet);
-			CustomerDAO customerDao = new CustomerDAO();
+			CustomerDaoImpl customerDao = new CustomerDaoImpl();
 			customerDao.updateCustomerWallet(customer);
 			// response message
 			write.print("Amount Added");

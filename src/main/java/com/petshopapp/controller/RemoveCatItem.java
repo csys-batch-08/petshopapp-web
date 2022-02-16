@@ -6,7 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.petshopapp.daoimpl.CartItemsDAO;
+import com.petshopapp.daoimpl.CartItemsDaoImpl;
 import com.petshopapp.logger.Logger;
 
 @WebServlet("/RemoveCartItem")
@@ -30,7 +30,7 @@ public class RemoveCatItem extends HttpServlet {
 		try {
 		// cart item id for remove item
 		int itemId = Integer.parseInt(request.getParameter("itemId"));
-		CartItemsDAO cartItemsDao = new CartItemsDAO();
+		CartItemsDaoImpl cartItemsDao = new CartItemsDaoImpl();
 		cartItemsDao.deleteCartItem(itemId);
 		//ajax response message
 			PrintWriter writer= response.getWriter();

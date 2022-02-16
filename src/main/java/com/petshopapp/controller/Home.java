@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import com.petshopapp.daoimpl.PetDAO;
+import com.petshopapp.daoimpl.PetDaoImpl;
 import com.petshopapp.logger.Logger;
 import com.petshopapp.model.Customers;
 import com.petshopapp.model.PetDetails;
@@ -32,7 +32,7 @@ public class Home extends HttpServlet {
 		HttpSession session = request.getSession();// session for get customer details
 		Customers customerDetails = (Customers) session.getAttribute("customer");	
 		// Petdao used for get petlist
-		PetDAO petdao = new PetDAO();
+		PetDaoImpl petdao = new PetDaoImpl();
 		List<PetDetails> petList = petdao.showAllpetsDetails(customerDetails);	
 		request.setAttribute("PetList", petList);//send pet list through request object
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("home.jsp");

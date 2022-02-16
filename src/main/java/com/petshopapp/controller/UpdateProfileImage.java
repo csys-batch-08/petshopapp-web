@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.petshopapp.daoimpl.CustomerDAO;
+import com.petshopapp.daoimpl.CustomerDaoImpl;
 import com.petshopapp.logger.Logger;
 import com.petshopapp.model.Customers;
 
@@ -33,7 +33,7 @@ public class UpdateProfileImage extends HttpServlet {
 		try {
 		//update customer image
 		customer.setImage(request.getParameter("image"));
-		CustomerDAO customerDao = new CustomerDAO();
+		CustomerDaoImpl customerDao = new CustomerDaoImpl();
 		customerDao.updateCustomerProfileImage(customer);
 		//ajax response message
 		PrintWriter write=response.getWriter();

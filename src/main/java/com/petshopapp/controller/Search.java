@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import com.petshopapp.daoimpl.PetDAO;
+import com.petshopapp.daoimpl.PetDaoImpl;
 import com.petshopapp.logger.Logger;
 import com.petshopapp.model.Customers;
 import com.petshopapp.model.PetDetails;
@@ -34,7 +34,7 @@ public class Search extends HttpServlet {
 		// Get search details
 		String search = request.getParameter("search").toLowerCase();
 		// Get searched pet list
-		PetDAO petdao = new PetDAO();
+		PetDaoImpl petdao = new PetDaoImpl();
 		List<PetDetails> petListSearch = petdao.searchPetDetails(search, customerDetails.getCustomerId());
 		//send details to serach.jsp
 		request.setAttribute("PetListSearch", petListSearch);

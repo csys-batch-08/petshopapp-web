@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.petshopapp.daoimpl.CustomerDAO;
-import com.petshopapp.daoimpl.OrderItemsDAO;
-import com.petshopapp.daoimpl.OrdersDAO;
-import com.petshopapp.daoimpl.PetDAO;
+import com.petshopapp.daoimpl.CustomerDaoImpl;
+import com.petshopapp.daoimpl.OrderItemsDaoImpl;
+import com.petshopapp.daoimpl.OrdersDaoImpl;
+import com.petshopapp.daoimpl.PetDaoImpl;
 import com.petshopapp.exception.LowWalletBalance;
 import com.petshopapp.logger.Logger;
 import com.petshopapp.model.Customers;
@@ -49,15 +49,15 @@ public class BuyNow extends HttpServlet {
 
 		
 			Orders orders = new Orders();
-			OrdersDAO ordersDao = new OrdersDAO();
+			OrdersDaoImpl ordersDao = new OrdersDaoImpl();
 
 			OrderItems orderItems = new OrderItems();
-			OrderItemsDAO orderItemsDao = new OrderItemsDAO();
+			OrderItemsDaoImpl orderItemsDao = new OrderItemsDaoImpl();
 
-			PetDAO petDao = new PetDAO();
+			PetDaoImpl petDao = new PetDaoImpl();
 			PetDetails pet = petDao.showCurrentPet(petid);
 
-			CustomerDAO customerDao = new CustomerDAO();
+			CustomerDaoImpl customerDao = new CustomerDaoImpl();
 			Customers petCustomerDetails = customerDao.customerDetails(pet.getCustomer().getCustomerId());
 
 			// check customer wallet higher then or equal to pet price

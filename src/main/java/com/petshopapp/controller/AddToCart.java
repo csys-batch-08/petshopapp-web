@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.petshopapp.daoimpl.CartItemsDAO;
-import com.petshopapp.daoimpl.PetDAO;
+import com.petshopapp.daoimpl.CartItemsDaoImpl;
+import com.petshopapp.daoimpl.PetDaoImpl;
 import com.petshopapp.exception.ItemAlreadyInCart;
 import com.petshopapp.exception.QuantityNotAvalilable;
 import com.petshopapp.logger.Logger;
@@ -33,8 +33,8 @@ public class AddToCart extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
-		PetDAO petDao = new PetDAO();
-		CartItemsDAO cartItemDao = new CartItemsDAO();
+		PetDaoImpl petDao = new PetDaoImpl();
+		CartItemsDaoImpl cartItemDao = new CartItemsDaoImpl();
 		HttpSession session = request.getSession();
 		Customers customerDetails = (Customers) session.getAttribute("customer");
 		List<CartItems> cartList = cartItemDao.showAllCartItems(customerDetails);
@@ -57,7 +57,7 @@ public class AddToCart extends HttpServlet {
 				cart.setQuantity(quantity);
 				cart.setUnitPrice(pet.getPetprice());
 				cart.setTotalPrice(quantity * pet.getPetprice());
-				CartItemsDAO cartItemsDao = new CartItemsDAO();
+				CartItemsDaoImpl cartItemsDao = new CartItemsDaoImpl();
 				cartItemsDao.insertCartItem(cart);
 				write.print("Pet item add to cart");
       }

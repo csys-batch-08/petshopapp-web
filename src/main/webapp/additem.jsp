@@ -34,43 +34,68 @@
 			</tr>
 			<tbody>
 				<tr>
-					<td><label for="animaltype">Pet type </label> <input
+					<td>
+					<label for="animaltype">Pet type </label> 
+					<input
 						type="text" name="animaltype" id="animaltype" placeholder="Type"
-						pattern="[a-zA-Z]{3,20}" list="typelist" required></td>
-					<td><label for="animalname">Name</label> <input type="text"
+						pattern="[a-zA-Z]{3,20}" list="typelist" required>
+					</td>
+					<td>
+					<label for="animalname">Name </label>
+					<input type="text"
 						name="animalname" id="animalname" placeholder="Name"
-						pattern="[a-zA-Z ]{3,20}" list="namelist" required></td>
+						pattern="[a-zA-Z ]{3,20}" list="namelist" required>
+				    </td>
 				</tr>
 				<tr>
-					<td><label for="animalgender">Gender</label> <select
-						name="animalgender" id="animalgender" required>
+					<td>
+					    <label for="animalgender">Gender </label> 
+					    <select
+					    	name="animalgender" id="animalgender" required>
 							<option value="Male" selected="selected">male</option>
 							<option value="Female">female</option>
 							<option value="others">others</option>
-					</select>
-					<td><label for="dob">Date of birth</label> <input type="date"
-						name="dob" id="dob" required></td>
+					    </select>
+					</td>
+					<td>
+					     <label for="dob">Date of birth </label>
+					     <input type="date" name="dob" id="dob" required>
+					</td>
 				</tr>
 				<tr>
-					<td><label for="color">Color</label> <input type="text"
+					<td>
+					    <label for="color">Color </label> 
+					    <input type="text"
 						name="color" id="color" placeholder="Color"
-						pattern="[a-zA-Z]{3,20}" list="colors"></td>
-					<td><label for="price">price</label> <input type="number"
-						name="price" id="price" min="0" placeholder="Price" required></td>
+						pattern="[a-zA-Z]{3,20}" list="colors">
+					</td>
+					<td>
+					     <label for="price">price </label>
+					     <input type="number"
+						name="price" id="price" min="0" placeholder="Price" required>
+					</td>
 				</tr>
 				<tr>
-					<td><label for="imagelink">Select Image</label> <input
+					<td>
+						<label for="imagelink">Select Image </label>
+						<input
 						type="file" name="imagelink" id="imagelink"
-						placeholder="Image file" required></td>
-					<td><label for="qty">Quantity</label> <input type="number"
+						placeholder="Image file" required>
+					</td>
+					<td>
+						<label for="qty">Quantity </label>
+						<input type="number"
 						name="quantity" id="quantity" min="0" placeholder="Quantity"
-						required /></td>
+						required />
+					</td>
 				</tr>
 				<tr>
-					<td colspan="2"><label for="description" id="descriptionlabel">Description</label>
+					<td colspan="2">
+						<label for="description" id="descriptionlabel">Description</label>
 						<textarea name="description" id="description"
 							placeholder="Description about pet"></textarea>
-						<button>Register</button></td>
+						<button>Register</button>
+					</td>
 				</tr>
 			</tbody>
 		</table>

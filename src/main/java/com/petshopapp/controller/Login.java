@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.petshopapp.daoimpl.AdminDAO;
-import com.petshopapp.daoimpl.CustomerDAO;
+import com.petshopapp.daoimpl.AdminDaoImpl;
+import com.petshopapp.daoimpl.CustomerDaoImpl;
 import com.petshopapp.logger.Logger;
 import com.petshopapp.model.Admin;
 import com.petshopapp.model.Customers;
@@ -39,7 +39,7 @@ public class Login extends HttpServlet {
 		String passwowrd = request.getParameter("passwordinput");
 		HttpSession session = request.getSession();
 		Customers customerDetails = new Customers();
-		CustomerDAO customerDao = new CustomerDAO();
+		CustomerDaoImpl customerDao = new CustomerDaoImpl();
 		String filename = "userdata.ser";
 
 		customerDetails.setUserName(userName);
@@ -66,7 +66,7 @@ public class Login extends HttpServlet {
 				// Admin login
 				else {
 					Admin admin;
-					AdminDAO adminDao = new AdminDAO();
+					AdminDaoImpl adminDao = new AdminDaoImpl();
 					admin = adminDao.show(userName);
 					requestDispatcher = request.getRequestDispatcher("AdminHome");
 					// Method for serialization of object

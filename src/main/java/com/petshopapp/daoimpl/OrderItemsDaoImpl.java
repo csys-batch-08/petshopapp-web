@@ -7,13 +7,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.petshopapp.dao.OrderItemsInterface;
+import com.petshopapp.dao.OrderItemsDAO;
 import com.petshopapp.logger.Logger;
 import com.petshopapp.model.Customers;
 import com.petshopapp.model.OrderItems;
 import com.petshopapp.util.ConnectionUtil;
 
-public class OrderItemsDAO implements OrderItemsInterface {
+public class OrderItemsDaoImpl implements OrderItemsDAO {
 	// Instance object and variables for operation
 	String query = "";
 	ResultSet resultSet = null;

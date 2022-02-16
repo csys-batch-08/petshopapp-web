@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.petshopapp.daoimpl.PetDAO;
+import com.petshopapp.daoimpl.PetDaoImpl;
 import com.petshopapp.logger.Logger;
 import com.petshopapp.model.Customers;
 import com.petshopapp.model.PetDetails;
@@ -34,7 +34,7 @@ public class MyPets extends HttpServlet {
 		HttpSession session = request.getSession();
 		Customers customerDetails = (Customers) session.getAttribute("customer");
 		// Get customer Pet List
-		PetDAO petdao = new PetDAO();
+		PetDaoImpl petdao = new PetDaoImpl();
 		List<PetDetails> myPetList  = petdao.showMypetdetails(customerDetails.getCustomerId());		
 		//send customer pet list to mypets.jsp
 		request.setAttribute("myPetList", myPetList);

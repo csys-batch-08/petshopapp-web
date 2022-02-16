@@ -5,7 +5,7 @@ import java.util.List;
 import com.petshopapp.model.Customers;
 import com.petshopapp.model.OrderItems;
 
-public interface OrderItemsInterface {
+public interface OrderItemsDAO {
 	
 	public void insertOrderItems(OrderItems orditm);
 	

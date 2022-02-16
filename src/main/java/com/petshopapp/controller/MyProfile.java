@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import com.petshopapp.daoimpl.CustomerDAO;
+import com.petshopapp.daoimpl.CustomerDaoImpl;
 import com.petshopapp.logger.Logger;
 import com.petshopapp.model.Customers;
 
@@ -39,7 +39,7 @@ public class MyProfile extends HttpServlet {
 		HttpSession session = request.getSession();
 		Customers customerDetails = (Customers) session.getAttribute("customer");
 		// Update customer details
-		CustomerDAO customerDao = new CustomerDAO();
+		CustomerDaoImpl customerDao = new CustomerDaoImpl();
 		customerDetails = customerDao.customerDetails(customerDetails.getCustomerId());
 		String filename = "userdata.ser";
 		FileOutputStream file=null;

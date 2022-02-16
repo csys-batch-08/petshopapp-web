@@ -8,7 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.petshopapp.daoimpl.CustomerDAO;
+import com.petshopapp.daoimpl.CustomerDaoImpl;
 import com.petshopapp.logger.Logger;
 import com.petshopapp.model.Customers;
 
@@ -31,7 +31,7 @@ public class Register extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 		try {
 		//Get register details
-		CustomerDAO customerDao = new CustomerDAO();
+		CustomerDaoImpl customerDao = new CustomerDaoImpl();
 		Customers customer = new Customers();
 		customer.setFirstName(request.getParameter("username"));
 		customer.setLastName(request.getParameter("lastname"));

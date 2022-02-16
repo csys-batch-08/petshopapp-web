@@ -6,7 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.petshopapp.daoimpl.PetDAO;
+import com.petshopapp.daoimpl.PetDaoImpl;
 import com.petshopapp.logger.Logger;
 import com.petshopapp.model.PetDetails;
 
@@ -28,7 +28,7 @@ public class DeletePet extends HttpServlet {
 			PrintWriter write = response.getWriter(); // print writer for AJAX response
 			int petId = Integer.parseInt(request.getParameter("petId"));// pet id for update status
 			PetDetails pet = new PetDetails();
-			PetDAO petdao = new PetDAO();
+			PetDaoImpl petdao = new PetDaoImpl();
 			pet.setPetId(petId);
 			petdao.delete(pet);	
 			write.print("Pet item deleted successfully");// AJAX response message

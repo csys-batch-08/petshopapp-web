@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.petshopapp.daoimpl.PetDAO;
+import com.petshopapp.daoimpl.PetDaoImpl;
 import com.petshopapp.logger.Logger;
 import com.petshopapp.model.PetDetails;
 
@@ -32,7 +32,7 @@ public class PetDescription extends HttpServlet {
 		try {
 		// Get Pet Details
 		int petid = Integer.parseInt(request.getParameter("petid"));
-		PetDAO petdao = new PetDAO();
+		PetDaoImpl petdao = new PetDaoImpl();
 		PetDetails petDescription = petdao.showCurrentPet(petid);
 		//Send details to petdescription.jsp	
 		request.setAttribute("petDescription", petDescription);

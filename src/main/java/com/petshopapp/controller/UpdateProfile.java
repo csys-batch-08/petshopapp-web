@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.petshopapp.daoimpl.CustomerDAO;
+import com.petshopapp.daoimpl.CustomerDaoImpl;
 import com.petshopapp.logger.Logger;
 import com.petshopapp.model.Customers;
 
@@ -36,7 +36,7 @@ public class UpdateProfile extends HttpServlet {
 		try {
 			boolean flag = true;
 			Customers customer = new Customers();
-			CustomerDAO customerDao = new CustomerDAO();
+			CustomerDaoImpl customerDao = new CustomerDaoImpl();
 			customer.setUserName(request.getParameter("username"));
 			customer.setEmail(request.getParameter("email"));
 			if ((!customerDao.validateUsername(customer))

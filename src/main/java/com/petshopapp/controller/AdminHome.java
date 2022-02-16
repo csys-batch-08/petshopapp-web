@@ -8,7 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.petshopapp.daoimpl.PetDAO;
+import com.petshopapp.daoimpl.PetDaoImpl;
 import com.petshopapp.logger.Logger;
 import com.petshopapp.model.PetDetails;
 
@@ -25,7 +25,7 @@ public class AdminHome extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
-		PetDAO petdao = new PetDAO();
+		PetDaoImpl petdao = new PetDaoImpl();
 		List<PetDetails> petList = petdao.showNotApprovedPetList();
 		request.setAttribute("PetList", petList);
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("adminhome.jsp");

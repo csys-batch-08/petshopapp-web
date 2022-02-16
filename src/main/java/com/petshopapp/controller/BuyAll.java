@@ -10,11 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.petshopapp.daoimpl.CartItemsDAO;
-import com.petshopapp.daoimpl.CustomerDAO;
-import com.petshopapp.daoimpl.OrderItemsDAO;
-import com.petshopapp.daoimpl.OrdersDAO;
-import com.petshopapp.daoimpl.PetDAO;
+import com.petshopapp.daoimpl.CartItemsDaoImpl;
+import com.petshopapp.daoimpl.CustomerDaoImpl;
+import com.petshopapp.daoimpl.OrderItemsDaoImpl;
+import com.petshopapp.daoimpl.OrdersDaoImpl;
+import com.petshopapp.daoimpl.PetDaoImpl;
 import com.petshopapp.exception.LowWalletBalance;
 import com.petshopapp.logger.Logger;
 import com.petshopapp.model.CartItems;
@@ -41,14 +41,14 @@ public class BuyAll extends HttpServlet {
 		// Session for get customer details
 		HttpSession session = request.getSession();
 		Customers customerDetails = (Customers) session.getAttribute("customer");
-		CustomerDAO customerDao = new CustomerDAO();
+		CustomerDaoImpl customerDao = new CustomerDaoImpl();
 		// objects for update insert values
-		PetDAO petDao = new PetDAO();
+		PetDaoImpl petDao = new PetDaoImpl();
 		Orders orders = new Orders();
-		OrdersDAO ordersDao = new OrdersDAO();
+		OrdersDaoImpl ordersDao = new OrdersDaoImpl();
 		OrderItems orderItems = new OrderItems();
-		OrderItemsDAO orderItemsDao = new OrderItemsDAO();
-		CartItemsDAO cartItemsDao = new CartItemsDAO();
+		OrderItemsDaoImpl orderItemsDao = new OrderItemsDaoImpl();
+		CartItemsDaoImpl cartItemsDao = new CartItemsDaoImpl();
 		boolean flage = true;
 		PrintWriter write=null;
 		double totalPrice=0;

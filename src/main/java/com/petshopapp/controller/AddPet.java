@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.petshopapp.daoimpl.PetDAO;
+import com.petshopapp.daoimpl.PetDaoImpl;
 import com.petshopapp.logger.Logger;
 import com.petshopapp.model.Customers;
 import com.petshopapp.model.PetDetails;
@@ -40,7 +40,7 @@ public class AddPet extends HttpServlet {
 		SimpleDateFormat formet = new SimpleDateFormat("yyyy-mm-dd");
 		// Objects for storing and updating data
 		PetDetails petDetails = new PetDetails();
-		PetDAO petDao = new PetDAO();		
+		PetDaoImpl petDao = new PetDaoImpl();		
 		try {
 			petDetails.setPetQty(Integer.parseInt(request.getParameter("quantity")));
 			if(petDetails.getPetQty()>0) {

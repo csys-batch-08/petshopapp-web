@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.petshopapp.model.Customers;
 
-public interface CustomerInterface {
+public interface CustomerDAO {
 	
 	public boolean insertNewCustomer(Customers cus);
 	

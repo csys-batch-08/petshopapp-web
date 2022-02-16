@@ -9,11 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.petshopapp.daoimpl.CartItemsDAO;
-import com.petshopapp.daoimpl.CustomerDAO;
-import com.petshopapp.daoimpl.OrderItemsDAO;
-import com.petshopapp.daoimpl.OrdersDAO;
-import com.petshopapp.daoimpl.PetDAO;
+import com.petshopapp.daoimpl.CartItemsDaoImpl;
+import com.petshopapp.daoimpl.CustomerDaoImpl;
+import com.petshopapp.daoimpl.OrderItemsDaoImpl;
+import com.petshopapp.daoimpl.OrdersDaoImpl;
+import com.petshopapp.daoimpl.PetDaoImpl;
 import com.petshopapp.exception.LowWalletBalance;
 import com.petshopapp.logger.Logger;
 import com.petshopapp.model.CartItems;
@@ -41,16 +41,16 @@ public class BuyCart extends HttpServlet {
 		Customers customerDetails = (Customers) session.getAttribute("customer");
 		// orders and ordersdao object for store and update the values of order details
 		Orders orders = new Orders();
-		OrdersDAO ordersDao = new OrdersDAO();
+		OrdersDaoImpl ordersDao = new OrdersDaoImpl();
 		// orderitmes and orderitemsdao object for store and update the values of order
 		// items details
 		OrderItems orderItems = new OrderItems();
-		OrderItemsDAO orderItemsDao = new OrderItemsDAO();
+		OrderItemsDaoImpl orderItemsDao = new OrderItemsDaoImpl();
 		// petdao for update pet available quantity
-		PetDAO petDao = new PetDAO();
+		PetDaoImpl petDao = new PetDaoImpl();
 		// customer dao for update seller customer wallet
-		CustomerDAO customerDao = new CustomerDAO();
-		CartItemsDAO cartDao = new CartItemsDAO();
+		CustomerDaoImpl customerDao = new CustomerDaoImpl();
+		CartItemsDaoImpl cartDao = new CartItemsDaoImpl();
 		PrintWriter write=null;
 		double totalPrice=0;
 		try {

@@ -7,13 +7,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.petshopapp.dao.CartItemsInterface;
+import com.petshopapp.dao.CartItemsDAO;
 import com.petshopapp.logger.Logger;
 import com.petshopapp.model.CartItems;
 import com.petshopapp.model.Customers;
 import com.petshopapp.util.ConnectionUtil;
 
-public class CartItemsDAO implements CartItemsInterface{
+public class CartItemsDaoImpl implements CartItemsDAO{
 
 	// Instance fields for methods
 	String query = "";

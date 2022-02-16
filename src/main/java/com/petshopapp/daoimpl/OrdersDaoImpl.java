@@ -5,12 +5,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.petshopapp.dao.Ordersinterface;
+import com.petshopapp.dao.OrdersDAO;
 import com.petshopapp.logger.Logger;
 import com.petshopapp.model.Orders;
 import com.petshopapp.util.ConnectionUtil;
 
-public class OrdersDAO implements Ordersinterface {
+public class OrdersDaoImpl implements OrdersDAO {
 	// Instance object and variables for operation
 	String query = "";
 	ResultSet resultSet = null;

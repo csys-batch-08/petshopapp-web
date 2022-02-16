@@ -8,7 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.petshopapp.daoimpl.PetDAO;
+import com.petshopapp.daoimpl.PetDaoImpl;
 import com.petshopapp.logger.Logger;
 import com.petshopapp.model.PetDetails;
 
@@ -31,7 +31,7 @@ public class EditPet extends HttpServlet {
 		try {
 			int petId = Integer.parseInt(request.getParameter("petid"));// User selected pet id
 			// Objects used for get pet details based on the id
-			PetDAO petdao = new PetDAO();
+			PetDaoImpl petdao = new PetDaoImpl();
 			PetDetails pet = petdao.showCurrentPet(petId);
 			// send pet details as object editpet.jsp
 			request.setAttribute("pet", pet);

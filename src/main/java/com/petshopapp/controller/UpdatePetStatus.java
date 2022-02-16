@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import com.petshopapp.daoimpl.PetDAO;
+import com.petshopapp.daoimpl.PetDaoImpl;
 import com.petshopapp.logger.Logger;
 import com.petshopapp.model.Admin;
 
@@ -31,7 +31,7 @@ public class UpdatePetStatus extends HttpServlet {
 		HttpSession session = request.getSession();
 		Admin admin = (Admin) session.getAttribute("Admin");
 		//Update status
-		PetDAO petDao = new PetDAO();
+		PetDaoImpl petDao = new PetDaoImpl();
 		int petId = Integer.parseInt(request.getParameter("petId"));
 		String status = request.getParameter("status");
 		petDao.updatePetStatus(petId, status, admin.getAdminId());

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.petshopapp.daoimpl.CartItemsDAO;
+import com.petshopapp.daoimpl.CartItemsDaoImpl;
 import com.petshopapp.logger.Logger;
 import com.petshopapp.model.CartItems;
 import com.petshopapp.model.Customers;
@@ -32,7 +32,7 @@ public class MyCart extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) {	
 		HttpSession session = request.getSession();// Get customer details
 		Customers customerDetails= (Customers) session.getAttribute("customer");
-		CartItemsDAO cartItemDao = new CartItemsDAO();		
+		CartItemsDaoImpl cartItemDao = new CartItemsDaoImpl();		
 		List<CartItems> cartList = cartItemDao.showAllCartItems(customerDetails);// Get cart list	
 		request.setAttribute("cartList", cartList);// Send cart list to mycart.jsp
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("mycart.jsp");

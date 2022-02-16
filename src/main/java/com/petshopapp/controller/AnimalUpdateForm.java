@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.petshopapp.daoimpl.PetDAO;
+import com.petshopapp.daoimpl.PetDaoImpl;
 import com.petshopapp.logger.Logger;
 import com.petshopapp.model.Customers;
 import com.petshopapp.model.PetDetails;
@@ -35,7 +35,7 @@ public class AnimalUpdateForm extends HttpServlet {
 		HttpSession session = request.getSession();
 		Customers customerDetails = (Customers) session.getAttribute("customer");
 		//To store and update
-		PetDAO petDao = new PetDAO();
+		PetDaoImpl petDao = new PetDaoImpl();
 		PetDetails petDetails = new PetDetails();	
 		try {
 			petDetails.setPetQty(Integer.parseInt(request.getParameter("quantity")));

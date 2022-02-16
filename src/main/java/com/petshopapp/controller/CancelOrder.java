@@ -10,10 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.petshopapp.daoimpl.CustomerDAO;
-import com.petshopapp.daoimpl.OrderItemsDAO;
-import com.petshopapp.daoimpl.OrdersDAO;
-import com.petshopapp.daoimpl.PetDAO;
+import com.petshopapp.daoimpl.CustomerDaoImpl;
+import com.petshopapp.daoimpl.OrderItemsDaoImpl;
+import com.petshopapp.daoimpl.OrdersDaoImpl;
+import com.petshopapp.daoimpl.PetDaoImpl;
 import com.petshopapp.logger.Logger;
 import com.petshopapp.model.Customers;
 import com.petshopapp.model.OrderItems;
@@ -39,18 +39,18 @@ public class CancelOrder extends HttpServlet {
 		HttpSession session = request.getSession();
 		Customers customerDetails = (Customers) session.getAttribute("customer");
 
-		CustomerDAO customerDao = new CustomerDAO();
+		CustomerDaoImpl customerDao = new CustomerDaoImpl();
 		Customers customer = new Customers();
 
 		// petdetails and petdao for update pet available qantity
 		PetDetails pet = new PetDetails();
-		PetDAO petDao = new PetDAO();
+		PetDaoImpl petDao = new PetDaoImpl();
 
 		// order item and order objects are used cancel orders and order items
-		OrderItemsDAO orderItemDao = new OrderItemsDAO();
+		OrderItemsDaoImpl orderItemDao = new OrderItemsDaoImpl();
 
 		Orders order = new Orders();
-		OrdersDAO orderDao = new OrdersDAO();
+		OrdersDaoImpl orderDao = new OrdersDaoImpl();
 
 		try {
 			// print writer for ajax response

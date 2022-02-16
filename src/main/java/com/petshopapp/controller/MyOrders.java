@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.petshopapp.daoimpl.OrderItemsDAO;
+import com.petshopapp.daoimpl.OrderItemsDaoImpl;
 import com.petshopapp.logger.Logger;
 import com.petshopapp.model.Customers;
 import com.petshopapp.model.OrderItems;
@@ -34,7 +34,7 @@ public class MyOrders extends HttpServlet {
 		HttpSession session = request.getSession();
 		Customers customerDetails = (Customers) session.getAttribute("customer");
 		//Get order details
-		OrderItemsDAO orderItemDao = new OrderItemsDAO();
+		OrderItemsDaoImpl orderItemDao = new OrderItemsDaoImpl();
 		List<OrderItems> orderItemList = orderItemDao.showMyOrdersItemsList(customerDetails);
 		// Send orders details to myorders.jsp
 		request.setAttribute("orderItemsList", orderItemList);

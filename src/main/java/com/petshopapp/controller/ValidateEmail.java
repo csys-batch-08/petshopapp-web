@@ -6,7 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.petshopapp.daoimpl.CustomerDAO;
+import com.petshopapp.daoimpl.CustomerDaoImpl;
 import com.petshopapp.logger.Logger;
 import com.petshopapp.model.Customers;
 
@@ -28,7 +28,7 @@ public class ValidateEmail extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 		// Get Email Id
 		Customers customer = new Customers();
-		CustomerDAO customerDao = new CustomerDAO();
+		CustomerDaoImpl customerDao = new CustomerDaoImpl();
 
 		try {
 			String email = request.getParameter("email");

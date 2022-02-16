@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.petshopapp.daoimpl.CustomerDAO;
+import com.petshopapp.daoimpl.CustomerDaoImpl;
 import com.petshopapp.logger.Logger;
 import com.petshopapp.model.Customers;
 
@@ -30,7 +30,7 @@ public class UserList extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 		// Petdao used for get petlist
-		CustomerDAO customerDao=new CustomerDAO();
+		CustomerDaoImpl customerDao=new CustomerDaoImpl();
 		List<Customers> customerList = customerDao.customersList();	
 		//send pet list through request object
 		request.setAttribute("customerList", customerList);
